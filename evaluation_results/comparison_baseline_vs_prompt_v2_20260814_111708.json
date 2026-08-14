@@ -1,0 +1,99 @@
+{
+  "baseline_run_id": "3fee4798851744c1bae379d9567dca17",
+  "candidate_run_id": "9206b69c739e44ce96c4ab5670520fca",
+  "changed_variable": {
+    "name": "generator_prompt",
+    "baseline": "baseline-v1",
+    "candidate": "article-v2"
+  },
+  "metrics": [
+    {
+      "metric": "structure_score/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "reproducibility_proxy/mean",
+      "baseline": 0.45,
+      "candidate": 1.0,
+      "delta": 0.55
+    },
+    {
+      "metric": "has_prerequisites/mean",
+      "baseline": 0.0,
+      "candidate": 1.0,
+      "delta": 1.0
+    },
+    {
+      "metric": "has_version_info/mean",
+      "baseline": 0.0,
+      "candidate": 1.0,
+      "delta": 1.0
+    },
+    {
+      "metric": "has_failure_cases/mean",
+      "baseline": 0.0,
+      "candidate": 1.0,
+      "delta": 1.0
+    },
+    {
+      "metric": "public_external_link_count/mean",
+      "baseline": 0.0,
+      "candidate": 3.0,
+      "delta": 3.0
+    },
+    {
+      "metric": "technical_accuracy/mean",
+      "baseline": 4.5,
+      "candidate": 4.75,
+      "delta": 0.25
+    },
+    {
+      "metric": "helpfulness/mean",
+      "baseline": 3.0,
+      "candidate": 4.0,
+      "delta": 1.0
+    },
+    {
+      "metric": "reproducibility/mean",
+      "baseline": 1.4,
+      "candidate": 3.6,
+      "delta": 2.2
+    },
+    {
+      "metric": "citation_quality/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "readability_ja/mean",
+      "baseline": 3.25,
+      "candidate": 3.75,
+      "delta": 0.5
+    },
+    {
+      "metric": "original_value/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    }
+  ],
+  "llm_judge_mean": {
+    "baseline": 2.3583,
+    "candidate": 3.0167,
+    "delta": 0.6583
+  },
+  "success_checks": {
+    "structure_not_regressed": true,
+    "reproducibility_proxy_improved": true,
+    "technical_accuracy_not_regressed": true,
+    "helpfulness_target": true,
+    "reproducibility_target": true,
+    "citation_quality_target": false,
+    "readability_not_regressed": false,
+    "original_value_target": false
+  },
+  "all_checks_passed": false
+}

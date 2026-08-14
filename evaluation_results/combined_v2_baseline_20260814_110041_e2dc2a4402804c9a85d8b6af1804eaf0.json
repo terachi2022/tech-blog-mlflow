@@ -1,0 +1,156 @@
+{
+  "run_id": "e2dc2a4402804c9a85d8b6af1804eaf0",
+  "combined_version": "combined-v2",
+  "article": {
+    "path": "articles/baseline_20260814_004017.md",
+    "variant": "baseline",
+    "source_run_id": "b7dfd7ec5d0c4439873da3684fc2c5b2",
+    "generator_prompt_version": "baseline-v1"
+  },
+  "judge": {
+    "model": "mlx-community/gemma-3-text-27b-it-4bit",
+    "prompt_version": "article-judge-v2",
+    "subscore_count": 25,
+    "model_load_time_sec": 1.269,
+    "generation_time_sec": 54.023,
+    "records": [
+      {
+        "attempts": 1,
+        "elapsed_sec": 54.023,
+        "raw_response": "```json\n{\n  \"technical_accuracy\": {\n    \"conceptual_correctness\": {\n      \"score\": 5,\n      \"rationale\": \"MLflowの概念（Experiment, Run, Parameters, Metrics, Artifacts, Model）の説明は正確で、一般的な理解と一致している。\"\n    },\n    \"api_command_correctness\": {\n      \"score\": 4,\n      \"rationale\": \"APIの使い方は概ね正しいが、`mlflow.sklearn.log_model()`を使う前に`X_train`, `y_train`が定義されている前提であり、具体的なデータ準備の記述がない。また、`mlflow ui`コマンドは正しく動作するが、起動後のアクセス方法（http://localhost:5000）も記載されており、問題ない。\"\n    },\n    \"internal_consistency\": {\n      \"score\": 5,\n      \"rationale\": \"記事内で使用される変数名や設定値に矛盾は見られない。Experiment名などは特に指定されていないため、デフォルト設定で動作するものと推測できる。\"\n    },\n    \"unsupported_claim_control\": {\n      \"score\": 5,\n      \"rationale\": \"記事内で検証されていない結果を断定的に述べている箇所は見られない。一般的なMLflowの機能説明にとどまっている。\"\n    }\n  },\n  \"helpfulness\": {\n    \"goal_clarity\": {\n      \"score\": 4,\n      \"rationale\": \"記事の目的（MLflowによる実験管理）は明確だが、読者が最終的にどのような状態になるか（例：特定のモデルをデプロイできる、実験結果をレポートできる）が具体的に示されていない。\"\n    },\n    \"actionability\": {\n      \"score\": 3,\n      \"rationale\": \"読者が次に実行すべき操作（例：データ準備、モデル訓練）は示唆されているが、具体的な手順やコード例が不足している。`X_train`, `y_train`の準備方法が不明確。\"\n    },\n    \"audience_fit\": {\n      \"score\": 3,\n      \"rationale\": \"MLflowの基本的な機能説明はされているが、機械学習の経験が全くない読者には、`パラメータ`, `メトリクス`, `モデル`などの用語が唐突に感じられる可能性がある。簡単な用語説明があるとより親切。\"\n    },\n    \"troubleshooting_value\": {\n      \"score\": 2,\n      \"rationale\": \"問題発生時の切り分けに役立つ情報（例：エラーメッセージの解釈、ログファイルの場所）はほとんどない。一般的なエラーに対する対処法も記載されていない。\"\n    }\n  },\n  \"reproducibility\": {\n    \"environment_specificity\": {\n      \"score\": 2,\n      \"rationale\": \"OS、Pythonのバージョン、MLflowのバージョン、パッケージ管理方法などが具体的に示されていない。再現性を高めるためには、これらの情報を明記する必要がある。\"\n    },\n    \"dependency_completeness\": {\n      \"score\": 3,\n      \"rationale\": \"`pip install mlflow`という依存関係のインストール手順は示されているが、`sklearn`など他の必要なパッケージのインストール手順が明記されていない。\"\n    },\n    \"code_completeness\": {\n      \"score\": 2,\n      \"rationale\": \"コード例には`X_train`, `y_train`が未定義で使用されている。また、`RandomForestClassifier()`のインスタンス化以外の訓練処理が省略されているため、そのままでは実行できない。\"\n    },\n    \"execution_sequence\": {\n      \"score\": 2,\n      \"rationale\": \"どのTerminalで、どの順番で実行するかの指示は曖昧。`mlflow ui`の起動場所なども明記されていない。\"\n    },\n    \"verification_clarity\": {\n      \"score\": 3,\n      \"rationale\": \"実験の成功・失敗を確認する方法として、`mlflow ui`へのアクセスが示されているが、具体的な確認ポイント（例：メトリクスの値、モデルの保存状況）が不明確。\"\n    }\n  },\n  \"citation_quality\": {\n    \"source_authority\": {\n      \"score\": 3,\n      \"rationale\": \"MLflowの公式ドキュメントを参照していることは示唆されているが、具体的なURLが明記されていない。\"\n    },\n    \"claim_source_alignment\": {\n      \"score\": 3,\n      \"rationale\": \"記事中の技術的主張は、MLflowの一般的な機能と一致しているため、整合性は取れていると考えられるが、出典が明示されていない。\"\n    },\n    \"citation_coverage\": {\n      \"score\": 2,\n      \"rationale\": \"重要な主張（例：MLflowのメリット、各機能の説明）に対して、出典となる情報源が不足している。\"\n    },\n    \"link_context\": {\n      \"score\": 1,\n      \"rationale\": \"リンク自体が存在しないため、リンクの目的や参照先を説明することはできない。\"\n    }\n  },\n  \"readability_ja\": {\n    \"structure_flow\": {\n      \"score\": 4,\n      \"rationale\": \"見出しの順序と説明の流れは自然で、理解しやすい構成になっている。\"\n    },\n    \"sentence_clarity\": {\n      \"score\": 4,\n      \"rationale\": \"日本語の文は自然で、曖昧さや冗長さは少ない。ただし、専門用語の説明が不足している箇所がある。\"\n    },\n    \"terminology_explanation\": {\n      \"score\": 2,\n      \"rationale\": \"機械学習の知識がない読者にとって、`パラメータ`, `メトリクス`, `モデル`などの専門用語の説明が不足している。\"\n    },\n    \"information_density\": {\n      \"score\": 3,\n      \"rationale\": \"説明が不足している箇所（例：データ準備、エラー時の対処法）と、冗長な箇所（例：MLflowのメリットの繰り返し）が混在している。\"\n    }\n  },\n  \"original_value\": {\n    \"concrete_evidence\": {\n      \"score\": 1,\n      \"rationale\": \"実測値や実行結果などの具体的な証拠は提示されていない。一般的なMLflowの機能説明にとどまっている。\"\n    },\n    \"failure_analysis\": {\n      \"score\": 1,\n      \"rationale\": \"失敗例とその分析は一切含まれていない。\"\n    },\n    \"comparison_insight\": {\n      \"score\": 1,\n      \"rationale\": \"複数の方法やRunを比較し、比較から得られる知見は提示されていない。\"\n    },\n    \"environment_specific_insight\": {\n      \"score\": 1,\n      \"rationale\": \"特定の環境固有の知見（例：Apple Siliconでのパフォーマンス）は含まれていない。\"\n    }\n  }\n}\n```",
+        "validated_result": {
+          "technical_accuracy": {
+            "conceptual_correctness": {
+              "score": 5,
+              "rationale": "MLflowの概念（Experiment, Run, Parameters, Metrics, Artifacts, Model）の説明は正確で、一般的な理解と一致している。"
+            },
+            "api_command_correctness": {
+              "score": 4,
+              "rationale": "APIの使い方は概ね正しいが、`mlflow.sklearn.log_model()`を使う前に`X_train`, `y_train`が定義されている前提であり、具体的なデータ準備の記述がない。また、`mlflow ui`コマンドは正しく動作するが、起動後のアクセス方法（http://localhost:5000）も記載されており、問題ない。"
+            },
+            "internal_consistency": {
+              "score": 5,
+              "rationale": "記事内で使用される変数名や設定値に矛盾は見られない。Experiment名などは特に指定されていないため、デフォルト設定で動作するものと推測できる。"
+            },
+            "unsupported_claim_control": {
+              "score": 5,
+              "rationale": "記事内で検証されていない結果を断定的に述べている箇所は見られない。一般的なMLflowの機能説明にとどまっている。"
+            }
+          },
+          "helpfulness": {
+            "goal_clarity": {
+              "score": 4,
+              "rationale": "記事の目的（MLflowによる実験管理）は明確だが、読者が最終的にどのような状態になるか（例：特定のモデルをデプロイできる、実験結果をレポートできる）が具体的に示されていない。"
+            },
+            "actionability": {
+              "score": 3,
+              "rationale": "読者が次に実行すべき操作（例：データ準備、モデル訓練）は示唆されているが、具体的な手順やコード例が不足している。`X_train`, `y_train`の準備方法が不明確。"
+            },
+            "audience_fit": {
+              "score": 3,
+              "rationale": "MLflowの基本的な機能説明はされているが、機械学習の経験が全くない読者には、`パラメータ`, `メトリクス`, `モデル`などの用語が唐突に感じられる可能性がある。簡単な用語説明があるとより親切。"
+            },
+            "troubleshooting_value": {
+              "score": 2,
+              "rationale": "問題発生時の切り分けに役立つ情報（例：エラーメッセージの解釈、ログファイルの場所）はほとんどない。一般的なエラーに対する対処法も記載されていない。"
+            }
+          },
+          "reproducibility": {
+            "environment_specificity": {
+              "score": 2,
+              "rationale": "OS、Pythonのバージョン、MLflowのバージョン、パッケージ管理方法などが具体的に示されていない。再現性を高めるためには、これらの情報を明記する必要がある。"
+            },
+            "dependency_completeness": {
+              "score": 3,
+              "rationale": "`pip install mlflow`という依存関係のインストール手順は示されているが、`sklearn`など他の必要なパッケージのインストール手順が明記されていない。"
+            },
+            "code_completeness": {
+              "score": 2,
+              "rationale": "コード例には`X_train`, `y_train`が未定義で使用されている。また、`RandomForestClassifier()`のインスタンス化以外の訓練処理が省略されているため、そのままでは実行できない。"
+            },
+            "execution_sequence": {
+              "score": 2,
+              "rationale": "どのTerminalで、どの順番で実行するかの指示は曖昧。`mlflow ui`の起動場所なども明記されていない。"
+            },
+            "verification_clarity": {
+              "score": 3,
+              "rationale": "実験の成功・失敗を確認する方法として、`mlflow ui`へのアクセスが示されているが、具体的な確認ポイント（例：メトリクスの値、モデルの保存状況）が不明確。"
+            }
+          },
+          "citation_quality": {
+            "source_authority": {
+              "score": 3,
+              "rationale": "MLflowの公式ドキュメントを参照していることは示唆されているが、具体的なURLが明記されていない。"
+            },
+            "claim_source_alignment": {
+              "score": 3,
+              "rationale": "記事中の技術的主張は、MLflowの一般的な機能と一致しているため、整合性は取れていると考えられるが、出典が明示されていない。"
+            },
+            "citation_coverage": {
+              "score": 2,
+              "rationale": "重要な主張（例：MLflowのメリット、各機能の説明）に対して、出典となる情報源が不足している。"
+            },
+            "link_context": {
+              "score": 1,
+              "rationale": "リンク自体が存在しないため、リンクの目的や参照先を説明することはできない。"
+            }
+          },
+          "readability_ja": {
+            "structure_flow": {
+              "score": 4,
+              "rationale": "見出しの順序と説明の流れは自然で、理解しやすい構成になっている。"
+            },
+            "sentence_clarity": {
+              "score": 4,
+              "rationale": "日本語の文は自然で、曖昧さや冗長さは少ない。ただし、専門用語の説明が不足している箇所がある。"
+            },
+            "terminology_explanation": {
+              "score": 2,
+              "rationale": "機械学習の知識がない読者にとって、`パラメータ`, `メトリクス`, `モデル`などの専門用語の説明が不足している。"
+            },
+            "information_density": {
+              "score": 3,
+              "rationale": "説明が不足している箇所（例：データ準備、エラー時の対処法）と、冗長な箇所（例：MLflowのメリットの繰り返し）が混在している。"
+            }
+          },
+          "original_value": {
+            "concrete_evidence": {
+              "score": 1,
+              "rationale": "実測値や実行結果などの具体的な証拠は提示されていない。一般的なMLflowの機能説明にとどまっている。"
+            },
+            "failure_analysis": {
+              "score": 1,
+              "rationale": "失敗例とその分析は一切含まれていない。"
+            },
+            "comparison_insight": {
+              "score": 1,
+              "rationale": "複数の方法やRunを比較し、比較から得られる知見は提示されていない。"
+            },
+            "environment_specific_insight": {
+              "score": 1,
+              "rationale": "特定の環境固有の知見（例：Apple Siliconでのパフォーマンス）は含まれていない。"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "metrics": {
+    "has_failure_cases/mean": 0.0,
+    "reproducibility_proxy/mean": 0.45,
+    "article_length_chars/mean": 2038.0,
+    "code_block_count/mean": 7.0,
+    "public_external_link_count/mean": 0.0,
+    "has_h1/mean": 1.0,
+    "has_version_info/mean": 0.0,
+    "has_prerequisites/mean": 0.0,
+    "conclusion_near_top/mean": 1.0,
+    "structure_score/mean": 1.0,
+    "technical_accuracy/mean": 4.75,
+    "helpfulness/mean": 3.0,
+    "reproducibility/mean": 2.4,
+    "citation_quality/mean": 2.25,
+    "readability_ja/mean": 3.25,
+    "original_value/mean": 1.0
+  }
+}

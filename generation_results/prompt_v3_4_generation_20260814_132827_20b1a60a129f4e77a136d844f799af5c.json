@@ -1,0 +1,72 @@
+{
+  "run_id": "20b1a60a129f4e77a136d844f799af5c",
+  "run_name": "prompt-v3.4-max4096",
+  "article_path": "articles/prompt_v3_4_20260814_132827.md",
+  "rendered_prompt_path": "generation_results/rendered_prompt_v3_4_20260814_132827.md",
+  "model": "Qwen/Qwen3-8B-MLX-4bit",
+  "prompt_version": "article-v3.3",
+  "generation_config_version": "generation-v3.4",
+  "prompt_sha256": "7a8494145b33964db7c6cfa8c1f8567d58db1174ea345e467f8ab9adad6f9042",
+  "theme": "MLflowを使って機械学習の実験を管理する方法",
+  "generation_parameters": {
+    "max_tokens": 4096,
+    "temperature": 0.0,
+    "seed": 42,
+    "enable_thinking": false
+  },
+  "metrics": {
+    "model_load_time_sec": 0.567,
+    "generation_time_sec": 36.993,
+    "article_length": 8495,
+    "output_tokens": 3594,
+    "generation_tokens_per_sec": 97.153,
+    "peak_memory_gb": 5.613
+  },
+  "prechecks": {
+    "starts_with_h1": true,
+    "single_h1": true,
+    "has_prerequisites": true,
+    "has_all_required_h2": true,
+    "has_failure_analysis": true,
+    "has_observed_results": true,
+    "has_apple_silicon_insight": true,
+    "has_references": true,
+    "has_summary": true,
+    "has_train_command": true,
+    "has_accuracy_print": true,
+    "has_complete_train_code": true,
+    "has_failure_cases": true,
+    "has_comparison_run_ids": true,
+    "single_uv_add_command": true,
+    "no_instruction_leakage": true,
+    "balanced_code_fences": true,
+    "has_no_thinking_output": true,
+    "has_all_reference_urls": true,
+    "has_specific_error_messages": true,
+    "has_controlled_comparison_evidence": true,
+    "output_tokens_below_safety_limit": true,
+    "article_length_in_range": true
+  },
+  "all_prechecks_passed": true,
+  "failed_prechecks": [],
+  "baseline": {
+    "generation_run_id": "b7dfd7ec5d0c4439873da3684fc2c5b2",
+    "evaluation_run_id": "bacd99883951428a99f4d91cf75f3852"
+  },
+  "previous_candidate": {
+    "prompt_version": "article-v3.3",
+    "generation_run_id": "bded3f7711c04701b50ec83d59b52b3e",
+    "evaluation_run_id": "not-created-precheck-failed"
+  },
+  "controlled_change": {
+    "name": "max_tokens",
+    "baseline": 3072,
+    "candidate": 4096,
+    "prompt_changed": false,
+    "previous_prompt_sha256": "7a8494145b33964db7c6cfa8c1f8567d58db1174ea345e467f8ab9adad6f9042",
+    "candidate_prompt_sha256": "7a8494145b33964db7c6cfa8c1f8567d58db1174ea345e467f8ab9adad6f9042",
+    "max_tokens_changed": true,
+    "previous_max_tokens": 3072,
+    "candidate_max_tokens": 4096
+  }
+}

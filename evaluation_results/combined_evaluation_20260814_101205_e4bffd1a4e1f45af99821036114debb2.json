@@ -1,0 +1,90 @@
+{
+  "run_id": "e4bffd1a4e1f45af99821036114debb2",
+  "evaluation_version": "combined-v1",
+  "article": {
+    "path": "articles/baseline_20260814_004017.md",
+    "theme": "MLflowを使って機械学習の実験を管理する方法",
+    "variant": "baseline"
+  },
+  "code_scorer": {
+    "version": "code-scorer-v2",
+    "metrics": {
+      "has_h1/mean": 1.0,
+      "conclusion_near_top/mean": 1.0,
+      "code_block_count/mean": 7.0,
+      "public_external_link_count/mean": 0.0,
+      "has_version_info/mean": 0.0,
+      "has_prerequisites/mean": 0.0,
+      "has_failure_cases/mean": 0.0,
+      "structure_score/mean": 1.0,
+      "reproducibility_proxy/mean": 0.45,
+      "article_length_chars/mean": 2038.0
+    }
+  },
+  "local_llm_judge": {
+    "model": "mlx-community/gemma-3-text-27b-it-4bit",
+    "prompt_path": "prompts/article_judge_v1.md",
+    "prompt_version": "article-judge-v1",
+    "model_load_time_sec": 1.247,
+    "generation_time_sec": 17.965,
+    "metrics": {
+      "technical_accuracy/mean": 3.0,
+      "helpfulness/mean": 3.0,
+      "reproducibility/mean": 2.0,
+      "citation_quality/mean": 1.0,
+      "readability_ja/mean": 4.0,
+      "original_value/mean": 2.0
+    },
+    "records": [
+      {
+        "attempts": 1,
+        "elapsed_sec": 17.965,
+        "raw_response": "```json\n{\n  \"technical_accuracy\": {\n    \"score\": 3,\n    \"rationale\": \"MLflowの基本的な機能と使い方は概ね正確ですが、コード例において`X_train`, `y_train`が定義されていないため、そのままでは実行できません。また、モデルの保存方法が`mlflow.sklearn.log_model()`に限定されている点も、他のフレームワークを使用する場合の汎用性に欠けます。\"\n  },\n  \"helpfulness\": {\n    \"score\": 3,\n    \"rationale\": \"MLflowの概要と基本的な使い方は理解できますが、具体的な問題設定や実験の目的が示されていないため、読者が自身のプロジェクトにどのように適用すれば良いか分かりにくいです。もう少し具体的なユースケースや、より複雑な実験設定への拡張方法の説明があると役立ちます。\"\n  },\n  \"reproducibility\": {\n    \"score\": 2,\n    \"rationale\": \"コード例に`X_train`, `y_train`の定義が欠けているため、そのままでは再現できません。また、MLflowのバージョンやPythonのバージョンなどの前提環境が明記されていないため、環境依存の問題が発生する可能性があります。`mlflow ui`の起動時に必要な環境変数なども記載があるとより良いです。\"\n  },\n  \"citation_quality\": {\n    \"score\": 1,\n    \"rationale\": \"MLflowの公式ドキュメントへのリンクや、参考となる情報源が一切提示されていません。MLflowの概要や機能の説明に根拠となる情報が示されていないため、信頼性に欠けます。\"\n  },\n  \"readability_ja\": {\n    \"score\": 4,\n    \"rationale\": \"日本語として自然で読みやすい文章です。見出し構造も適切で、文章の流れもスムーズです。ただし、専門用語の説明が不足している部分があり、機械学習初心者には理解が難しい可能性があります。\"\n  },\n  \"original_value\": {\n    \"score\": 2,\n    \"rationale\": \"MLflowの基本的な機能の説明に終始しており、独自の知見や実測結果、失敗例などは含まれていません。一般的な情報収集で得られる内容であり、読者にとって新たな価値を提供するものではありません。\"\n  }\n}\n```",
+        "validated_result": {
+          "technical_accuracy": {
+            "score": 3,
+            "rationale": "MLflowの基本的な機能と使い方は概ね正確ですが、コード例において`X_train`, `y_train`が定義されていないため、そのままでは実行できません。また、モデルの保存方法が`mlflow.sklearn.log_model()`に限定されている点も、他のフレームワークを使用する場合の汎用性に欠けます。"
+          },
+          "helpfulness": {
+            "score": 3,
+            "rationale": "MLflowの概要と基本的な使い方は理解できますが、具体的な問題設定や実験の目的が示されていないため、読者が自身のプロジェクトにどのように適用すれば良いか分かりにくいです。もう少し具体的なユースケースや、より複雑な実験設定への拡張方法の説明があると役立ちます。"
+          },
+          "reproducibility": {
+            "score": 2,
+            "rationale": "コード例に`X_train`, `y_train`の定義が欠けているため、そのままでは再現できません。また、MLflowのバージョンやPythonのバージョンなどの前提環境が明記されていないため、環境依存の問題が発生する可能性があります。`mlflow ui`の起動時に必要な環境変数なども記載があるとより良いです。"
+          },
+          "citation_quality": {
+            "score": 1,
+            "rationale": "MLflowの公式ドキュメントへのリンクや、参考となる情報源が一切提示されていません。MLflowの概要や機能の説明に根拠となる情報が示されていないため、信頼性に欠けます。"
+          },
+          "readability_ja": {
+            "score": 4,
+            "rationale": "日本語として自然で読みやすい文章です。見出し構造も適切で、文章の流れもスムーズです。ただし、専門用語の説明が不足している部分があり、機械学習初心者には理解が難しい可能性があります。"
+          },
+          "original_value": {
+            "score": 2,
+            "rationale": "MLflowの基本的な機能の説明に終始しており、独自の知見や実測結果、失敗例などは含まれていません。一般的な情報収集で得られる内容であり、読者にとって新たな価値を提供するものではありません。"
+          }
+        }
+      }
+    ]
+  },
+  "all_metrics": {
+    "conclusion_near_top/mean": 1.0,
+    "code_block_count/mean": 7.0,
+    "has_version_info/mean": 0.0,
+    "public_external_link_count/mean": 0.0,
+    "has_h1/mean": 1.0,
+    "reproducibility_proxy/mean": 0.45,
+    "structure_score/mean": 1.0,
+    "article_length_chars/mean": 2038.0,
+    "has_failure_cases/mean": 0.0,
+    "has_prerequisites/mean": 0.0,
+    "technical_accuracy/mean": 3.0,
+    "helpfulness/mean": 3.0,
+    "reproducibility/mean": 2.0,
+    "citation_quality/mean": 1.0,
+    "readability_ja/mean": 4.0,
+    "original_value/mean": 2.0
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "run_id": "c388504b38924d939fcc4b4da5b7218d",
+  "run_name": "prompt-v2-qwen-v1",
+  "article_path": "articles/prompt_v2_20260814_104216.md",
+  "rendered_prompt_path": "generation_results/rendered_prompt_v2_20260814_104216.md",
+  "model": "Qwen/Qwen3-8B-MLX-4bit",
+  "prompt_version": "article-v2",
+  "prompt_sha256": "04a418eace8bd320fee44410f463bb3cc824e6a813e98db6190d1093b1ddab7d",
+  "theme": "MLflowを使って機械学習の実験を管理する方法",
+  "generation_parameters": {
+    "max_tokens": 2048,
+    "temperature": 0.0,
+    "seed": 42,
+    "enable_thinking": false
+  },
+  "metrics": {
+    "model_load_time_sec": 0.587,
+    "generation_time_sec": 13.733,
+    "article_length": 3468,
+    "output_tokens": 1453,
+    "generation_tokens_per_sec": 105.805,
+    "peak_memory_gb": 5.314
+  },
+  "prechecks": {
+    "starts_with_h1": true,
+    "has_prerequisites": true,
+    "has_failure_cases": true,
+    "has_references": true,
+    "has_summary": true,
+    "has_thinking_output": false
+  },
+  "baseline": {
+    "generation_run_id": "b7dfd7ec5d0c4439873da3684fc2c5b2",
+    "evaluation_run_id": "e4bffd1a4e1f45af99821036114debb2"
+  }
+}

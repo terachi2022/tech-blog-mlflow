@@ -1,0 +1,62 @@
+{
+  "run_id": "8a3aaf6401f24165b63c366305a60658",
+  "run_name": "prompt-v3-qwen-v1",
+  "article_path": "articles/prompt_v3_20260814_123240.md",
+  "rendered_prompt_path": "generation_results/rendered_prompt_v3_20260814_123240.md",
+  "model": "Qwen/Qwen3-8B-MLX-4bit",
+  "prompt_version": "article-v3",
+  "prompt_sha256": "df78ea193f13d7d92c8f9ff70cf321b0b915736f99675fa13019d2b789bd6737",
+  "theme": "MLflowを使って機械学習の実験を管理する方法",
+  "generation_parameters": {
+    "max_tokens": 2048,
+    "temperature": 0.0,
+    "seed": 42,
+    "enable_thinking": false
+  },
+  "metrics": {
+    "model_load_time_sec": 0.577,
+    "generation_time_sec": 21.047,
+    "article_length": 4355,
+    "output_tokens": 2048,
+    "generation_tokens_per_sec": 97.306,
+    "peak_memory_gb": 5.678
+  },
+  "prechecks": {
+    "starts_with_h1": true,
+    "single_h1": false,
+    "has_prerequisites": false,
+    "has_failure_analysis": false,
+    "has_observed_results": false,
+    "has_apple_silicon_insight": false,
+    "has_references": false,
+    "has_summary": false,
+    "has_train_command": true,
+    "has_accuracy_print": false,
+    "has_comparison_run_ids": true,
+    "single_uv_add_command": true,
+    "no_instruction_leakage": false,
+    "balanced_code_fences": true,
+    "has_no_thinking_output": true
+  },
+  "all_prechecks_passed": false,
+  "failed_prechecks": [
+    "single_h1",
+    "has_prerequisites",
+    "has_failure_analysis",
+    "has_observed_results",
+    "has_apple_silicon_insight",
+    "has_references",
+    "has_summary",
+    "has_accuracy_print",
+    "no_instruction_leakage"
+  ],
+  "baseline": {
+    "generation_run_id": "b7dfd7ec5d0c4439873da3684fc2c5b2",
+    "evaluation_run_id": "bacd99883951428a99f4d91cf75f3852"
+  },
+  "previous_candidate": {
+    "prompt_version": "article-v2",
+    "generation_run_id": "c388504b38924d939fcc4b4da5b7218d",
+    "evaluation_run_id": "89e0a0b9e67e4d47b2fd8d3edc7f0f7d"
+  }
+}

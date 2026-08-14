@@ -1,0 +1,67 @@
+{
+  "run_id": "5e2866776b564b4aa28b933f77fe5b51",
+  "run_name": "prompt-v3.2-max3072",
+  "article_path": "articles/prompt_v3_2_20260814_130322.md",
+  "rendered_prompt_path": "generation_results/rendered_prompt_v3_2_20260814_130322.md",
+  "model": "Qwen/Qwen3-8B-MLX-4bit",
+  "prompt_version": "article-v3.1",
+  "generation_config_version": "generation-v3.2",
+  "prompt_sha256": "888648d67bbdd6aa5f1e1a6ca34ced8cf0cc1f7b858af7a97df2f4762d1448f3",
+  "theme": "MLflowを使って機械学習の実験を管理する方法",
+  "generation_parameters": {
+    "max_tokens": 3072,
+    "temperature": 0.0,
+    "seed": 42,
+    "enable_thinking": false
+  },
+  "metrics": {
+    "model_load_time_sec": 0.574,
+    "generation_time_sec": 25.656,
+    "article_length": 5604,
+    "output_tokens": 2586,
+    "generation_tokens_per_sec": 100.796,
+    "peak_memory_gb": 5.379
+  },
+  "prechecks": {
+    "starts_with_h1": true,
+    "single_h1": true,
+    "has_prerequisites": true,
+    "has_all_required_h2": true,
+    "has_failure_analysis": true,
+    "has_observed_results": true,
+    "has_apple_silicon_insight": true,
+    "has_references": true,
+    "has_summary": true,
+    "has_train_command": true,
+    "has_accuracy_print": true,
+    "has_complete_train_code": true,
+    "has_failure_cases": true,
+    "has_comparison_run_ids": true,
+    "single_uv_add_command": true,
+    "no_instruction_leakage": true,
+    "balanced_code_fences": true,
+    "has_no_thinking_output": true,
+    "has_all_reference_urls": true,
+    "output_tokens_below_safety_limit": true,
+    "article_length_in_range": true
+  },
+  "all_prechecks_passed": true,
+  "failed_prechecks": [],
+  "baseline": {
+    "generation_run_id": "b7dfd7ec5d0c4439873da3684fc2c5b2",
+    "evaluation_run_id": "bacd99883951428a99f4d91cf75f3852"
+  },
+  "previous_candidate": {
+    "prompt_version": "article-v2",
+    "generation_run_id": "c388504b38924d939fcc4b4da5b7218d",
+    "evaluation_run_id": "89e0a0b9e67e4d47b2fd8d3edc7f0f7d"
+  },
+  "controlled_change": {
+    "name": "max_tokens",
+    "baseline": 2048,
+    "candidate": 3072,
+    "prompt_changed": false,
+    "prompt_sha256": "888648d67bbdd6aa5f1e1a6ca34ced8cf0cc1f7b858af7a97df2f4762d1448f3",
+    "failed_run_id": "e251b8dae8f04d2fb22e68f1ae6fa41e"
+  }
+}

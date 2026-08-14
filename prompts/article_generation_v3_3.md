@@ -1,0 +1,275 @@
+# Role
+
+初学者向け日本語技術記事のTechnical Writer。
+
+# Output contract
+
+テーマ「{{THEME}}」の記事本文だけをMarkdownで出力する。
+
+- 目安: 4,800〜5,800文字
+- H1は指定の1個だけ
+- Required headingsを指定順で全て出力
+- コード、表、Link、見出しを途中で切らない
+- 執筆指示や要件一覧を本文へ転記しない
+- Iris分類のRun IDやaccuracyを創作しない
+- 実測値は記事生成・評価実験の値としてのみ扱う
+- 一般論を簡潔にし、実測比較・失敗分析・参考資料を優先
+- 思考過程や前置きは出力しない
+
+# Required headings
+
+```text
+# MLflowを使って機械学習の実験を管理する方法
+## 結論
+## この記事で実施すること
+## 前提条件
+## MLflowの用語と保存先
+## 環境構築
+## 実行可能なtrain.py
+## train.pyを実行する
+## MLflow UIで確認・比較する
+## 実測した生成Runの制御比較
+## 実測した評価Runの比較
+## 実際に検出した失敗と根本原因
+## Apple Silicon環境で得られた知見
+## エラー別の切り分け
+## 制約と注意点
+## まとめ
+## 参考資料
+```
+
+# Content
+
+## 結論
+
+冒頭600文字以内。MLflowではParameter、Metric、Model、ArtifactをRun単位で記録し、条件の再現と複数Runの比較が可能。この記事ではIris分類の実行手順と、本記事生成で実測したMLflow Run比較を扱う。
+
+## この記事で実施すること
+
+Tracking Server起動、Iris分類、Run確認・比較、具体的ErrorのCLI切り分けまでを完成文で示す。
+
+## 前提条件
+
+| 項目 | 値 |
+|---|---|
+| Hardware | Apple M5 Max |
+| OS | macOS {{MACOS_VERSION}} |
+| Python | {{PYTHON_VERSION}} |
+| MLflow | {{MLFLOW_VERSION}} |
+| MLX-LM | {{MLX_LM_VERSION}} |
+| Package manager | uv |
+| Tracking URI | http://127.0.0.1:5000 |
+| Backend Store | SQLite |
+
+MLflowとscikit-learnはIris分類用。MLX-LMは記事生成用でIris分類には不要。uv未導入時は[uv Installation](https://docs.astral.sh/uv/getting-started/installation/)を参照する。
+
+```bash
+uv --version
+```
+
+## MLflowの用語と保存先
+
+初学者向けに短い表を作る。
+
+- Experiment: 関連Runをまとめる箱
+- Run: 条件と結果を持つ1回の試行
+- Parameter: `max_iter`など実行前の条件
+- Metric: `accuracy`など評価値
+- Artifact: Fileや図などの成果物
+- Model: 推論に再利用する保存済みModel
+- Tracking Server: Clientから記録を受け取るService
+- Backend Store: Experiment、Run、Parameter、MetricなどMetadataの保存先
+- Artifact Store: ModelやFileなど大きな成果物の保存先
+
+用語の直後に[MLflow Tracking](https://mlflow.org/docs/latest/ml/tracking/)と[MLflow Backend Stores](https://mlflow.org/docs/latest/self-hosting/architecture/backend-store/)を根拠として案内する。Tracking ServerとBackend Storeを同じものとして説明しない。
+
+## 環境構築
+
+Commandは重複なし。Terminal AはServer用、Terminal BはClient用。
+
+```bash
+uv init my_mlflow_project
+cd my_mlflow_project
+uv add "mlflow=={{MLFLOW_VERSION}}" scikit-learn
+uv run python -c 'import mlflow, sklearn; print("mlflow:", mlflow.__version__); print("scikit-learn:", sklearn.__version__)'
+```
+
+Terminal A:
+
+```bash
+uv run mlflow server \
+  --backend-store-uri sqlite:///mlflow.db \
+  --host 127.0.0.1 \
+  --port 5000
+```
+
+Terminal Aは開いたままにする。Terminal B:
+
+```bash
+cd my_mlflow_project
+curl http://127.0.0.1:5000/health
+```
+
+UIは`http://127.0.0.1:5000`。
+
+## 実行可能なtrain.py
+
+省略なしの1 Fileを掲載する。必須内容:
+
+- `import mlflow`、`import mlflow.sklearn`
+- `from mlflow.exceptions import MlflowException`
+- `load_iris(return_X_y=True)`
+- `train_test_split(test_size=0.2, random_state=42, stratify=y)`
+- `LogisticRegression(max_iter=200, random_state=42)`
+- Tracking URIと`Iris Classification Experiment`
+- Parameter `random_state`、`test_size`、`max_iter`
+- accuracy
+- `mlflow.sklearn.log_model(sk_model=model, name="iris_model")`
+- Run IDとaccuracyの標準出力
+- `MlflowException`を捕捉し、Tracking ServerとURIを確認するMessageを付けて`RuntimeError`として再送出
+
+APIの説明直後に[mlflow.set_tracking_uri API](https://mlflow.org/docs/latest/api_reference/python_api/mlflow.html#mlflow.set_tracking_uri)と[mlflow.sklearn.log_model API](https://mlflow.org/docs/latest/api_reference/python_api/mlflow.sklearn.html#mlflow.sklearn.log_model)を対応付ける。
+
+## train.pyを実行する
+
+```bash
+uv run python train.py
+```
+
+CLIに出たRun IDとaccuracyを確認する。accuracy固定値は書かない。DatasetとModelの仕様は[load_iris](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html)、[train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)、[LogisticRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)へ対応付ける。
+
+## MLflow UIで確認・比較する
+
+1. `Iris Classification Experiment`を開く
+2. 最新RunのParameters、Metrics、ArtifactsまたはModelsを確認
+3. `max_iter`を変更して再実行
+4. 2 Runを選択してCompare
+5. accuracyだけでなく、Parameter、実行時間、再現性、Resource使用量を判断材料にする
+
+Irisの実測はまだないため結果を創作しない。読者自身の結果を`Run ID / max_iter / accuracy / duration / 採否理由`で記録する方法を示す。
+
+## 実測した生成Runの制御比較
+
+これはIris分類ではなく、本記事をLocal LLMで生成した実測値。Model、Prompt SHA、Temperature、Seed、Thinkingは同一で、`max_tokens`だけを変更した。
+
+| 項目 | v3.1失敗Run | v3.2成功Run |
+|---|---:|---:|
+| Run ID | `e251b8dae8f04d2fb22e68f1ae6fa41e` | `5e2866776b564b4aa28b933f77fe5b51` |
+| Prompt SHA-256 | `888648d67bbdd6aa5f1e1a6ca34ced8cf0cc1f7b858af7a97df2f4762d1448f3` | 同一 |
+| max_tokens | 2,048 | 3,072 |
+| 生成時間 | 20.317秒 | 25.656秒 |
+| 記事文字数 | 4,184 | 5,604 |
+| 出力Token | 2,048 | 2,586 |
+| Token/秒 | 100.803 | 100.796 |
+| Peak Memory | 5.379 GB | 5.379 GB |
+| 事前検査 | FAIL | PASS |
+
+判断:
+
+- v3.1は出力が上限2,048 Tokenと完全一致し、まとめと参考資料が欠落
+- v3.2は上限より486 Token手前で完了し、全事前検査PASS
+- Prompt SHAと他条件が同じため、観測範囲ではToken上限が切断原因と判断
+- v3.2は文字数+33.9%、生成時間+26.3%、Token+26.3%
+- Token/秒とPeak Memoryは表示精度上ほぼ不変
+- 完全性の改善には生成時間増加というCostが伴う
+
+因果を一般化せず、この2 Runの観測結果と限定する。
+
+## 実測した評価Runの比較
+
+両方とも`article-judge-v2.2`。Iris分類結果ではない。
+
+| 評価 | Baseline | v3.2 | 差分 |
+|---|---:|---:|---:|
+| Technical Accuracy | 5.00 | 4.75 | -0.25 |
+| Helpfulness | 3.25 | 3.75 | +0.50 |
+| Reproducibility | 2.40 | 4.20 | +1.80 |
+| Citation Quality | 1.00 | 3.25 | +2.25 |
+| Readability | 3.75 | 4.00 | +0.25 |
+| Original Value | 1.00 | 2.50 | +1.50 |
+| 6軸平均 | 2.733 | 3.742 | +1.009 |
+
+平均は改善したがTechnical Accuracy、Helpfulness、Original Valueが成功条件未達で`Overall: FAIL`。平均値だけで採用しない判断を明記する。
+
+## 実際に検出した失敗と根本原因
+
+推測ではなく観測事実を使う。
+
+### 出力上限による記事切断
+
+現象、確認、原因判定、修正、再検証を記載。確認はGeneration Metadataの`output_tokens=2048`、欠落見出し、同一Prompt SHAで3072へ変更したRunが2586 Tokenで完了した事実。根本原因は当該RunのToken上限不足。
+
+### 依存追加Commandの重複
+
+Prompt-v2で`uv add mlflow`が2回。`rg -n '^uv add' articles/prompt_v2_20260814_104216.md`で確認。1 Commandへ統合し事前検査を追加。
+
+### 執筆指示の混入
+
+Prompt-v2で命令表現が本文へ混入。`rg -n '説明して' articles/prompt_v2_20260814_104216.md`で確認。Prompt制約と事前検査を追加。LLM内部原因は断定しない。
+
+## Apple Silicon環境で得られた知見
+
+Apple M5 Maxで`Qwen/Qwen3-8B-MLX-4bit`をMLX-LMからLocal実行。v3.2は25.656秒、100.796 Token/秒、Peak Memory 5.379 GB。Token増加に対して時間は増えたがThroughputとPeak Memoryは表示精度上ほぼ同じ。Local Judge結果もMLflowへ記録できた。Local実行は記事と評価Dataを外部推論APIへ送らずに検証できる。一方、値は当該Machine・Model・Prompt限定で他環境へ一般化しない。MLX-LMとMLXの位置付けは[MLX-LM公式Repository](https://github.com/ml-explore/mlx-lm)と[MLX公式Repository](https://github.com/ml-explore/mlx)へ対応付ける。Iris分類はscikit-learnのCPU処理でMLX-LM不要。
+
+## エラー別の切り分け
+
+各項目を「Error文字列→確認→原因候補→対処」で書く。
+
+### `Connection refused`
+
+```bash
+curl http://127.0.0.1:5000/health
+lsof -nP -iTCP:5000 -sTCP:LISTEN
+```
+
+Server停止またはURI/Port不一致を確認し、Server起動とTracking URIを揃える。
+
+### `[Errno 48] Address already in use`
+
+```bash
+lsof -nP -iTCP:5000 -sTCP:LISTEN
+```
+
+既存Processを確認。不要なProcessを終了するか、Server PortとTracking URIを同じ別Portへ変更。
+
+### `ModuleNotFoundError: No module named 'mlflow'`
+
+```bash
+uv sync
+uv run python -c 'import mlflow, sklearn; print("import ok")'
+```
+
+System Pythonでの実行やDependency未同期を確認し、必ず`uv run python train.py`を使う。
+
+### UIにRunが表示されない
+
+```bash
+uv run python -c 'import mlflow; print(mlflow.get_tracking_uri())'
+ls -lh mlflow.db
+```
+
+ClientとServerのTracking URI、Experiment名、Server起動Directory、SQLite Fileを照合。
+
+## 制約と注意点
+
+SQLiteは単一MacのTutorial向け。本番では同時実行、Backup、可用性、認証、Backend StoreとArtifact Storeを設計する。記事生成Runの実測値をIris分類性能として扱わない。
+
+## まとめ
+
+Iris分類の記録手順、UI比較、Error切り分け、生成Runの制御比較を短く整理。品質だけでなく完全性・Latency・MemoryもRun単位で判断する。次の候補としてModel Registryを案内する。
+
+## 参考資料
+
+各Linkの目的が分かる一文を添え、本文中の対応箇所と重複してもよい。
+
+- [uv Installation](https://docs.astral.sh/uv/getting-started/installation/)
+- [MLflow Tracking](https://mlflow.org/docs/latest/ml/tracking/)
+- [MLflow Backend Stores](https://mlflow.org/docs/latest/self-hosting/architecture/backend-store/)
+- [mlflow.set_tracking_uri API](https://mlflow.org/docs/latest/api_reference/python_api/mlflow.html#mlflow.set_tracking_uri)
+- [mlflow.sklearn.log_model API](https://mlflow.org/docs/latest/api_reference/python_api/mlflow.sklearn.html#mlflow.sklearn.log_model)
+- [MLflow Model Registry](https://mlflow.org/docs/latest/ml/model-registry/)
+- [scikit-learn load_iris](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html)
+- [scikit-learn train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)
+- [scikit-learn LogisticRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
+- [MLX-LM公式Repository](https://github.com/ml-explore/mlx-lm)
+- [MLX公式Repository](https://github.com/ml-explore/mlx)

@@ -1,0 +1,65 @@
+{
+  "run_id": "1c479022c45d4dae8d01dcdf56a8cd93",
+  "run_name": "prompt-v3.1-qwen-v1",
+  "article_path": "articles/prompt_v3_1_20260814_125148.md",
+  "rendered_prompt_path": "generation_results/rendered_prompt_v3_1_20260814_125148.md",
+  "model": "Qwen/Qwen3-8B-MLX-4bit",
+  "prompt_version": "article-v3.1",
+  "prompt_sha256": "888648d67bbdd6aa5f1e1a6ca34ced8cf0cc1f7b858af7a97df2f4762d1448f3",
+  "theme": "MLflowを使って機械学習の実験を管理する方法",
+  "generation_parameters": {
+    "max_tokens": 2048,
+    "temperature": 0.0,
+    "seed": 42,
+    "enable_thinking": false
+  },
+  "metrics": {
+    "model_load_time_sec": 0.58,
+    "generation_time_sec": 20.303,
+    "article_length": 4184,
+    "output_tokens": 2048,
+    "generation_tokens_per_sec": 100.872,
+    "peak_memory_gb": 5.379
+  },
+  "prechecks": {
+    "starts_with_h1": true,
+    "single_h1": false,
+    "has_prerequisites": true,
+    "has_all_required_h2": false,
+    "has_failure_analysis": true,
+    "has_observed_results": true,
+    "has_apple_silicon_insight": true,
+    "has_references": false,
+    "has_summary": false,
+    "has_train_command": true,
+    "has_accuracy_print": true,
+    "has_complete_train_code": true,
+    "has_failure_cases": true,
+    "has_comparison_run_ids": true,
+    "single_uv_add_command": true,
+    "no_instruction_leakage": true,
+    "balanced_code_fences": true,
+    "has_no_thinking_output": true,
+    "has_all_reference_urls": false,
+    "output_tokens_below_safety_limit": false,
+    "article_length_in_range": true
+  },
+  "all_prechecks_passed": false,
+  "failed_prechecks": [
+    "single_h1",
+    "has_all_required_h2",
+    "has_references",
+    "has_summary",
+    "has_all_reference_urls",
+    "output_tokens_below_safety_limit"
+  ],
+  "baseline": {
+    "generation_run_id": "b7dfd7ec5d0c4439873da3684fc2c5b2",
+    "evaluation_run_id": "bacd99883951428a99f4d91cf75f3852"
+  },
+  "previous_candidate": {
+    "prompt_version": "article-v2",
+    "generation_run_id": "c388504b38924d939fcc4b4da5b7218d",
+    "evaluation_run_id": "89e0a0b9e67e4d47b2fd8d3edc7f0f7d"
+  }
+}

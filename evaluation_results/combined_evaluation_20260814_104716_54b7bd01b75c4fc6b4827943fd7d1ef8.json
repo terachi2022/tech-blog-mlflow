@@ -1,0 +1,90 @@
+{
+  "run_id": "54b7bd01b75c4fc6b4827943fd7d1ef8",
+  "evaluation_version": "combined-v1",
+  "article": {
+    "path": "articles/prompt_v2_20260814_104216.md",
+    "theme": "MLflowを使って機械学習の実験を管理する方法",
+    "variant": "prompt-v2"
+  },
+  "code_scorer": {
+    "version": "code-scorer-v2",
+    "metrics": {
+      "has_h1/mean": 1.0,
+      "conclusion_near_top/mean": 1.0,
+      "code_block_count/mean": 6.0,
+      "public_external_link_count/mean": 3.0,
+      "has_version_info/mean": 1.0,
+      "has_prerequisites/mean": 1.0,
+      "has_failure_cases/mean": 1.0,
+      "structure_score/mean": 1.0,
+      "reproducibility_proxy/mean": 1.0,
+      "article_length_chars/mean": 3469.0
+    }
+  },
+  "local_llm_judge": {
+    "model": "mlx-community/gemma-3-text-27b-it-4bit",
+    "prompt_path": "prompts/article_judge_v1.md",
+    "prompt_version": "article-judge-v1",
+    "model_load_time_sec": 1.821,
+    "generation_time_sec": 18.733,
+    "metrics": {
+      "technical_accuracy/mean": 3.0,
+      "helpfulness/mean": 3.0,
+      "reproducibility/mean": 2.0,
+      "citation_quality/mean": 4.0,
+      "readability_ja/mean": 4.0,
+      "original_value/mean": 2.0
+    },
+    "records": [
+      {
+        "attempts": 1,
+        "elapsed_sec": 18.733,
+        "raw_response": "```json\n{\n  \"technical_accuracy\": {\n    \"score\": 3,\n    \"rationale\": \"技術的な誤りや矛盾は明示的には見られないが、MLX-LMの導入が示されているものの、サンプルコード内で使用されていない点が気になります。また、Pythonのバージョンが3.14.6と記載されているのは不自然であり、誤記の可能性があります。MLflowのバージョンも最新ではないため、注意が必要です。\"\n  },\n  \"helpfulness\": {\n    \"score\": 3,\n    \"rationale\": \"MLflowの基本的な概念の説明や、環境構築、サンプルコードの実行手順は理解しやすいですが、読者が実際に問題を解決するための具体的なアドバイスが不足しています。例えば、複数Runを比較する際の具体的な操作手順や、比較する際のポイントなどが示されていません。\"\n  },\n  \"reproducibility\": {\n    \"score\": 2,\n    \"rationale\": \"前提環境が詳細に記載されているものの、OSのバージョンが「26.5.1」と非常に曖昧です。また、`uv run train.py`で実行するとありますが、train.pyの内容が示されていないため、完全に再現することは困難です。依存関係のバージョンも明示的に固定されているわけではありません。\"\n  },\n  \"citation_quality\": {\n    \"score\": 4,\n    \"rationale\": \"MLflowの公式ドキュメントへのリンクが適切に提示されており、主張を裏付けています。しかし、MLX-LMに関する情報源が示されていません。\"\n  },\n  \"readability_ja\": {\n    \"score\": 4,\n    \"rationale\": \"日本語として自然で、読みやすい文章です。見出し構造も適切で、説明量も概ね適切です。ただし、専門用語の説明が不足している部分があり、MLflowに不慣れな読者には理解が難しい可能性があります。\"\n  },\n  \"original_value\": {\n    \"score\": 2,\n    \"rationale\": \"一般的なMLflowの導入手順の説明であり、独自性や新しい知見はあまり見られません。Apple M5 Maxでの動作確認結果が示されている点は評価できますが、それ以上の付加価値は低いと言えます。\"\n  }\n}\n```",
+        "validated_result": {
+          "technical_accuracy": {
+            "score": 3,
+            "rationale": "技術的な誤りや矛盾は明示的には見られないが、MLX-LMの導入が示されているものの、サンプルコード内で使用されていない点が気になります。また、Pythonのバージョンが3.14.6と記載されているのは不自然であり、誤記の可能性があります。MLflowのバージョンも最新ではないため、注意が必要です。"
+          },
+          "helpfulness": {
+            "score": 3,
+            "rationale": "MLflowの基本的な概念の説明や、環境構築、サンプルコードの実行手順は理解しやすいですが、読者が実際に問題を解決するための具体的なアドバイスが不足しています。例えば、複数Runを比較する際の具体的な操作手順や、比較する際のポイントなどが示されていません。"
+          },
+          "reproducibility": {
+            "score": 2,
+            "rationale": "前提環境が詳細に記載されているものの、OSのバージョンが「26.5.1」と非常に曖昧です。また、`uv run train.py`で実行するとありますが、train.pyの内容が示されていないため、完全に再現することは困難です。依存関係のバージョンも明示的に固定されているわけではありません。"
+          },
+          "citation_quality": {
+            "score": 4,
+            "rationale": "MLflowの公式ドキュメントへのリンクが適切に提示されており、主張を裏付けています。しかし、MLX-LMに関する情報源が示されていません。"
+          },
+          "readability_ja": {
+            "score": 4,
+            "rationale": "日本語として自然で、読みやすい文章です。見出し構造も適切で、説明量も概ね適切です。ただし、専門用語の説明が不足している部分があり、MLflowに不慣れな読者には理解が難しい可能性があります。"
+          },
+          "original_value": {
+            "score": 2,
+            "rationale": "一般的なMLflowの導入手順の説明であり、独自性や新しい知見はあまり見られません。Apple M5 Maxでの動作確認結果が示されている点は評価できますが、それ以上の付加価値は低いと言えます。"
+          }
+        }
+      }
+    ]
+  },
+  "all_metrics": {
+    "has_failure_cases/mean": 1.0,
+    "reproducibility_proxy/mean": 1.0,
+    "has_prerequisites/mean": 1.0,
+    "public_external_link_count/mean": 3.0,
+    "has_version_info/mean": 1.0,
+    "has_h1/mean": 1.0,
+    "code_block_count/mean": 6.0,
+    "structure_score/mean": 1.0,
+    "conclusion_near_top/mean": 1.0,
+    "article_length_chars/mean": 3469.0,
+    "technical_accuracy/mean": 3.0,
+    "helpfulness/mean": 3.0,
+    "reproducibility/mean": 2.0,
+    "citation_quality/mean": 4.0,
+    "readability_ja/mean": 4.0,
+    "original_value/mean": 2.0
+  }
+}
