@@ -1,0 +1,41 @@
+{
+  "workflow_version": "step-alpha-2-prompts-v1.0.0",
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "validation_status": "invalid",
+  "prompts": [
+    {
+      "role": "generator",
+      "name": "tech-blog-article-generator",
+      "version": 1,
+      "uri": "prompts:/tech-blog-article-generator/1",
+      "alias": "production",
+      "source_version": "article-v3.5.2",
+      "source_sha256": "b15c27807d766edfa7130a6130f7d7b500d5a8f3f8bf8cd2e0917b8d71464668",
+      "template_matches": true,
+      "variables_match": true,
+      "model_config_matches": true,
+      "response_format_matches": true,
+      "run_id": "b5c925c2322b4e30b04f07e24d160a04",
+      "run_linked": false,
+      "valid": false
+    },
+    {
+      "role": "judge",
+      "name": "tech-blog-article-judge",
+      "version": 1,
+      "uri": "prompts:/tech-blog-article-judge/1",
+      "alias": "production",
+      "source_version": "article-judge-v2.4",
+      "source_sha256": "15230079cfc2149c7239def8ac690b198ab37bcf0ba8aed2483c2e473cc9e08c",
+      "template_matches": true,
+      "variables_match": true,
+      "model_config_matches": true,
+      "response_format_matches": true,
+      "run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+      "run_linked": false,
+      "valid": false
+    }
+  ]
+}

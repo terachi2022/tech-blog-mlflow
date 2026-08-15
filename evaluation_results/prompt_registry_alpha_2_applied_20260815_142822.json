@@ -1,0 +1,286 @@
+{
+  "workflow_version": "step-alpha-2-prompts-v1.0.0",
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "alias": "production",
+  "plans": [
+    {
+      "role": "generator",
+      "name": "tech-blog-article-generator",
+      "source_version": "article-v3.5.2",
+      "source_path": "prompts/article_generation_v3_5_2.md",
+      "run_id": "b5c925c2322b4e30b04f07e24d160a04",
+      "expected_variables": [
+        "MACOS_VERSION",
+        "MLFLOW_VERSION",
+        "MLX_LM_VERSION",
+        "PYTHON_VERSION",
+        "THEME"
+      ],
+      "model_config": {
+        "model_name": "Qwen/Qwen3-8B-MLX-4bit",
+        "temperature": 0.0,
+        "max_tokens": 4096
+      },
+      "response_format": null,
+      "source_sha256": "b15c27807d766edfa7130a6130f7d7b500d5a8f3f8bf8cd2e0917b8d71464668",
+      "template_chars": 8176
+    },
+    {
+      "role": "judge",
+      "name": "tech-blog-article-judge",
+      "source_version": "article-judge-v2.4",
+      "source_path": "prompts/article_judge_v2_4.md",
+      "run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+      "expected_variables": [
+        "ARTICLE"
+      ],
+      "model_config": {
+        "model_name": "mlx-community/gemma-3-text-27b-it-4bit",
+        "temperature": 0.0,
+        "max_tokens": 3600
+      },
+      "response_format": {
+        "$defs": {
+          "CitationQuality": {
+            "additionalProperties": false,
+            "properties": {
+              "source_authority": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "claim_source_alignment": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "citation_coverage": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "link_context": {
+                "$ref": "#/$defs/SubScore"
+              }
+            },
+            "required": [
+              "source_authority",
+              "claim_source_alignment",
+              "citation_coverage",
+              "link_context"
+            ],
+            "title": "CitationQuality",
+            "type": "object"
+          },
+          "Helpfulness": {
+            "additionalProperties": false,
+            "properties": {
+              "goal_clarity": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "actionability": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "audience_fit": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "troubleshooting_value": {
+                "$ref": "#/$defs/SubScore"
+              }
+            },
+            "required": [
+              "goal_clarity",
+              "actionability",
+              "audience_fit",
+              "troubleshooting_value"
+            ],
+            "title": "Helpfulness",
+            "type": "object"
+          },
+          "OriginalValue": {
+            "additionalProperties": false,
+            "properties": {
+              "concrete_evidence": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "failure_analysis": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "comparison_insight": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "environment_specific_insight": {
+                "$ref": "#/$defs/SubScore"
+              }
+            },
+            "required": [
+              "concrete_evidence",
+              "failure_analysis",
+              "comparison_insight",
+              "environment_specific_insight"
+            ],
+            "title": "OriginalValue",
+            "type": "object"
+          },
+          "ReadabilityJa": {
+            "additionalProperties": false,
+            "properties": {
+              "structure_flow": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "sentence_clarity": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "terminology_explanation": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "information_density": {
+                "$ref": "#/$defs/SubScore"
+              }
+            },
+            "required": [
+              "structure_flow",
+              "sentence_clarity",
+              "terminology_explanation",
+              "information_density"
+            ],
+            "title": "ReadabilityJa",
+            "type": "object"
+          },
+          "Reproducibility": {
+            "additionalProperties": false,
+            "properties": {
+              "environment_specificity": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "dependency_completeness": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "code_completeness": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "execution_sequence": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "verification_clarity": {
+                "$ref": "#/$defs/SubScore"
+              }
+            },
+            "required": [
+              "environment_specificity",
+              "dependency_completeness",
+              "code_completeness",
+              "execution_sequence",
+              "verification_clarity"
+            ],
+            "title": "Reproducibility",
+            "type": "object"
+          },
+          "SubScore": {
+            "additionalProperties": false,
+            "properties": {
+              "score": {
+                "maximum": 5,
+                "minimum": 1,
+                "title": "Score",
+                "type": "integer"
+              },
+              "rationale": {
+                "minLength": 5,
+                "title": "Rationale",
+                "type": "string"
+              }
+            },
+            "required": [
+              "score",
+              "rationale"
+            ],
+            "title": "SubScore",
+            "type": "object"
+          },
+          "TechnicalAccuracy": {
+            "additionalProperties": false,
+            "properties": {
+              "conceptual_correctness": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "api_command_correctness": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "internal_consistency": {
+                "$ref": "#/$defs/SubScore"
+              },
+              "unsupported_claim_control": {
+                "$ref": "#/$defs/SubScore"
+              }
+            },
+            "required": [
+              "conceptual_correctness",
+              "api_command_correctness",
+              "internal_consistency",
+              "unsupported_claim_control"
+            ],
+            "title": "TechnicalAccuracy",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "technical_accuracy": {
+            "$ref": "#/$defs/TechnicalAccuracy"
+          },
+          "helpfulness": {
+            "$ref": "#/$defs/Helpfulness"
+          },
+          "reproducibility": {
+            "$ref": "#/$defs/Reproducibility"
+          },
+          "citation_quality": {
+            "$ref": "#/$defs/CitationQuality"
+          },
+          "readability_ja": {
+            "$ref": "#/$defs/ReadabilityJa"
+          },
+          "original_value": {
+            "$ref": "#/$defs/OriginalValue"
+          }
+        },
+        "required": [
+          "technical_accuracy",
+          "helpfulness",
+          "reproducibility",
+          "citation_quality",
+          "readability_ja",
+          "original_value"
+        ],
+        "title": "ArticleJudgeResultV2",
+        "type": "object"
+      },
+      "source_sha256": "15230079cfc2149c7239def8ac690b198ab37bcf0ba8aed2483c2e473cc9e08c",
+      "template_chars": 11110
+    }
+  ],
+  "mode": "apply",
+  "registrations": [
+    {
+      "role": "generator",
+      "name": "tech-blog-article-generator",
+      "version": 1,
+      "uri": "prompts:/tech-blog-article-generator/1",
+      "alias": "production",
+      "source_version": "article-v3.5.2",
+      "source_sha256": "b15c27807d766edfa7130a6130f7d7b500d5a8f3f8bf8cd2e0917b8d71464668",
+      "run_id": "b5c925c2322b4e30b04f07e24d160a04",
+      "created": false,
+      "run_link_created": false
+    },
+    {
+      "role": "judge",
+      "name": "tech-blog-article-judge",
+      "version": 1,
+      "uri": "prompts:/tech-blog-article-judge/1",
+      "alias": "production",
+      "source_version": "article-judge-v2.4",
+      "source_sha256": "15230079cfc2149c7239def8ac690b198ab37bcf0ba8aed2483c2e473cc9e08c",
+      "run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+      "created": false,
+      "run_link_created": false
+    }
+  ]
+}

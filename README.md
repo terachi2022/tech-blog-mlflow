@@ -5,8 +5,8 @@ Apple M5 Max上で、技術ブログの生成条件、生成物、オフライ�
 BaselineからPrompt-v3.5.2までの改善、Local LLM Judgeの校正、同一Evaluatorによる再評価と比較まで完了しました。STEP 3の最終比較は、すべての成功条件を満たして`Overall: PASS`です。STEP 4では採用Promptを固定したSkills-only制御実験を実施し、記事がByte単位で同一だったため、Skillは不採用としてNo-Skill版を継続採用しました。STEP 5-A〜5-Cでは公開記事Registry、GA4、Search Consoleの期間付き観測を実装し、STEP 5-DではOffline/Online JoinをMLflowへ記録する入口を追加しました。
 
 > 最終更新: 2026-08-15  
-> 現在地点: STEP-α-1 v2のMarkdown表示・人手採点・有効性検証まで完了  
-> 次工程: STEP-α-2でGenerator/Judge PromptをMLflow PromptsへVersion登録  
+> 現在地点: STEP-α-2でGenerator/Judge PromptのVersion登録・Run接続まで完了  
+> 次工程: STEP-α-3でGenerator/Judge Modelの登録方式を確定してMLflowへ登録  
 > 実行方式: Terminal + Python Module  
 > Jupyter Notebook: 不要
 
@@ -1147,3 +1147,38 @@ article-quality-human-review-v2
 4. 人手評価との軸別誤差を複数記事で集計してからPrompt Versionを更新する
 
 完了Reportは`evaluation_results/review_validation_alpha_1_20260815_140944.json`です。
+
+### 22.2 STEP-α-2 Prompts
+
+採用中のGenerator PromptとJudge PromptをMLflow Prompt Registryへ登録しました。
+
+| Role | MLflow Prompt | Version | Alias | Source |
+|---|---|---:|---|---|
+| Generator | `tech-blog-article-generator` | 1 | `production` | `article_generation_v3_5_2.md` |
+| Judge | `tech-blog-article-judge` | 1 | `production` | `article_judge_v2_4.md` |
+
+実装ファイル:
+
+| ファイル | 役割 |
+|---|---|
+| `src/tech_blog_mlflow/prompt_registry.py` | Source Contract、SHA-256冪等登録、Alias、Run Link、検証 |
+| `evaluation/setup_prompt_registry.py` | Dry Runと登録CLI |
+| `evaluation/validate_prompt_registry.py` | 内容、変数、Model Config、Schema、Run Linkの検証CLI |
+| `tests/test_step_alpha_2_prompts.py` | 初回登録、重複防止、変数、Run Linkの回帰テスト |
+| `INSTALL_STEP_ALPHA_2_PROMPTS.md` | 実行・確認手順 |
+
+Generatorは5変数、Judgeは`ARTICLE`変数をContractとして固定しています。Judge Versionには25サブ項目のJSON Schemaを`response_format`として登録しました。両VersionにはSource Path、Source Version、Source SHA-256、Model Configを保持し、採用Generation RunとEvaluation Runへそれぞれ接続しています。
+
+同一SHA-256かつ同一TemplateのVersionがすでにある場合は再利用します。再実行結果は両Promptとも`created: false`、`run_link_created: false`であり、Version 1が重複しないことを確認済みです。
+
+MLflow 3.15.1 OSSでは`link_prompt_version_to_run()`がRunの`mlflow.linkedPrompts`を更新する一方、`list_logged_prompts()`は別のModel Version Tagを検索します。このためSTEP-α-2の検証は、実際に保存されるRun側の標準Tagを正として行います。
+
+完了結果:
+
+```text
+Status    : validated
+Generator : prompts:/tech-blog-article-generator/1 valid=True
+Judge     : prompts:/tech-blog-article-judge/1 valid=True
+```
+
+証跡は`evaluation_results/prompt_registry_alpha_2_validation_20260815_142813.json`です。
