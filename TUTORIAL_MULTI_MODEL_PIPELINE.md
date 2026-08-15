@@ -11,6 +11,7 @@
   → Qwen3.6 27Bで一次評価
   → Gemma 3 27Bで独立評価
   → MLflowでRun、Artifact、Scoreを確認
+  → ModelsとHuman Review Queueへ公開
   → 人が採否を判断
 ```
 
@@ -254,6 +255,37 @@ find evaluation_results -maxdepth 1 \
 
 記事やEvaluator Versionが異なる結果は、Judge間比較に使用できません。MLflow UIではRun Tagの`judge_role=primary`と`judge_role=independent`も確認します。
 
+### 9.1 Models、Human Review、GUI比較を有効にする
+
+GenerationからEvaluationまではRunを作成しますが、それだけではMLflowの
+Models画面やHuman Review Queueには登録されません。既存Runを再実行せず、
+最新の4 RunをGUI用Entityへ公開します。
+
+```bash
+uv run python -m evaluation.publish_candidate_gui --dry-run
+uv run python -m evaluation.publish_candidate_gui
+```
+
+誤って別テーマのRunを混ぜないため、Dry Runに表示された4つのRun IDを確認します。
+必要なら明示的に固定できます。
+
+```bash
+uv run python -m evaluation.publish_candidate_gui \
+  --generation-run-id "$GENERATION_RUN_ID" \
+  --review-run-id "$REVIEW_RUN_ID" \
+  --primary-run-id '<Primary Judge Run ID>' \
+  --independent-run-id '<Independent Judge Run ID>'
+```
+
+公開後はMLflow GUIで次を確認できます。
+
+- **Models**: Generator、Reviewer、Primary Judge、Independent Judgeの4件
+- **Review**: `candidate-multi-model-human-review-v1` Queue内の校正済み記事
+- **Experiments**: PrimaryとIndependentの2 Runを選択して **Compare** を押すと、6軸ScoreをGUI上で比較可能
+
+第7章のReview RunはLLMによる校正履歴です。Human Reviewの承認は別Entityであり、
+この公開ステップで初めてReview Queueに現れます。
+
 ## 10. 実行例
 
 2026年8月15日の実行では、Swallow生成直後に3つの構造検査が失敗しましたが、Qwen3.6による校正後は全件通過しました。
@@ -316,6 +348,9 @@ jq '.judge.records[0] | {
 ## 13. 完了チェック
 
 - Generation、Review、Primary Evaluation、Independent Evaluationの4 Runがある
+- Modelsに4役のExternal Modelがある
+- Human Review Queueに校正済み記事があり、人の承認結果が保存されている
+- PrimaryとIndependentの2 RunをGUIのCompareで比較した
 - 各Stageの`source_run_id`を辿れる
 - Generation MetadataにToken数、時間、Peak Memory、SHA-256がある
 - Review後の`all_prechecks_passed`が`true`

@@ -7,6 +7,7 @@ from evaluation.evaluate_candidate_dual import evaluation_commands
 from evaluation.review_candidate import IMMUTABLE_EVIDENCE
 from tech_blog_mlflow.article_reviewer import ArticleReviewResult, ArticleReviewer
 from tech_blog_mlflow.candidate_models import GENERATOR, INDEPENDENT_JUDGE, PRIMARY_JUDGE, REVIEWER, model_manifest
+from tech_blog_mlflow.candidate_gui import ROLE_RUNS
 from tech_blog_mlflow.generate_candidate import extract_final_channel, render_prompt
 
 
@@ -34,6 +35,9 @@ class CandidateModelContractTest(unittest.TestCase):
         self.assertIn("independent", commands[1])
         self.assertIn(PRIMARY_JUDGE.model_id, commands[0])
         self.assertIn(INDEPENDENT_JUDGE.model_id, commands[1])
+
+    def test_gui_publication_covers_all_pipeline_roles(self) -> None:
+        self.assertEqual(set(ROLE_RUNS), {"generator", "reviewer", "primary-judge", "independent-judge"})
 
 
 class CandidatePromptAndReviewTest(unittest.TestCase):

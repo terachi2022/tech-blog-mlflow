@@ -1,0 +1,16 @@
+{
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "run_ids": {
+    "generator": "ec6725c5093d452e8933ad796a5df2ad",
+    "reviewer": "0107d3e5500d415597ea6036e7d3dd0c",
+    "primary-judge": "d852333f70534619b13607d2fe576322",
+    "independent-judge": "8a1eb24f8d4a4ed3b8cf7bb2b0f56858"
+  },
+  "compare_run_ids": [
+    "d852333f70534619b13607d2fe576322",
+    "8a1eb24f8d4a4ed3b8cf7bb2b0f56858"
+  ],
+  "mode": "dry-run"
+}

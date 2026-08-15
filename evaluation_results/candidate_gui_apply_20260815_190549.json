@@ -1,0 +1,189 @@
+{
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "run_ids": {
+    "generator": "ec6725c5093d452e8933ad796a5df2ad",
+    "reviewer": "0107d3e5500d415597ea6036e7d3dd0c",
+    "primary-judge": "d852333f70534619b13607d2fe576322",
+    "independent-judge": "8a1eb24f8d4a4ed3b8cf7bb2b0f56858"
+  },
+  "compare_run_ids": [
+    "d852333f70534619b13607d2fe576322",
+    "8a1eb24f8d4a4ed3b8cf7bb2b0f56858"
+  ],
+  "mode": "apply",
+  "models": [
+    {
+      "role": "generator",
+      "name": "candidate-generator-GPT-OSS-Swallow-120B-RL-v0-1-6bit-mlx",
+      "model_id": "m-fea2fb100e6245c5a8729f4a34dd0656",
+      "model_uri": "models:/m-fea2fb100e6245c5a8729f4a34dd0656",
+      "source_run_id": "ec6725c5093d452e8933ad796a5df2ad",
+      "created": true
+    },
+    {
+      "role": "reviewer",
+      "name": "candidate-reviewer-Qwen3-6-27B-5bit",
+      "model_id": "m-f96c7fe4ec524588a2b2536c537302ed",
+      "model_uri": "models:/m-f96c7fe4ec524588a2b2536c537302ed",
+      "source_run_id": "0107d3e5500d415597ea6036e7d3dd0c",
+      "created": true
+    },
+    {
+      "role": "primary-judge",
+      "name": "candidate-primary-judge-Qwen3-6-27B-5bit",
+      "model_id": "m-d921efcb7aca493886f53c2a7d91ff71",
+      "model_uri": "models:/m-d921efcb7aca493886f53c2a7d91ff71",
+      "source_run_id": "d852333f70534619b13607d2fe576322",
+      "created": true
+    },
+    {
+      "role": "independent-judge",
+      "name": "candidate-independent-judge-gemma-3-text-27b-it-4bit",
+      "model_id": "m-d0429f78305e4eb7b744bdb465b021a9",
+      "model_uri": "models:/m-d0429f78305e4eb7b744bdb465b021a9",
+      "source_run_id": "8a1eb24f8d4a4ed3b8cf7bb2b0f56858",
+      "created": true
+    }
+  ],
+  "review": {
+    "queue_id": "rq-51ddb63fc42a45d4b230a2330254611d",
+    "queue_name": "candidate-multi-model-human-review-v1",
+    "queue_created": true,
+    "schemas_created": [],
+    "schemas": [
+      {
+        "name": "human_technical_accuracy_v1",
+        "type": "feedback",
+        "instruction": "技術概念、API、Command、記事内の整合性を1（重大な誤り）〜5（正確）で採点してください。自動評価値を根拠にせず、記事本文を確認してください。",
+        "enable_comment": true,
+        "widget": "categorical",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "multi_select": false
+      },
+      {
+        "name": "human_helpfulness_v1",
+        "type": "feedback",
+        "instruction": "目的の明確さ、実行可能性、対象読者への適合、切り分けへの有用性を1〜5で採点してください。",
+        "enable_comment": true,
+        "widget": "categorical",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "multi_select": false
+      },
+      {
+        "name": "human_reproducibility_v1",
+        "type": "feedback",
+        "instruction": "環境、依存関係、Code、実行順、成功確認を含む再現性を1〜5で採点してください。",
+        "enable_comment": true,
+        "widget": "categorical",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "multi_select": false
+      },
+      {
+        "name": "human_citation_quality_v1",
+        "type": "feedback",
+        "instruction": "出典の権威性、主張との対応、Coverage、Link Contextを1〜5で採点してください。",
+        "enable_comment": true,
+        "widget": "categorical",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "multi_select": false
+      },
+      {
+        "name": "human_readability_ja_v1",
+        "type": "feedback",
+        "instruction": "構成、文の明瞭さ、用語説明、情報密度を含む日本語の読みやすさを1〜5で採点してください。",
+        "enable_comment": true,
+        "widget": "categorical",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "multi_select": false
+      },
+      {
+        "name": "human_original_value_v1",
+        "type": "feedback",
+        "instruction": "実測根拠、失敗分析、比較から得た知見、環境固有の知見を1〜5で採点してください。",
+        "enable_comment": true,
+        "widget": "categorical",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "multi_select": false
+      },
+      {
+        "name": "human_publishable_v1",
+        "type": "feedback",
+        "instruction": "現在の内容を公開可能と判断する場合はPublishable、修正が必要な場合はNeeds revisionを選択してください。",
+        "enable_comment": true,
+        "widget": "pass_fail",
+        "positive_label": "Publishable",
+        "negative_label": "Needs revision"
+      },
+      {
+        "name": "human_review_notes_v1",
+        "type": "feedback",
+        "instruction": "採点根拠、重要な問題、採用判断に必要な補足を記録してください。特記事項がなければ空欄でも構いません。",
+        "enable_comment": false,
+        "widget": "text",
+        "max_length": 4000
+      }
+    ],
+    "presentation": {
+      "label": "candidate-multi-model",
+      "evaluation_run_id": "d852333f70534619b13607d2fe576322",
+      "source_trace_id": "tr-6f10d825a331ac420cd93f62bfc1ffa7",
+      "review_trace_id": "tr-ca79b74353e92d8b774d104650aa5485",
+      "article_variant": "candidate-reviewed",
+      "article_path": "articles/candidate_reviewed_20260815_184805.md",
+      "article_sha256": "f3aeb682191bcc448d62c6f0c01e18ba5e77c5844c1905f15441b2e8cdfe0c33",
+      "article_chars": 6403,
+      "reused": false,
+      "markdown_preview_valid": true
+    },
+    "items": [
+      {
+        "queue_id": "rq-51ddb63fc42a45d4b230a2330254611d",
+        "item_id": "tr-ca79b74353e92d8b774d104650aa5485",
+        "item_type": "trace",
+        "status": "pending",
+        "completed_by": null,
+        "completed_time_ms": null
+      }
+    ]
+  },
+  "models_url": "http://127.0.0.1:5000/#/models",
+  "review_url": "http://127.0.0.1:5000/#/experiments/1/review-queue"
+}
