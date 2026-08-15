@@ -1,0 +1,33 @@
+{
+  "workflow_version": "step-alpha-5-judges-v1.0.0",
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "validation_status": "validated",
+  "checks": {
+    "builtin_scorer_registered": true,
+    "builtin_contract_matches": true,
+    "builtin_not_sampling": true,
+    "local_registration_rejected_as_expected": true,
+    "local_judge_not_misrepresented": true,
+    "judge_model_retrievable": true,
+    "judge_prompt_retrievable": true,
+    "evaluation_run_retrievable": true,
+    "calibration_dataset_retrievable": true
+  },
+  "registered_scorers": [
+    {
+      "name": "article_length_guard_v1",
+      "kind": "ScorerKind.BUILTIN",
+      "status": "STOPPED",
+      "sample_rate": null
+    }
+  ],
+  "local_judge_boundary": {
+    "scorer_name": "local_article_judge_v2_4",
+    "scorer_kind": "ScorerKind.DECORATOR",
+    "registration_supported": false,
+    "expected_rejection_observed": true,
+    "reason": "decorator_scorer_registration_not_supported_on_oss"
+  }
+}

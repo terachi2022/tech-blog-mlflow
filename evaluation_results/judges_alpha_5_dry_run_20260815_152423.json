@@ -1,0 +1,28 @@
+{
+  "workflow_version": "step-alpha-5-judges-v1.0.0",
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "local_judge_boundary": {
+    "scorer_name": "local_article_judge_v2_4",
+    "scorer_kind": "ScorerKind.DECORATOR",
+    "registration_supported": false,
+    "expected_rejection_observed": true,
+    "reason": "decorator_scorer_registration_not_supported_on_oss"
+  },
+  "registered_scorer_plan": {
+    "name": "article_length_guard_v1",
+    "builtin_scorer_class": "ResponseLength",
+    "min_length": 1800,
+    "max_length": 7000,
+    "unit": "chars"
+  },
+  "local_judge_evidence": {
+    "external_model": "models:/m-57625c5d614f4b9382aa9a243abb340c",
+    "prompt": "prompts:/tech-blog-article-judge/1",
+    "evaluation_run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+    "evaluation_dataset_id": "d-f21d22043d7749a387cf34bc06fcffd5",
+    "review_queue": "article-quality-human-review-v2"
+  },
+  "mode": "dry-run"
+}

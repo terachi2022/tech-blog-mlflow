@@ -5,8 +5,8 @@ Apple M5 Max上で、技術ブログの生成条件、生成物、オフライ�
 BaselineからPrompt-v3.5.2までの改善、Local LLM Judgeの校正、同一Evaluatorによる再評価と比較まで完了しました。STEP 3の最終比較は、すべての成功条件を満たして`Overall: PASS`です。STEP 4では採用Promptを固定したSkills-only制御実験を実施し、記事がByte単位で同一だったため、Skillは不採用としてNo-Skill版を継続採用しました。STEP 5-A〜5-Cでは公開記事Registry、GA4、Search Consoleの期間付き観測を実装し、STEP 5-DではOffline/Online JoinをMLflowへ記録する入口を追加しました。
 
 > 最終更新: 2026-08-15  
-> 現在地点: STEP-α-4で記事と人手評価をEvaluation Datasetへ固定済み  
-> 次工程: Dataset画面の目視確認後、STEP-α-5でLocal MLX JudgeのGUI統合境界を確定  
+> 現在地点: STEP-α-1〜α-5のMLflow GenAI GUI統合を実装・検証済み  
+> 次工程: Judges画面を目視確認し、STEP-α全体を承認する  
 > 実行方式: Terminal + Python Module  
 > Jupyter Notebook: 不要
 
@@ -1252,3 +1252,48 @@ Variants : ['baseline', 'prompt-v3.5.2']
 再実行では同じDataset IDを再利用し、`Created: False`を確認しました。STEP-α-1〜α-4の関連テスト40件はすべて成功しています。
 
 証跡は`evaluation_results/evaluation_dataset_alpha_4_validation_20260815_151637.json`です。
+
+### 22.5 STEP-α-5 Judges
+
+OSS MLflow 3.15.1における登録可能範囲を実APIで検証し、次の境界に確定しました。
+
+| 対象 | Kind | OSS登録 | 管理方法 |
+|---|---|---|---|
+| `article_length_guard_v1` | Built-in `ResponseLength` | 可能 | Judgesへ登録、停止状態 |
+| `local_article_judge_v2_4` | `@scorer` Decorator | 不可 | Offline EvaluationのAssessmentとして保存 |
+
+Local MLX Judgeの登録は、OSS Tracking Serverでは任意Code実行を伴うDeserializeがSecurity上禁止されているため、MLflow自身が拒否します。この拒否を回避したり、別のJudgeとして偽装登録したりしません。
+
+代わりにLocal Judgeの構成要素と結果を次の標準機能へ分離して追跡します。
+
+| 証跡 | 保存先 |
+|---|---|
+| Model | `models:/m-57625c5d614f4b9382aa9a243abb340c` |
+| Prompt | `prompts:/tech-blog-article-judge/1` |
+| Evaluation Run | `fdf0c239445f44a0999a6b1fe7a419b6` |
+| Human calibration Dataset | `d-f21d22043d7749a387cf34bc06fcffd5` |
+| Human Review | `article-quality-human-review-v2` |
+
+Judgesへ登録した`article_length_guard_v1`は1,800〜7,000文字の決定論的Guardです。登録後に自動Samplingを開始していないため、Statusは`STOPPED`、`sample_rate`は`null`です。必要なEvaluationで明示的に使用します。
+
+実装ファイル:
+
+| ファイル | 役割 |
+|---|---|
+| `src/tech_blog_mlflow/judge_integration.py` | OSS登録境界、Built-in登録、Evidence検証 |
+| `evaluation/setup_judges.py` | Dry Runと登録CLI |
+| `evaluation/validate_judges.py` | Scorer、非対応境界、Judge証跡の検証CLI |
+| `tests/test_step_alpha_5_judges.py` | Contract、重複、エラー分類の回帰テスト |
+| `INSTALL_STEP_ALPHA_5_JUDGES.md` | 実行・画面確認手順 |
+
+完了結果:
+
+```text
+Status       : validated
+Registered   : ['article_length_guard_v1']
+Local MLX GUI: unsupported (tracked as offline scorer evidence)
+```
+
+再実行では`Created: False`となり、Scorer Versionを重複登録しないことを確認しました。STEP-α-1〜α-5の関連テスト46件はすべて成功しています。
+
+証跡は`evaluation_results/judges_alpha_5_validation_20260815_152439.json`です。
