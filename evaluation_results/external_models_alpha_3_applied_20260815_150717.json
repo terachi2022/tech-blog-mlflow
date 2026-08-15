@@ -1,0 +1,72 @@
+{
+  "workflow_version": "step-alpha-3-models-v1.0.0",
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "plans": [
+    {
+      "role": "generator",
+      "name": "tech-blog-generator-qwen3-8b-mlx-4bit",
+      "huggingface_id": "Qwen/Qwen3-8B-MLX-4bit",
+      "source_run_id": "b5c925c2322b4e30b04f07e24d160a04",
+      "prompt_name": "tech-blog-article-generator",
+      "prompt_version": 1,
+      "model_type": "text-generation",
+      "params": {
+        "runtime": "mlx-lm",
+        "quantization": "4bit",
+        "max_tokens": "4096",
+        "temperature": "0.0",
+        "seed": "42",
+        "enable_thinking": "false",
+        "generation_config_version": "generation-v3.5.2"
+      },
+      "spec_sha256": "b0529fe6eed0e383bb6a74f1d883b782fb17397e05fe3e685643171a40a3a356"
+    },
+    {
+      "role": "judge",
+      "name": "tech-blog-judge-gemma3-27b-mlx-4bit",
+      "huggingface_id": "mlx-community/gemma-3-text-27b-it-4bit",
+      "source_run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+      "prompt_name": "tech-blog-article-judge",
+      "prompt_version": 1,
+      "model_type": "llm-judge",
+      "params": {
+        "runtime": "mlx-lm",
+        "quantization": "4bit",
+        "max_tokens": "3600",
+        "temperature": "0.0",
+        "judge_prompt_version": "article-judge-v2.4",
+        "judge_schema": "25-subscore-v2"
+      },
+      "spec_sha256": "10ce746b6ed054f1c348277a30d7308bfcbe6cc77ac2b28727a8b3923602bc8c"
+    }
+  ],
+  "mode": "apply",
+  "registrations": [
+    {
+      "role": "generator",
+      "name": "tech-blog-generator-qwen3-8b-mlx-4bit",
+      "model_id": "m-a280e8ca3d5e48f386e5397bae653606",
+      "model_uri": "models:/m-a280e8ca3d5e48f386e5397bae653606",
+      "model_type": "text-generation",
+      "source_run_id": "b5c925c2322b4e30b04f07e24d160a04",
+      "huggingface_id": "Qwen/Qwen3-8B-MLX-4bit",
+      "prompt_uri": "prompts:/tech-blog-article-generator/1",
+      "created": true,
+      "prompt_link_created": true
+    },
+    {
+      "role": "judge",
+      "name": "tech-blog-judge-gemma3-27b-mlx-4bit",
+      "model_id": "m-57625c5d614f4b9382aa9a243abb340c",
+      "model_uri": "models:/m-57625c5d614f4b9382aa9a243abb340c",
+      "model_type": "llm-judge",
+      "source_run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+      "huggingface_id": "mlx-community/gemma-3-text-27b-it-4bit",
+      "prompt_uri": "prompts:/tech-blog-article-judge/1",
+      "created": true,
+      "prompt_link_created": true
+    }
+  ]
+}

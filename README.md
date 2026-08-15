@@ -5,8 +5,8 @@ Apple M5 Max上で、技術ブログの生成条件、生成物、オフライ�
 BaselineからPrompt-v3.5.2までの改善、Local LLM Judgeの校正、同一Evaluatorによる再評価と比較まで完了しました。STEP 3の最終比較は、すべての成功条件を満たして`Overall: PASS`です。STEP 4では採用Promptを固定したSkills-only制御実験を実施し、記事がByte単位で同一だったため、Skillは不採用としてNo-Skill版を継続採用しました。STEP 5-A〜5-Cでは公開記事Registry、GA4、Search Consoleの期間付き観測を実装し、STEP 5-DではOffline/Online JoinをMLflowへ記録する入口を追加しました。
 
 > 最終更新: 2026-08-15  
-> 現在地点: STEP-α-2でGenerator/Judge PromptのVersion登録・Run接続まで完了  
-> 次工程: STEP-α-3でGenerator/Judge Modelの登録方式を確定してMLflowへ登録  
+> 現在地点: STEP-α-3 External Model 2件の登録・検証まで完了  
+> 次工程: Models画面の目視確認後、STEP-α-4で評価対象記事をDatasetとして固定  
 > 実行方式: Terminal + Python Module  
 > Jupyter Notebook: 不要
 
@@ -1182,3 +1182,36 @@ Judge     : prompts:/tech-blog-article-judge/1 valid=True
 ```
 
 証跡は`evaluation_results/prompt_registry_alpha_2_validation_20260815_142813.json`です。
+
+### 22.3 STEP-α-3 Models
+
+GeneratorとJudgeはMLflow External Modelとして登録します。モデル重みはHugging Face Cacheに保持し、MLflowには小さな`MLmodel`メタデータだけを保存します。
+
+| Role | Model Name | Hugging Face ID | Model Type |
+|---|---|---|---|
+| Generator | `tech-blog-generator-qwen3-8b-mlx-4bit` | `Qwen/Qwen3-8B-MLX-4bit` | `text-generation` |
+| Judge | `tech-blog-judge-gemma3-27b-mlx-4bit` | `mlx-community/gemma-3-text-27b-it-4bit` | `llm-judge` |
+
+各Modelには用途、Runtime、量子化、生成設定、Source Run、STEP-α-2のPrompt Versionを接続します。`weights_copied_to_mlflow=false`と`weights_location=huggingface-cache`を明記し、巨大な重みの二重保存を防ぎます。
+
+実装ファイル:
+
+| ファイル | 役割 |
+|---|---|
+| `src/tech_blog_mlflow/external_model_registry.py` | Model仕様、SHA-256冪等登録、Prompt接続、検証 |
+| `evaluation/setup_external_models.py` | Dry Runと登録CLI |
+| `evaluation/validate_external_models.py` | Status、Tag、Parameter、Run、Prompt、Artifact検証CLI |
+| `tests/test_step_alpha_3_models.py` | 仕様同一性、重複防止、Prompt Linkの回帰テスト |
+| `INSTALL_STEP_ALPHA_3_MODELS.md` | 実行・画面確認手順 |
+
+STEP-α-1〜α-3の関連テスト34件は成功しています。ローカルMLflowへの実登録結果は次のとおりです。
+
+```text
+Status    : validated
+Generator : models:/m-a280e8ca3d5e48f386e5397bae653606 valid=True
+Judge     : models:/m-57625c5d614f4b9382aa9a243abb340c valid=True
+```
+
+両Modelは`READY`で、Source RunとPrompt Versionの接続、Tag、Parameterが仕様と一致しています。Artifactはメタデータ用の`MLmodel`だけであり、モデル重みは保存されていません。再実行では両方とも`created: false`、`prompt_link_created: false`となり、同じModel IDが再利用されました。
+
+証跡は`evaluation_results/external_models_alpha_3_validation_20260815_150723.json`です。

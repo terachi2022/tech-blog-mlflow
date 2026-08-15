@@ -1,0 +1,43 @@
+{
+  "workflow_version": "step-alpha-3-models-v1.0.0",
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "validation_status": "validated",
+  "models": [
+    {
+      "role": "generator",
+      "name": "tech-blog-generator-qwen3-8b-mlx-4bit",
+      "model_id": "m-a280e8ca3d5e48f386e5397bae653606",
+      "model_uri": "models:/m-a280e8ca3d5e48f386e5397bae653606",
+      "status": "READY",
+      "model_type_matches": true,
+      "source_run_matches": true,
+      "tags_match": true,
+      "params_match": true,
+      "prompt_linked": true,
+      "artifact_paths": [
+        "MLmodel"
+      ],
+      "metadata_artifact_only": true,
+      "valid": true
+    },
+    {
+      "role": "judge",
+      "name": "tech-blog-judge-gemma3-27b-mlx-4bit",
+      "model_id": "m-57625c5d614f4b9382aa9a243abb340c",
+      "model_uri": "models:/m-57625c5d614f4b9382aa9a243abb340c",
+      "status": "READY",
+      "model_type_matches": true,
+      "source_run_matches": true,
+      "tags_match": true,
+      "params_match": true,
+      "prompt_linked": true,
+      "artifact_paths": [
+        "MLmodel"
+      ],
+      "metadata_artifact_only": true,
+      "valid": true
+    }
+  ]
+}
