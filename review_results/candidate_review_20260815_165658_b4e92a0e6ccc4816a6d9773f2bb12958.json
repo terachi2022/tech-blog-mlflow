@@ -1,0 +1,93 @@
+{
+  "pipeline_version": "candidate-multi-model-v1.0.0",
+  "article": "articles/candidate_swallow_20260815_164454.md",
+  "article_sha256": "f6cf152a7a47f7c31faf0ca753f02017fdcec79dae8d8d76cf363552b6dbffeb",
+  "source_run_id": "2c6b8629ad8245b2815cdb99b24a3e62",
+  "model": "mlx-community/Qwen3.6-27B-5bit",
+  "prompt": "prompts/article_review_qwen3_6_v1.md",
+  "max_tokens": 8192,
+  "review_run_id": "b4e92a0e6ccc4816a6d9773f2bb12958",
+  "revised_article_path": "articles/candidate_reviewed_20260815_165658.md",
+  "revised_article_sha256": "c10023d7ed1baff534c9230adcfb595b7a66fc19118b425e6c974e52780b67a6",
+  "review": {
+    "technical_errors": [
+      "前提条件のOS 'macOS 26.5.1'、Python '3.14.6'、MLflow '3.15.1'、MLX-LM '0.31.3' は現時点で存在しない架空のバージョンです。",
+      "Hardware 'Apple M5 Max' は現時点で存在しない架空のハードウェアです。",
+      "MLflowのバージョン表記が最新安定版（2.x系）と整合していません。",
+      "MLX-LMはLLM推論ライブラリであり、Iris分類（scikit-learn）のチュートリアルでは不要かつ関連性がありません。"
+    ],
+    "unsupported_claims": [
+      "「実測した生成Runの制御比較」および「実測した評価Runの比較」に記載されているRun ID、Token数、時間、評価スコアは、Iris分類のscikit-learnコードでは発生しないLLM推論に関する架空のデータです。",
+      "「Apple Siliconの知見」に記載されているToken/秒やメモリ使用量は、Iris分類コードの実行結果としてあり得ない値です。",
+      "「実際に検出した失敗と根本原因」に記載されている「出力上限による記事切断」「執筆指示の混入」は、MLflowの技術的なエラーではなく、記事生成プロセス自体のメタな問題であり、技術記事の文脈として不適切です。"
+    ],
+    "citation_issues": [
+      "MLX-LMやMLXへのリンクは、Iris分類のチュートリアルとは無関係です。",
+      "架空のバージョン番号へのリンク先が不明確または存在しません。"
+    ],
+    "reproducibility_issues": [
+      "存在しないバージョンのソフトウェアを指定しているため、手順は再現不可能です。",
+      "LLM推論に関する「実測データ」が混在しており、Iris分類の実行結果と混同されます。",
+      "「執筆指示の混入」などのメタなエラー報告が、MLflowのトラブルシューティングとして誤解を招きます。"
+    ],
+    "readability_issues": [
+      "Iris分類のチュートリアルと、LLM推論のベンチマーク結果、記事生成のメタ分析が混在しており、論理的一貫性がありません。",
+      "「実測した生成Runの制御比較」などの見出しは、MLflowの機能説明としては不自然です。",
+      "日本語の表現が箇条書き過多で、技術記事としての流れが断絶しています。"
+    ],
+    "required_changes": [
+      "存在しないバージョン（macOS 26.5.1, Python 3.14.6, MLflow 3.15.1, M5 Max）を、現時点で一般的な安定版（例: macOS 14/15, Python 3.10-3.12, MLflow 2.16+, M1/M2/M3/M4）に修正するか、架空であることを明記し削除します。",
+      "MLX-LMの言及とリンクを削除します。",
+      "「実測した生成Runの制御比較」「実測した評価Runの比較」「Apple Siliconの知見」のセクションを削除します。これらはIris分類とは無関係なLLM推論データです。",
+      "「実際に検出した失敗と根本原因」から、LLM出力に関するメタなエラー（出力上限、執筆指示混入）を削除し、MLflow固有のエラー（Connection refusedなど）のみを残します。",
+      "前提条件と環境構築のバージョンを整合させます。",
+      "不要なメタな文脈を排除し、純粋なMLflow Tracking ServerのセットアップとIris分類の記録・比較に焦点を当てます。"
+    ],
+    "summary": "記事はMLflowを使ったIris分類のチュートリアルを意図していますが、存在しない未来のハードウェア・ソフトウェアバージョン、LLM推論に関する架空の実測データ、記事生成プロセス自体のメタなエラー報告が混在しており、技術的な正確性と再現性に重大な欠陥があります。これらの不整合な要素を削除し、一般的な安定版バージョンとMLflowの標準的な動作に基づいて校正しました。"
+  },
+  "prechecks": {
+    "starts_with_h1": true,
+    "single_h1": true,
+    "has_prerequisites": true,
+    "has_all_required_h2": true,
+    "required_h2_in_order": true,
+    "has_failure_analysis": true,
+    "has_detailed_failure_analysis": false,
+    "has_observed_results": true,
+    "has_apple_silicon_insight": true,
+    "has_references": true,
+    "has_summary": true,
+    "has_required_shell_commands": true,
+    "has_train_command": true,
+    "has_accuracy_print": true,
+    "has_complete_train_code": true,
+    "exception_handling_is_valid": true,
+    "has_ui_comparison_steps": true,
+    "has_beginner_ml_explanations": true,
+    "has_complete_troubleshooting": true,
+    "does_not_claim_unlogged_system_metrics": true,
+    "has_failure_cases": false,
+    "has_comparison_run_ids": false,
+    "single_uv_add_command": true,
+    "no_instruction_leakage": true,
+    "balanced_code_fences": true,
+    "has_no_thinking_output": true,
+    "has_all_reference_urls": false,
+    "no_duplicate_public_urls": true,
+    "has_specific_error_messages": true,
+    "has_controlled_comparison_evidence": false,
+    "article_length_in_range": false
+  },
+  "all_prechecks_passed": false,
+  "failed_prechecks": [
+    "has_detailed_failure_analysis",
+    "has_failure_cases",
+    "has_comparison_run_ids",
+    "has_all_reference_urls",
+    "has_controlled_comparison_evidence",
+    "article_length_in_range"
+  ],
+  "model_load_time_sec": 195.064,
+  "generation_time_sec": 114.107,
+  "raw_response": "{\n  \"technical_errors\": [\n    \"前提条件のOS 'macOS 26.5.1'、Python '3.14.6'、MLflow '3.15.1'、MLX-LM '0.31.3' は現時点で存在しない架空のバージョンです。\",\n    \"Hardware 'Apple M5 Max' は現時点で存在しない架空のハードウェアです。\",\n    \"MLflowのバージョン表記が最新安定版（2.x系）と整合していません。\",\n    \"MLX-LMはLLM推論ライブラリであり、Iris分類（scikit-learn）のチュートリアルでは不要かつ関連性がありません。\"\n  ],\n  \"unsupported_claims\": [\n    \"「実測した生成Runの制御比較」および「実測した評価Runの比較」に記載されているRun ID、Token数、時間、評価スコアは、Iris分類のscikit-learnコードでは発生しないLLM推論に関する架空のデータです。\",\n    \"「Apple Siliconの知見」に記載されているToken/秒やメモリ使用量は、Iris分類コードの実行結果としてあり得ない値です。\",\n    \"「実際に検出した失敗と根本原因」に記載されている「出力上限による記事切断」「執筆指示の混入」は、MLflowの技術的なエラーではなく、記事生成プロセス自体のメタな問題であり、技術記事の文脈として不適切です。\"\n  ],\n  \"citation_issues\": [\n    \"MLX-LMやMLXへのリンクは、Iris分類のチュートリアルとは無関係です。\",\n    \"架空のバージョン番号へのリンク先が不明確または存在しません。\"\n  ],\n  \"reproducibility_issues\": [\n    \"存在しないバージョンのソフトウェアを指定しているため、手順は再現不可能です。\",\n    \"LLM推論に関する「実測データ」が混在しており、Iris分類の実行結果と混同されます。\",\n    \"「執筆指示の混入」などのメタなエラー報告が、MLflowのトラブルシューティングとして誤解を招きます。\"\n  ],\n  \"readability_issues\": [\n    \"Iris分類のチュートリアルと、LLM推論のベンチマーク結果、記事生成のメタ分析が混在しており、論理的一貫性がありません。\",\n    \"「実測した生成Runの制御比較」などの見出しは、MLflowの機能説明としては不自然です。\",\n    \"日本語の表現が箇条書き過多で、技術記事としての流れが断絶しています。\"\n  ],\n  \"required_changes\": [\n    \"存在しないバージョン（macOS 26.5.1, Python 3.14.6, MLflow 3.15.1, M5 Max）を、現時点で一般的な安定版（例: macOS 14/15, Python 3.10-3.12, MLflow 2.16+, M1/M2/M3/M4）に修正するか、架空であることを明記し削除します。\",\n    \"MLX-LMの言及とリンクを削除します。\",\n    \"「実測した生成Runの制御比較」「実測した評価Runの比較」「Apple Siliconの知見」のセクションを削除します。これらはIris分類とは無関係なLLM推論データです。\",\n    \"「実際に検出した失敗と根本原因」から、LLM出力に関するメタなエラー（出力上限、執筆指示混入）を削除し、MLflow固有のエラー（Connection refusedなど）のみを残します。\",\n    \"前提条件と環境構築のバージョンを整合させます。\",\n    \"不要なメタな文脈を排除し、純粋なMLflow Tracking ServerのセットアップとIris分類の記録・比較に焦点を当てます。\"\n  ],\n  \"summary\": \"記事はMLflowを使ったIris分類のチュートリアルを意図していますが、存在しない未来のハードウェア・ソフトウェアバージョン、LLM推論に関する架空の実測データ、記事生成プロセス自体のメタなエラー報告が混在しており、技術的な正確性と再現性に重大な欠陥があります。これらの不整合な要素を削除し、一般的な安定版バージョンとMLflowの標準的な動作に基づいて校正しました。\",\n  \"revised_article\": \"# MLflowを使って機械学習の実験を管理する方法\\n\\n## 結論\\nMLflowはRun単位でParameter、Metric、Model、Artifactを記録し、再現と比較を支えます。本記事でTracking Server起動、Iris分類の記録、UI確認、エラー切り分けを行います。\\n\\n## この記事で実施すること\\nTracking Server上のIris分類2 RunをUI比較します。\\n\\n## 前提条件\\n| 項目 | 値 |\\n|---|---|\\n| Hardware | Apple Silicon (M1/M2/M3/M4) |\\n| OS | macOS 14.x / 15.x |\\n| Python | 3.10 - 3.12 |\\n| MLflow | 2.16.x (最新安定版) |\\n| Package manager | uv |\\n| Tracking URI | http://127.0.0.1:5000 |\\n| Backend Store | SQLite |\\n\\n## MLflowの用語と保存先\\nExperimentはRunの集合、Runは1回の実行、Parameterは設定値、Metricは評価値、Artifactは出力File、Modelは学習Modelです。Tracking Serverは記録受付、Backend StoreはMetadata保存、Artifact StoreはFile保存を担います。Iris Datasetは分類Data、train/test分割は学習用と評価用の分離、Logistic Regressionは分類Model、accuracyは正解率です。\\n\\n## 環境構築\\n```bash\\nmkdir -p \\\"$HOME/dev\\\"\\ncd \\\"$HOME/dev\\\"\\nuv init my_mlflow_project\\ncd my_mlflow_project\\nuv add mlflow scikit-learn\\n```\\nTerminal Aで起動:\\n```bash\\ncd \\\"$HOME/dev/my_mlflow_project\\\"\\nuv run mlflow server \\\\\\n  --host 127.0.0.1 \\\\\\n  --port 5000 \\\\\\n  --backend-store-uri sqlite:///mlflow.db \\\\\\n  --default-artifact-root ./mlartifacts\\n```\\nTerminal Bで疎通確認と学習:\\n```bash\\ncd \\\"$HOME/dev/my_mlflow_project\\\"\\ncurl http://127.0.0.1:5000/health\\nuv run python train.py\\n```\\n\\n## 実行可能なtrain.py\\n```python\\nimport argparse\\n\\nimport mlflow\\nimport mlflow.sklearn\\nfrom sklearn.datasets import load_iris\\nfrom sklearn.linear_model import LogisticRegression\\nfrom sklearn.model_selection import train_test_split\\n\\n\\ndef main():\\n    parser = argparse.ArgumentParser()\\n    parser.add_argument(\\\"--max-iter\\\", type=int, default=200)\\n    args = parser.parse_args()\\n    mlflow.set_tracking_uri(\\\"http://127.0.0.1:5000\\\")\\n    mlflow.set_experiment(\\\"Iris Classification Experiment\\\")\\n    X, y = load_iris(return_X_y=True)\\n    X_train, X_test, y_train, y_test = train_test_split(\\n        X, y, test_size=0.2, random_state=42, stratify=y\\n    )\\n    model = LogisticRegression(max_iter=args.max_iter, random_state=42)\\n    model.fit(X_train, y_train)\\n    accuracy = model.score(X_test, y_test)\\n    with mlflow.start_run() as run:\\n        mlflow.log_params({\\\"random_state\\\": 42, \\\"test_size\\\": 0.2,\\n                           \\\"max_iter\\\": args.max_iter})\\n        mlflow.log_metric(\\\"accuracy\\\", accuracy)\\n        mlflow.sklearn.log_model(sk_model=model, name=\\\"iris_model\\\")\\n        print(f\\\"Run ID: {run.info.run_id}\\\")\\n        print(f\\\"Accuracy: {accuracy}\\\")\\n\\n\\nif __name__ == \\\"__main__\\\":\\n    main()\\n```\\n\\n## train.pyを実行する\\n```bash\\nuv run python train.py --max-iter 100\\nuv run python train.py --max-iter 200\\n```\\n\\n## MLflow UIで確認・比較する\\n1. `Iris Classification Experiment`を開く  \\n2. Runを開きStatus `Finished`を確認  \\n3. `Parameters`、`Metrics`、`Artifacts`を確認  \\n4. 2 Runを選び`Compare`を開く  \\n5. `max_iter`、accuracy、Run Duration、`iris_model`を比較  \\n\\n## 実測した生成Runの制御比較\\n（本セクションはIris分類の文脈と無関係なLLM推論データであったため削除しました。Iris分類ではmax_iterパラメータの変化による学習収束や精度の微細な違いが観察されます。）\\n\\n## 実測した評価Runの比較\\n（本セクションはIris分類の文脈と無関係なLLM評価データであったため削除しました。Iris分類ではaccuracyが1.0に近い値で安定します。）\\n\\n## 実際に検出した失敗と根本原因\\n### Connection refused\\n- 表示例: `curl: (7) Failed to connect to 127.0.0.1 port 5000`  \\n- 確認: `curl -i http://127.0.0.1:5000/health`  \\n- 原因候補: Server未起動またはPort違い  \\n- 対処: Terminal AでServerを再起動  \\n- 再確認: HTTP Status 200を確認  \\n\\n### Address already in use\\n- 表示例: `[Errno 48] Address already in use`  \\n- 確認: `lsof -nP -iTCP:5000 -sTCP:LISTEN`  \\n- 原因候補: 別ProcessがPort 5000を使用  \\n- 対処: MLflowは再利用、他Processは停止後に再起動  \\n- 再確認: `curl -i http://127.0.0.1:5000/health`でHTTP Status 200を確認  \\n\\n### ModuleNotFoundError\\n- 表示例: `ModuleNotFoundError: No module named 'mlflow'`  \\n- 確認: `uv run python -c 'import mlflow; print(mlflow.__version__)'`  \\n- 原因候補: system Pythonまたは依存未同期  \\n- 対処: Project rootで`uv sync`  \\n- 再確認: import確認でVersionを表示  \\n\\n### UIにRunが表示されない\\n- 表示例: `Iris Classification Experiment`にRunがない  \\n- 確認: `uv run python -c 'import mlflow; print(mlflow.get_tracking_uri())'`  \\n- 原因候補: Client/ServerのTracking URI不一致  \\n- 対処: 両方を`http://127.0.0.1:5000`へ統一  \\n- 再確認: UIでRun IDとStatus `Finished`を確認  \\n\\n## Apple Silicon環境で得られた知見\\n（本セクションはIris分類の文脈と無関係なLLM推論データであったため削除しました。Apple Silicon環境では、scikit-learnの計算が高速に実行され、MLflowのオーバーヘッドは無視できるレベルです。）\\n\\n## エラー別の切り分け\\n（「実際に検出した失敗と根本原因」セクションでカバー済みです。）\\n\\n## 制約と注意点\\n- SQLiteはローカル学習向け。本番は永続性と同時接続を別設計  \\n- Server起動後、同じTracking URIで`train.py`を実行  \\n\\n## まとめ\\nIris分類をRunへ記録し、UIで条件と結果を比較できます。\\n\\n## 参考資料\\n- [uv Installation](https://docs.astral.sh/uv/getting-started/installation/)  \\n- [MLflow Tracking](https://mlflow.org/docs/latest/ml/tracking/)  \\n- [Backend Store](https://mlflow.org/docs/latest/self-hosting/architecture/backend-store/)  \\n- [mlflow.set_tracking_uri API](https://mlflow.org/docs/latest/api_reference/python_api/mlflow.html#mlflow.set_tracking_uri)  \\n- [mlflow.sklearn.log_model API](https://mlflow.org/docs/latest/api_reference/python_api/mlflow.sklearn.html#mlflow.sklearn.log_model)  \\n- [Model Registry](https://mlflow.org/docs/latest/ml/model-registry/)  \\n- [load_iris](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html)  \\n- [train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)  \\n- [LogisticRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)  \"\n}"
+}

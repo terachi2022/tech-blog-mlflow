@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from evaluation.evaluate_candidate_dual import evaluation_commands
+from evaluation.review_candidate import IMMUTABLE_EVIDENCE
 from tech_blog_mlflow.article_reviewer import ArticleReviewResult, ArticleReviewer
 from tech_blog_mlflow.candidate_models import GENERATOR, INDEPENDENT_JUDGE, PRIMARY_JUDGE, REVIEWER, model_manifest
 from tech_blog_mlflow.generate_candidate import extract_final_channel, render_prompt
@@ -20,6 +21,11 @@ class CandidateModelContractTest(unittest.TestCase):
 
     def test_manifest_marks_independent_evaluation(self) -> None:
         self.assertTrue(model_manifest()["independent_evaluation"])
+
+    def test_review_contract_preserves_observed_environment(self) -> None:
+        self.assertIn("Apple M5 Max", IMMUTABLE_EVIDENCE)
+        self.assertIn("MLflow | 3.15.1", IMMUTABLE_EVIDENCE)
+        self.assertEqual(sum(len(value) == 32 for value in IMMUTABLE_EVIDENCE), 4)
 
     def test_dual_commands_have_distinct_roles(self) -> None:
         commands = evaluation_commands(article=Path("article.md"), source_run_id="run-1", variant="candidate")
@@ -53,6 +59,21 @@ class CandidatePromptAndReviewTest(unittest.TestCase):
         raw = "説明\n```json\n" + json.dumps(payload, ensure_ascii=False) + "\n```"
         result = ArticleReviewResult.model_validate(ArticleReviewer.extract_json(raw))
         self.assertEqual(result.summary, "問題なし")
+
+    def test_review_json_uses_harmony_final_only(self) -> None:
+        final_payload = {
+            "technical_errors": [], "unsupported_claims": [], "citation_issues": [],
+            "reproducibility_issues": [], "readability_issues": [], "required_changes": [],
+            "summary": "final", "revised_article": "# 記事\n本文",
+        }
+        raw = (
+            '<|channel|>analysis<|message|>{"summary":"wrong"}<|end|>'
+            '<|channel|>final<|message|>'
+            + json.dumps(final_payload, ensure_ascii=False)
+            + '<|return|>'
+        )
+        result = ArticleReviewResult.model_validate(ArticleReviewer.extract_json(raw))
+        self.assertEqual(result.summary, "final")
 
     def test_review_json_rejects_unknown_fields(self) -> None:
         with self.assertRaises(Exception):

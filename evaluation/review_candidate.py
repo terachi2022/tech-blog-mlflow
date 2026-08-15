@@ -11,10 +11,22 @@ from pathlib import Path
 import mlflow
 
 from tech_blog_mlflow.article_reviewer import ArticleReviewer
+from tech_blog_mlflow.article_v3_checks import ARTICLE_MAX_CHARS, ARTICLE_MIN_CHARS, article_checks
 from tech_blog_mlflow.candidate_models import PIPELINE_VERSION, REVIEWER
 
 
 PROMPT = Path("prompts/article_review_qwen3_6_v1.md")
+IMMUTABLE_EVIDENCE = (
+    "Apple M5 Max",
+    "macOS 26.5.1",
+    "Python | 3.14.6",
+    "MLflow | 3.15.1",
+    "MLX-LM | 0.31.3",
+    "e251b8dae8f04d2fb22e68f1ae6fa41e",
+    "5e2866776b564b4aa28b933f77fe5b51",
+    "bded3f7711c04701b50ec83d59b52b3e",
+    "20b1a60a129f4e77a136d844f799af5c",
+)
 
 
 def digest(text: str) -> str:
@@ -49,6 +61,13 @@ def main() -> None:
     reviewer = ArticleReviewer(model_id=args.model, prompt_path=args.prompt, max_tokens=args.max_tokens)
     result = reviewer.review(article)
     revised = result.revised_article.rstrip() + "\n"
+    checks = article_checks(revised, "")
+    checks["article_length_in_range"] = ARTICLE_MIN_CHARS <= len(revised) <= ARTICLE_MAX_CHARS
+    checks["immutable_evidence_preserved"] = all(
+        value in revised for value in IMMUTABLE_EVIDENCE
+    )
+    checks["substantive_content_preserved"] = len(revised) >= int(len(article) * 0.9)
+    failed_checks = [name for name, passed in checks.items() if not passed]
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_dir = Path("review_results")
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -61,6 +80,9 @@ def main() -> None:
             "revised_article_path": str(article_path),
             "revised_article_sha256": digest(revised),
             "review": result.model_dump(exclude={"revised_article"}),
+            "prechecks": checks,
+            "all_prechecks_passed": not failed_checks,
+            "failed_prechecks": failed_checks,
             "model_load_time_sec": round(reviewer.load_elapsed_sec, 3),
             "generation_time_sec": round(reviewer.generation_elapsed_sec, 3),
             "raw_response": reviewer.raw_response,
@@ -75,11 +97,13 @@ def main() -> None:
         })
         mlflow.set_tags({"stage": "candidate-review", "article_variant": "candidate-reviewed"})
         mlflow.log_metrics({"review_model_load_time_sec": reviewer.load_elapsed_sec, "review_generation_time_sec": reviewer.generation_elapsed_sec})
+        mlflow.log_metric("review_precheck_all_passed", int(not failed_checks))
         mlflow.log_artifact(str(article_path), artifact_path="reviewed_article")
         mlflow.log_artifact(str(result_path), artifact_path="review_metadata")
         print("Review Run :", run.info.run_id)
         print("Article    :", article_path)
         print("Metadata   :", result_path)
+        print("Prechecks  :", checks)
 
 
 if __name__ == "__main__":

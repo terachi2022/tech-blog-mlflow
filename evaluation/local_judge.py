@@ -165,13 +165,13 @@ class LocalArticleJudge:
             }
         ]
 
-        return (
-            self._tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=True,
-            )
-        )
+        kwargs: dict[str, Any] = {
+            "tokenize": False,
+            "add_generation_prompt": True,
+        }
+        if "qwen3.6" in self.model_id.lower():
+            kwargs["enable_thinking"] = False
+        return self._tokenizer.apply_chat_template(messages, **kwargs)
 
     def _generate(
         self,
@@ -225,6 +225,12 @@ class LocalArticleJudge:
         混入した場合にも対応する。
         """
         text = raw_response.strip()
+
+        final_marker = "<|channel|>final<|message|>"
+        if final_marker in text:
+            text = text.rsplit(final_marker, 1)[1]
+            for terminator in ("<|return|>", "<|end|>"):
+                text = text.split(terminator, 1)[0]
 
         decoder = json.JSONDecoder()
 

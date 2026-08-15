@@ -38,6 +38,11 @@ class ArticleReviewer:
 
     @staticmethod
     def extract_json(raw: str) -> dict[str, Any]:
+        final_marker = "<|channel|>final<|message|>"
+        if final_marker in raw:
+            raw = raw.rsplit(final_marker, 1)[1]
+            for terminator in ("<|return|>", "<|end|>"):
+                raw = raw.split(terminator, 1)[0]
         decoder = json.JSONDecoder()
         for position, character in enumerate(raw):
             if character != "{":
@@ -75,7 +80,8 @@ class ArticleReviewer:
             assert self._model is not None and self._tokenizer is not None
             messages = [{"role": "user", "content": prompt}]
             formatted = self._tokenizer.apply_chat_template(
-                messages, tokenize=False, add_generation_prompt=True
+                messages, tokenize=False, add_generation_prompt=True,
+                enable_thinking=False,
             )
             started = time.perf_counter()
             self.raw_response = generate(

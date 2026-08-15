@@ -1,0 +1,86 @@
+{
+  "pipeline_version": "candidate-multi-model-v1.0.0",
+  "article": "articles/candidate_swallow_20260815_164454.md",
+  "article_sha256": "f6cf152a7a47f7c31faf0ca753f02017fdcec79dae8d8d76cf363552b6dbffeb",
+  "source_run_id": "2c6b8629ad8245b2815cdb99b24a3e62",
+  "model": "mlx-community/Qwen3.6-27B-5bit",
+  "prompt": "prompts/article_review_qwen3_6_v1.md",
+  "max_tokens": 8192,
+  "review_run_id": "9237f6f9f54445bfb3eb20d4a63f2f8a",
+  "revised_article_path": "articles/candidate_reviewed_20260815_170107.md",
+  "revised_article_sha256": "f3aeb682191bcc448d62c6f0c01e18ba5e77c5844c1905f15441b2e8cdfe0c33",
+  "review": {
+    "technical_errors": [
+      "MLflow 3.15.1の`mlflow.sklearn.log_model`の引数`sk_model`は非推奨または存在しない可能性があり、通常は`model`引数を使用します。",
+      "MLflow Tracking Server起動コマンドで`--default-artifact-root ./mlartifacts`を指定していますが、`--backend-store-uri`がSQLiteの場合、デフォルトではカレントディレクトリ配下に保存されるため、明示的な指定は不要ですが誤りではありません。ただし、相対パス指定は環境依存になるため注意が必要です。",
+      "Apple M5 MaxやmacOS 26.5.1は現時点（2026年8月）での未来のハードウェア/OSバージョンですが、指示により「実測情報」として扱います。"
+    ],
+    "unsupported_claims": [
+      "「実測した生成Runの制御比較」および「実測した評価Runの比較」に記載の数値は、入力記事に明示された根拠（Run ID, SHA, Token数など）に基づいているため、架空とは見なしません。",
+      "「Apple Siliconの知見」に記載のToken/秒やPeak Memoryも、入力記事の前提条件として与えられた実測値です。"
+    ],
+    "citation_issues": [
+      "参考資料のURLは公式ドキュメントを指しており適切です。",
+      "MLX-LMのGitHubリポジトリへのリンクは、記事内でMLX-LMが前提条件として挙げられているため適切です。"
+    ],
+    "reproducibility_issues": [
+      "環境構築セクションで`uv init`と`uv add`を使用していますが、`uv run`で実行する際の仮想環境の自動管理は`uv`の標準動作です。",
+      "Tracking Serverの起動とクライアント実行の順序が明確です。",
+      "エラー切り分けセクションの対処法は具体的で再現性があります。"
+    ],
+    "readability_issues": [
+      "「実測した生成Runの制御比較」の記述が非常に密集しており、可読性が低いです。リスト形式や表形式への整理が望ましいですが、指示により段落構造を維持しつつ、区切りを明確にします。",
+      "「Apple Siliconの知見」の見出しが「Apple Silicon環境で得られた知見」と異なるため、修正します。",
+      "「実際に検出した失敗と根本原因」内のサブ見出し構造は維持しますが、表現を自然な日本語に整えます。"
+    ],
+    "required_changes": [
+      "見出し「Apple Siliconの知見」を「Apple Silicon環境で得られた知見」に修正。",
+      "「実測した生成Runの制御比較」の文を、区切りを明確にするため改行や箇条書きの要素を強調する表現に微調整（ただし構造変更は最小限）。",
+      "「MLflowの用語と保存先」の定義をより自然な日本語に修正。",
+      "「結論」や「まとめ」の表現を滑らかにする。",
+      "コードブロック内のコメントや出力例は変更しない。",
+      "Run IDやSHAなどの固有識別子は一切変更しない。"
+    ],
+    "summary": "技術的な誤りとして`mlflow.sklearn.log_model`の引数について指摘しましたが、入力記事のコードを尊重し、校正では明らかな構文エラーでない限り変更しません。見出しの順序と表記を指定された16件に厳密に合わせます。実測値はそのまま保持します。"
+  },
+  "prechecks": {
+    "starts_with_h1": true,
+    "single_h1": true,
+    "has_prerequisites": true,
+    "has_all_required_h2": true,
+    "required_h2_in_order": true,
+    "has_failure_analysis": true,
+    "has_detailed_failure_analysis": true,
+    "has_observed_results": true,
+    "has_apple_silicon_insight": true,
+    "has_references": true,
+    "has_summary": true,
+    "has_required_shell_commands": true,
+    "has_train_command": true,
+    "has_accuracy_print": true,
+    "has_complete_train_code": true,
+    "exception_handling_is_valid": true,
+    "has_ui_comparison_steps": true,
+    "has_beginner_ml_explanations": true,
+    "has_complete_troubleshooting": true,
+    "does_not_claim_unlogged_system_metrics": true,
+    "has_failure_cases": true,
+    "has_comparison_run_ids": true,
+    "single_uv_add_command": true,
+    "no_instruction_leakage": true,
+    "balanced_code_fences": true,
+    "has_no_thinking_output": true,
+    "has_all_reference_urls": true,
+    "no_duplicate_public_urls": true,
+    "has_specific_error_messages": true,
+    "has_controlled_comparison_evidence": true,
+    "article_length_in_range": true,
+    "immutable_evidence_preserved": true,
+    "substantive_content_preserved": true
+  },
+  "all_prechecks_passed": true,
+  "failed_prechecks": [],
+  "model_load_time_sec": 1.323,
+  "generation_time_sec": 142.791,
+  "raw_response": "{\n  \"technical_errors\": [\n    \"MLflow 3.15.1の`mlflow.sklearn.log_model`の引数`sk_model`は非推奨または存在しない可能性があり、通常は`model`引数を使用します。\",\n    \"MLflow Tracking Server起動コマンドで`--default-artifact-root ./mlartifacts`を指定していますが、`--backend-store-uri`がSQLiteの場合、デフォルトではカレントディレクトリ配下に保存されるため、明示的な指定は不要ですが誤りではありません。ただし、相対パス指定は環境依存になるため注意が必要です。\",\n    \"Apple M5 MaxやmacOS 26.5.1は現時点（2026年8月）での未来のハードウェア/OSバージョンですが、指示により「実測情報」として扱います。\"\n  ],\n  \"unsupported_claims\": [\n    \"「実測した生成Runの制御比較」および「実測した評価Runの比較」に記載の数値は、入力記事に明示された根拠（Run ID, SHA, Token数など）に基づいているため、架空とは見なしません。\",\n    \"「Apple Siliconの知見」に記載のToken/秒やPeak Memoryも、入力記事の前提条件として与えられた実測値です。\"\n  ],\n  \"citation_issues\": [\n    \"参考資料のURLは公式ドキュメントを指しており適切です。\",\n    \"MLX-LMのGitHubリポジトリへのリンクは、記事内でMLX-LMが前提条件として挙げられているため適切です。\"\n  ],\n  \"reproducibility_issues\": [\n    \"環境構築セクションで`uv init`と`uv add`を使用していますが、`uv run`で実行する際の仮想環境の自動管理は`uv`の標準動作です。\",\n    \"Tracking Serverの起動とクライアント実行の順序が明確です。\",\n    \"エラー切り分けセクションの対処法は具体的で再現性があります。\"\n  ],\n  \"readability_issues\": [\n    \"「実測した生成Runの制御比較」の記述が非常に密集しており、可読性が低いです。リスト形式や表形式への整理が望ましいですが、指示により段落構造を維持しつつ、区切りを明確にします。\",\n    \"「Apple Siliconの知見」の見出しが「Apple Silicon環境で得られた知見」と異なるため、修正します。\",\n    \"「実際に検出した失敗と根本原因」内のサブ見出し構造は維持しますが、表現を自然な日本語に整えます。\"\n  ],\n  \"required_changes\": [\n    \"見出し「Apple Siliconの知見」を「Apple Silicon環境で得られた知見」に修正。\",\n    \"「実測した生成Runの制御比較」の文を、区切りを明確にするため改行や箇条書きの要素を強調する表現に微調整（ただし構造変更は最小限）。\",\n    \"「MLflowの用語と保存先」の定義をより自然な日本語に修正。\",\n    \"「結論」や「まとめ」の表現を滑らかにする。\",\n    \"コードブロック内のコメントや出力例は変更しない。\",\n    \"Run IDやSHAなどの固有識別子は一切変更しない。\"\n  ],\n  \"summary\": \"技術的な誤りとして`mlflow.sklearn.log_model`の引数について指摘しましたが、入力記事のコードを尊重し、校正では明らかな構文エラーでない限り変更しません。見出しの順序と表記を指定された16件に厳密に合わせます。実測値はそのまま保持します。\",\n  \"revised_article\": \"# MLflowを使って機械学習の実験を管理する方法\\n\\n## 結論\\nMLflowはRun単位でParameter、Metric、Model、Artifactを記録し、再現と比較を支えます。本記事ではTracking Serverの起動、Iris分類の記録、UIでの確認、エラーの切り分けを行います。\\n\\n## この記事で実施すること\\nTracking Server上のIris分類2 RunをUIで比較します。\\n\\n## 前提条件\\n| 項目 | 値 |\\n|---|---|\\n| Hardware | Apple M5 Max |\\n| OS | macOS 26.5.1 |\\n| Python | 3.14.6 |\\n| MLflow | 3.15.1 |\\n| MLX-LM | 0.31.3 |\\n| Package manager | uv |\\n| Tracking URI | http://127.0.0.1:5000 |\\n| Backend Store | SQLite |\\n\\n## MLflowの用語と保存先\\nExperimentはRunの集合、Runは1回の実行、Parameterは設定値、Metricは評価値、Artifactは出力ファイル、Modelは学習モデルです。Tracking Serverは記録の受付、Backend Storeはメタデータの保存、Artifact Storeはファイルの保存を担います。Iris Datasetは分類データ、train/test分割は学習用と評価用の分離、Logistic Regressionは分類モデル、accuracyは正解率です。\\n\\n## 環境構築\\n```bash\\nmkdir -p \\\"$HOME/dev\\\"\\ncd \\\"$HOME/dev\\\"\\nuv init my_mlflow_project\\ncd my_mlflow_project\\nuv add \\\"mlflow==3.15.1\\\" scikit-learn\\n```\\nTerminal Aで起動:\\n```bash\\ncd \\\"$HOME/dev/my_mlflow_project\\\"\\nuv run mlflow server \\\\\\n  --host 127.0.0.1 \\\\\\n  --port 5000 \\\\\\n  --backend-store-uri sqlite:///mlflow.db \\\\\\n  --default-artifact-root ./mlartifacts\\n```\\nTerminal Bで疎通確認と学習:\\n```bash\\ncd \\\"$HOME/dev/my_mlflow_project\\\"\\ncurl http://127.0.0.1:5000/health\\nuv run python train.py\\n```\\n\\n## 実行可能なtrain.py\\n```python\\nimport argparse\\n\\nimport mlflow\\nimport mlflow.sklearn\\nfrom sklearn.datasets import load_iris\\nfrom sklearn.linear_model import LogisticRegression\\nfrom sklearn.model_selection import train_test_split\\n\\n\\ndef main():\\n    parser = argparse.ArgumentParser()\\n    parser.add_argument(\\\"--max-iter\\\", type=int, default=200)\\n    args = parser.parse_args()\\n    mlflow.set_tracking_uri(\\\"http://127.0.0.1:5000\\\")\\n    mlflow.set_experiment(\\\"Iris Classification Experiment\\\")\\n    X, y = load_iris(return_X_y=True)\\n    X_train, X_test, y_train, y_test = train_test_split(\\n        X, y, test_size=0.2, random_state=42, stratify=y\\n    )\\n    model = LogisticRegression(max_iter=args.max_iter, random_state=42)\\n    model.fit(X_train, y_train)\\n    accuracy = model.score(X_test, y_test)\\n    with mlflow.start_run() as run:\\n        mlflow.log_params({\\\"random_state\\\": 42, \\\"test_size\\\": 0.2,\\n                           \\\"max_iter\\\": args.max_iter})\\n        mlflow.log_metric(\\\"accuracy\\\", accuracy)\\n        mlflow.sklearn.log_model(sk_model=model, name=\\\"iris_model\\\")\\n        print(f\\\"Run ID: {run.info.run_id}\\\")\\n        print(f\\\"Accuracy: {accuracy}\\\")\\n\\n\\nif __name__ == \\\"__main__\\\":\\n    main()\\n```\\n\\n## train.pyを実行する\\n```bash\\nuv run python train.py --max-iter 100\\nuv run python train.py --max-iter 200\\n```\\n\\n## MLflow UIで確認・比較する\\n1. `Iris Classification Experiment`を開く  \\n2. Runを開きStatus `Finished`を確認  \\n3. `Parameters`、`Metrics`、`Artifacts`を確認  \\n4. 2 Runを選び`Compare`を開く  \\n5. `max_iter`、accuracy、Run Duration、`iris_model`を比較  \\n\\n## 実測した生成Runの制御比較\\n- 比較1: Run `e251b8dae8f04d2fb22e68f1ae6fa41e` / `5e2866776b564b4aa28b933f77fe5b51`、同一Prompt SHA `888648d67bbdd6aa5f1e1a6ca34ced8cf0cc1f7b858af7a97df2f4762d1448f3`、max_tokens 2,048 / 3,072、出力Token 2,048 / 2,586、文字数4,184 / 5,604、時間20.317秒 / 25.656秒、FAIL / PASS。成功Runは上限より486 Token手前で完了。  \\n- 比較2: Run `bded3f7711c04701b50ec83d59b52b3e` / `20b1a60a129f4e77a136d844f799af5c`、同一Prompt SHA `7a8494145b33964db7c6cfa8c1f8567d58db1174ea345e467f8ab9adad6f9042`、max_tokens 3,072 / 4,096、出力Token 3,072 / 3,594、文字数6,993 / 8,495、時間31.640秒 / 36.993秒、FAIL / PASS。  \\n\\n## 実測した評価Runの比較\\n`article-judge-v2.2`のv3.2 / v3.4は、Technical Accuracy 4.75 / 4.50、Helpfulness 3.75 / 3.25、Reproducibility 4.20 / 3.60、Citation Quality 3.25 / 3.00、Readability 4.00 / 3.50、Original Value 2.50 / 2.50、6軸平均3.742 / 3.392です。\\n\\n## 実際に検出した失敗と根本原因\\n### 出力上限による記事切断\\n- 現象: 出力Tokenが上限と一致し末尾見出しが欠落  \\n- 確認: 2組のRun ID、Prompt SHA、上限、出力Tokenを比較  \\n- 根本原因: 同一SHAで上限増加時だけ完了したため、この観測範囲では上限不足  \\n- 修正: 2,048→3,072、別比較では3,072→4,096  \\n- 再検証: 出力Tokenが上限未満で必須見出しが揃った  \\n\\n### 依存追加Commandの重複\\n- 現象: Prompt-v2記事で`uv add mlflow`が2回出力  \\n- 確認: `rg -n '^uv add' articles/prompt_v2_20260814_104216.md`  \\n- 根本原因: 同じ依存追加操作を重複出力  \\n- 修正: `uv add \\\"mlflow==3.15.1\\\" scikit-learn`へ統合  \\n- 再検証: bash内の`uv add`が1行  \\n\\n### 執筆指示の混入\\n- 現象: Prompt-v2記事に執筆者向け命令文が残存  \\n- 確認: `rg -n '執筆指示|掲載指示|記載する|説明します' articles/prompt_v2_20260814_104216.md`  \\n- 根本原因: Prompt向け命令が完成記事へ転記。LLM内部原因は断定しない  \\n- 修正: 執筆メモを禁止し、Prompt文との一致検査を追加  \\n- 再検証: `no_instruction_leakage`がPASS  \\n\\n## Apple Silicon環境で得られた知見\\n当該Apple M5 Max Runは97〜101 Token/秒、Peak Memory 5.379〜5.613 GB。\\n\\n## エラー別の切り分け\\n### Connection refused\\n- 表示例: `curl: (7) Failed to connect to 127.0.0.1 port 5000`  \\n- 確認: `curl -i http://127.0.0.1:5000/health`  \\n- 原因候補: Server未起動またはPort違い  \\n- 対処: Terminal AでServerを再起動  \\n- 再確認: HTTP Status 200を確認  \\n\\n### Address already in use\\n- 表示例: `[Errno 48] Address already in use`  \\n- 確認: `lsof -nP -iTCP:5000 -sTCP:LISTEN`  \\n- 原因候補: 別ProcessがPort 5000を使用  \\n- 対処: MLflowは再利用、他Processは停止後に再起動  \\n- 再確認: `curl -i http://127.0.0.1:5000/health`でHTTP Status 200を確認  \\n\\n### ModuleNotFoundError\\n- 表示例: `ModuleNotFoundError: No module named 'mlflow'`  \\n- 確認: `uv run python -c 'import mlflow; print(mlflow.__version__)'`  \\n- 原因候補: system Pythonまたは依存未同期  \\n- 対処: Project rootで`uv sync`  \\n- 再確認: import確認でVersionを表示  \\n\\n### UIにRunが表示されない\\n- 表示例: `Iris Classification Experiment`にRunがない  \\n- 確認: `uv run python -c 'import mlflow; print(mlflow.get_tracking_uri())'`  \\n- 原因候補: Client/ServerのTracking URI不一致  \\n- 対処: 両方を`http://127.0.0.1:5000`へ統一  \\n- 再確認: UIでRun IDとStatus `Finished`を確認  \\n\\n## 制約と注意点\\n- SQLiteはローカル学習向け。本番は永続性と同時接続を別設計  \\n- Server起動後、同じTracking URIで`train.py`を実行  \\n\\n## まとめ\\nIris分類をRunへ記録し、UIで条件と結果を比較できます。\\n\\n## 参考資料\\n- [uv Installation](https://docs.astral.sh/uv/getting-started/installation/)  \\n- [MLflow Tracking](https://mlflow.org/docs/latest/ml/tracking/)  \\n- [Backend Store](https://mlflow.org/docs/latest/self-hosting/architecture/backend-store/)  \\n- [mlflow.set_tracking_uri API](https://mlflow.org/docs/latest/api_reference/python_api/mlflow.html#mlflow.set_tracking_uri)  \\n- [mlflow.sklearn.log_model API](https://mlflow.org/docs/latest/api_reference/python_api/mlflow.sklearn.html#mlflow.sklearn.log_model)  \\n- [Model Registry](https://mlflow.org/docs/latest/ml/model-registry/)  \\n- [load_iris](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html)  \\n- [train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)  \\n- [LogisticRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)  \\n- [MLX-LM公式Repository](https://github.com/ml-explore/mlx-lm)  \\n- [MLX](https://github.com/ml-explore/mlx)\\n\"\n}"
+}
