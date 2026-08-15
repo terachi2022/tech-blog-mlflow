@@ -1,0 +1,292 @@
+{
+  "workflow_version": "step-alpha-1-review-v1.0.1",
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "queue_name": "article-quality-human-review-v1",
+  "targets": [
+    {
+      "label": "baseline",
+      "evaluation_run_id": "4f56c781fdfb4e95805c6b957302373f",
+      "trace_id": "tr-72032620757663af5d9912a3aebb7e58",
+      "article_variant": "baseline"
+    },
+    {
+      "label": "adopted-candidate",
+      "evaluation_run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+      "trace_id": "tr-4c2e4985a03dd19d214bd64a2094d00a",
+      "article_variant": "prompt-v3.5.2"
+    }
+  ],
+  "question_contracts": [
+    {
+      "name": "human_technical_accuracy_v1",
+      "type": "feedback",
+      "widget": "categorical",
+      "instruction": "技術概念、API、Command、記事内の整合性を1（重大な誤り）〜5（正確）で採点してください。自動評価値を根拠にせず、記事本文を確認してください。",
+      "enable_comment": true,
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false
+    },
+    {
+      "name": "human_helpfulness_v1",
+      "type": "feedback",
+      "widget": "categorical",
+      "instruction": "目的の明確さ、実行可能性、対象読者への適合、切り分けへの有用性を1〜5で採点してください。",
+      "enable_comment": true,
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false
+    },
+    {
+      "name": "human_reproducibility_v1",
+      "type": "feedback",
+      "widget": "categorical",
+      "instruction": "環境、依存関係、Code、実行順、成功確認を含む再現性を1〜5で採点してください。",
+      "enable_comment": true,
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false
+    },
+    {
+      "name": "human_citation_quality_v1",
+      "type": "feedback",
+      "widget": "categorical",
+      "instruction": "出典の権威性、主張との対応、Coverage、Link Contextを1〜5で採点してください。",
+      "enable_comment": true,
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false
+    },
+    {
+      "name": "human_readability_ja_v1",
+      "type": "feedback",
+      "widget": "categorical",
+      "instruction": "構成、文の明瞭さ、用語説明、情報密度を含む日本語の読みやすさを1〜5で採点してください。",
+      "enable_comment": true,
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false
+    },
+    {
+      "name": "human_original_value_v1",
+      "type": "feedback",
+      "widget": "categorical",
+      "instruction": "実測根拠、失敗分析、比較から得た知見、環境固有の知見を1〜5で採点してください。",
+      "enable_comment": true,
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false
+    },
+    {
+      "name": "human_publishable_v1",
+      "type": "feedback",
+      "widget": "pass_fail",
+      "instruction": "現在の内容を公開可能と判断する場合はPublishable、修正が必要な場合はNeeds revisionを選択してください。",
+      "enable_comment": true,
+      "positive_label": "Publishable",
+      "negative_label": "Needs revision"
+    },
+    {
+      "name": "human_review_notes_v1",
+      "type": "feedback",
+      "widget": "text",
+      "instruction": "採点根拠、重要な問題、採用判断に必要な補足を記録してください。特記事項がなければ空欄でも構いません。",
+      "enable_comment": false,
+      "max_length": 4000
+    }
+  ],
+  "mode": "apply",
+  "queue": {
+    "queue_id": "rq-64d8d5abfc3a4f1ea0354dbee87809db",
+    "queue_name": "article-quality-human-review-v1",
+    "queue_type": "custom",
+    "created": true,
+    "users": [],
+    "schema_ids": [
+      "ls-091aff2708914488a4b5dc9c51466732",
+      "ls-12f494ce5d9941c7be5e9e1c5f35514a",
+      "ls-14852dc743024e4cbc2926d59f17944b",
+      "ls-43ba033b7afc465780db5e5bde6813f7",
+      "ls-753c334cfc894ffbbeacdb9dd60c8d2f",
+      "ls-ab1c26c0f67e4b928f603f9b0dd93342",
+      "ls-d1d1debbe4174aef9e2293348932cac1",
+      "ls-f42a121c2fbb428094162aff6a36c298"
+    ]
+  },
+  "schemas": [
+    {
+      "schema_id": "ls-f42a121c2fbb428094162aff6a36c298",
+      "name": "human_technical_accuracy_v1",
+      "type": "feedback",
+      "instruction": "技術概念、API、Command、記事内の整合性を1（重大な誤り）〜5（正確）で採点してください。自動評価値を根拠にせず、記事本文を確認してください。",
+      "enable_comment": true,
+      "widget": "categorical",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false,
+      "created": true
+    },
+    {
+      "schema_id": "ls-d1d1debbe4174aef9e2293348932cac1",
+      "name": "human_helpfulness_v1",
+      "type": "feedback",
+      "instruction": "目的の明確さ、実行可能性、対象読者への適合、切り分けへの有用性を1〜5で採点してください。",
+      "enable_comment": true,
+      "widget": "categorical",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false,
+      "created": true
+    },
+    {
+      "schema_id": "ls-753c334cfc894ffbbeacdb9dd60c8d2f",
+      "name": "human_reproducibility_v1",
+      "type": "feedback",
+      "instruction": "環境、依存関係、Code、実行順、成功確認を含む再現性を1〜5で採点してください。",
+      "enable_comment": true,
+      "widget": "categorical",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false,
+      "created": true
+    },
+    {
+      "schema_id": "ls-14852dc743024e4cbc2926d59f17944b",
+      "name": "human_citation_quality_v1",
+      "type": "feedback",
+      "instruction": "出典の権威性、主張との対応、Coverage、Link Contextを1〜5で採点してください。",
+      "enable_comment": true,
+      "widget": "categorical",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false,
+      "created": true
+    },
+    {
+      "schema_id": "ls-12f494ce5d9941c7be5e9e1c5f35514a",
+      "name": "human_readability_ja_v1",
+      "type": "feedback",
+      "instruction": "構成、文の明瞭さ、用語説明、情報密度を含む日本語の読みやすさを1〜5で採点してください。",
+      "enable_comment": true,
+      "widget": "categorical",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false,
+      "created": true
+    },
+    {
+      "schema_id": "ls-43ba033b7afc465780db5e5bde6813f7",
+      "name": "human_original_value_v1",
+      "type": "feedback",
+      "instruction": "実測根拠、失敗分析、比較から得た知見、環境固有の知見を1〜5で採点してください。",
+      "enable_comment": true,
+      "widget": "categorical",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "multi_select": false,
+      "created": true
+    },
+    {
+      "schema_id": "ls-ab1c26c0f67e4b928f603f9b0dd93342",
+      "name": "human_publishable_v1",
+      "type": "feedback",
+      "instruction": "現在の内容を公開可能と判断する場合はPublishable、修正が必要な場合はNeeds revisionを選択してください。",
+      "enable_comment": true,
+      "widget": "pass_fail",
+      "positive_label": "Publishable",
+      "negative_label": "Needs revision",
+      "created": true
+    },
+    {
+      "schema_id": "ls-091aff2708914488a4b5dc9c51466732",
+      "name": "human_review_notes_v1",
+      "type": "feedback",
+      "instruction": "採点根拠、重要な問題、採用判断に必要な補足を記録してください。特記事項がなければ空欄でも構いません。",
+      "enable_comment": false,
+      "widget": "text",
+      "max_length": 4000,
+      "created": true
+    }
+  ],
+  "items": [
+    {
+      "queue_id": "rq-64d8d5abfc3a4f1ea0354dbee87809db",
+      "item_id": "tr-72032620757663af5d9912a3aebb7e58",
+      "item_type": "trace",
+      "status": "pending",
+      "completed_by": null,
+      "completed_time_ms": null
+    },
+    {
+      "queue_id": "rq-64d8d5abfc3a4f1ea0354dbee87809db",
+      "item_id": "tr-4c2e4985a03dd19d214bd64a2094d00a",
+      "item_type": "trace",
+      "status": "pending",
+      "completed_by": null,
+      "completed_time_ms": null
+    }
+  ],
+  "review_url": "http://127.0.0.1:5000/#/experiments/1/review-queue"
+}

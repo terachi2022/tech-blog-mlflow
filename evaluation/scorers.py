@@ -22,6 +22,37 @@ def _h2_count(text: str) -> int:
     )
 
 
+def _strip_fenced_code(text: str) -> str:
+    """Markdown fenced codeを構造検査から除外する。"""
+    return re.sub(
+        r"```.*?```",
+        "",
+        text,
+        flags=re.DOTALL,
+    )
+
+
+def _numbered_step_count(text: str) -> int:
+    """番号付きH3とMarkdown番号Listの手順数を返す。"""
+    prose = _strip_fenced_code(text)
+
+    numbered_h3 = re.findall(
+        r"^###\s+\d+[.)]\s+.+$",
+        prose,
+        flags=re.MULTILINE,
+    )
+
+    numbered_list = re.findall(
+        r"^\s*\d+[.)]\s+\S.*$",
+        prose,
+        flags=re.MULTILINE,
+    )
+
+    return len(numbered_h3) + len(
+        numbered_list
+    )
+
+
 def _public_external_urls(text: str) -> list[str]:
     """
     本文中の外部公開URLを取得する。
@@ -60,12 +91,19 @@ def _public_external_urls(text: str) -> list[str]:
                 continue
 
         except ValueError:
-            # 通常のDNSホスト名
-            pass
+            # 単一Labelや内部向けSuffixは公開外部URLとして扱わない。
+            normalized_host = host.lower().rstrip(".")
+            if (
+                "." not in normalized_host
+                or normalized_host.endswith(
+                    (".local", ".internal", ".localhost")
+                )
+            ):
+                continue
 
         result.append(url)
 
-    return result
+    return list(dict.fromkeys(result))
 
 
 def _has_explicit_version(text: str) -> bool:
@@ -193,7 +231,7 @@ def code_block_count(outputs: str) -> int:
 @scorer
 def public_external_link_count(outputs: str) -> int:
     """
-    公開外部URL数。
+    重複を除いた公開外部URL数。
 
     localhost等は除外する。
     """
@@ -356,12 +394,8 @@ def reproducibility_proxy(outputs: str) -> Feedback:
             "バージョンあり"
         )
 
-    numbered_steps = len(
-        re.findall(
-            r"^###\s+\d+\.",
-            outputs,
-            flags=re.MULTILINE,
-        )
+    numbered_steps = _numbered_step_count(
+        outputs
     )
 
     if numbered_steps >= 3:

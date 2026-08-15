@@ -16,6 +16,8 @@ from mlx_lm import generate, load
 from mlx_lm.sample_utils import make_sampler
 
 from tech_blog_mlflow.article_v3_checks import (
+    ARTICLE_MAX_CHARS,
+    ARTICLE_MIN_CHARS,
     article_checks,
 )
 
@@ -33,12 +35,12 @@ MODEL_ID: Final = (
 )
 
 PROMPT_PATH: Final = Path(
-    "prompts/article_generation_v3_3.md"
+    "prompts/article_generation_v3_5_2.md"
 )
 
-PROMPT_VERSION: Final = "article-v3.3"
+PROMPT_VERSION: Final = "article-v3.5.2"
 GENERATION_CONFIG_VERSION: Final = (
-    "generation-v3.4"
+    "generation-v3.5.2"
 )
 
 THEME: Final = (
@@ -51,34 +53,41 @@ TEMPERATURE: Final = 0.0
 SEED: Final = 42
 ENABLE_THINKING: Final = False
 
+SYSTEM_PROMPT: Final = (
+    "指示された要件に従い、日本語の技術記事本文だけを"
+    "Markdownで出力してください。Prompt中の執筆指示は"
+    "本文へ転記しないでください。架空の実行結果を作らず、"
+    "提供された観測値だけを実測値として扱ってください。"
+)
+
 BASELINE_GENERATION_RUN_ID: Final = (
     "b7dfd7ec5d0c4439873da3684fc2c5b2"
 )
 
 BASELINE_EVALUATION_RUN_ID: Final = (
-    "bacd99883951428a99f4d91cf75f3852"
+    "59b430669f9344bea9624045e7277856"
 )
 
 PREVIOUS_GENERATION_RUN_ID: Final = (
-    "bded3f7711c04701b50ec83d59b52b3e"
+    "4ff26f6a37de4fc79ffd78c2d3e9b08b"
 )
 
 PREVIOUS_EVALUATION_RUN_ID: Final = (
-    "not-created-precheck-failed"
+    "9935e7b3498140869103d29f6ea57db8"
 )
 
 TOKEN_LIMIT_FAILURE_RUN_ID: Final = (
     "bded3f7711c04701b50ec83d59b52b3e"
 )
 
-PREVIOUS_MAX_TOKENS: Final = 3072
+PREVIOUS_MAX_TOKENS: Final = 4096
 
 PREVIOUS_PROMPT_VERSION: Final = (
-    "article-v3.3"
+    "article-v3.5.1"
 )
 
 PREVIOUS_PROMPT_SHA256: Final = (
-    "7a8494145b33964db7c6cfa8c1f8567d58db1174ea345e467f8ab9adad6f9042"
+    "63e21c848f6a5f8ea775f6275976bc67ddf03a9fb018e8521c7c58cf67360510"
 )
 
 
@@ -163,11 +172,11 @@ def strip_outer_markdown_fence(
     return result
 
 
-def prompt_sha256(
-    prompt: str,
+def text_sha256(
+    text: str,
 ) -> str:
     return hashlib.sha256(
-        prompt.encode("utf-8")
+        text.encode("utf-8")
     ).hexdigest()
 
 
@@ -188,7 +197,7 @@ def main() -> None:
     )
 
     rendered_prompt = render_prompt()
-    prompt_hash = prompt_sha256(
+    prompt_hash = text_sha256(
         rendered_prompt
     )
 
@@ -198,13 +207,13 @@ def main() -> None:
 
     article_path = (
         articles_dir
-        / f"prompt_v3_4_{timestamp}.md"
+        / f"prompt_v3_5_2_{timestamp}.md"
     )
 
     rendered_prompt_path = (
         results_dir
         / (
-            "rendered_prompt_v3_4_"
+            "rendered_prompt_v3_5_2_"
             f"{timestamp}.md"
         )
     )
@@ -230,7 +239,7 @@ def main() -> None:
     )
 
     print("=" * 60)
-    print("Prompt-v3.4 Article Generation")
+    print("Prompt-v3.5.2 Article Generation")
     print("=" * 60)
     print("Model          :", MODEL_ID)
     print("Prompt version :", PROMPT_VERSION)
@@ -246,7 +255,7 @@ def main() -> None:
     print()
 
     with mlflow.start_run(
-        run_name="prompt-v3.4-max4096"
+        run_name="prompt-v3.5.2-max4096"
     ) as run:
         run_id = run.info.run_id
 
@@ -326,13 +335,13 @@ def main() -> None:
                     "generation-config-calibration"
                 ),
                 "purpose": (
-                    "resolve-v3.3-output-truncation"
+                    "fix-v3.5.1-helpfulness-and-prechecks"
                 ),
                 "change_scope": (
-                    "max-tokens-only"
+                    "generator-prompt-only"
                 ),
                 "article_variant": (
-                    "prompt-v3.4"
+                    "prompt-v3.5.2"
                 ),
                 "baseline_prompt_version": (
                     "baseline-v1"
@@ -362,16 +371,7 @@ def main() -> None:
         messages = [
             {
                 "role": "system",
-                "content": (
-                    "指示された要件に従い、"
-                    "日本語の技術記事本文だけを"
-                    "Markdownで出力してください。"
-                    "Prompt中の執筆指示は本文へ"
-                    "転記しないでください。"
-                    "架空の実行結果を作らず、"
-                    "提供された観測値だけを"
-                    "実測値として扱ってください。"
-                ),
+                "content": SYSTEM_PROMPT,
             },
             {
                 "role": "user",
@@ -388,6 +388,20 @@ def main() -> None:
                     ENABLE_THINKING
                 ),
             )
+        )
+
+        formatted_prompt_hash = text_sha256(
+            formatted_prompt
+        )
+        system_prompt_hash = text_sha256(
+            SYSTEM_PROMPT
+        )
+
+        mlflow.log_params(
+            {
+                "formatted_prompt_sha256": formatted_prompt_hash,
+                "system_prompt_sha256": system_prompt_hash,
+            }
         )
 
         generation_started = (
@@ -412,13 +426,25 @@ def main() -> None:
             raw_article
         )
 
+        # Artifact、Hash、文字数、評価入力で同じ文字列を使う。
+        stored_article = article.rstrip() + "\n"
+
+        article_hash = text_sha256(
+            stored_article
+        )
+
+        mlflow.log_param(
+            "article_sha256",
+            article_hash,
+        )
+
         article_path.write_text(
-            article + "\n",
+            stored_article,
             encoding="utf-8",
         )
 
         output_tokens = len(
-            tokenizer.encode(article)
+            tokenizer.encode(stored_article)
         )
 
         generation_tokens_per_sec = (
@@ -433,7 +459,10 @@ def main() -> None:
             / 1_000_000_000
         )
 
-        checks = article_checks(article)
+        checks = article_checks(
+            stored_article,
+            rendered_prompt,
+        )
         checks[
             "output_tokens_below_safety_limit"
         ] = output_tokens < (
@@ -441,7 +470,11 @@ def main() -> None:
         )
         checks[
             "article_length_in_range"
-        ] = 6000 <= len(article) <= 9500
+        ] = (
+            ARTICLE_MIN_CHARS
+            <= len(stored_article)
+            <= ARTICLE_MAX_CHARS
+        )
         failed_checks = (
             [
                 name
@@ -462,7 +495,7 @@ def main() -> None:
                     generation_time_sec
                 ),
                 "article_length": (
-                    len(article)
+                    len(stored_article)
                 ),
                 "output_tokens": (
                     output_tokens
@@ -490,7 +523,7 @@ def main() -> None:
         metadata_path = (
             results_dir
             / (
-                "prompt_v3_4_generation_"
+                "prompt_v3_5_2_generation_"
                 f"{timestamp}_"
                 f"{run_id}.json"
             )
@@ -499,7 +532,7 @@ def main() -> None:
         metadata = {
             "run_id": run_id,
             "run_name": (
-                "prompt-v3.4-max4096"
+                "prompt-v3.5.2-max4096"
             ),
             "article_path": str(
                 article_path
@@ -517,6 +550,13 @@ def main() -> None:
             "prompt_sha256": (
                 prompt_hash
             ),
+            "formatted_prompt_sha256": (
+                formatted_prompt_hash
+            ),
+            "system_prompt_sha256": (
+                system_prompt_hash
+            ),
+            "article_sha256": article_hash,
             "theme": THEME,
             "generation_parameters": {
                 "max_tokens": (
@@ -540,7 +580,7 @@ def main() -> None:
                     3,
                 ),
                 "article_length": len(
-                    article
+                    stored_article
                 ),
                 "output_tokens": (
                     output_tokens
@@ -583,19 +623,19 @@ def main() -> None:
                 ),
             },
             "controlled_change": {
-                "name": "max_tokens",
+                "name": "generator_prompt",
                 "baseline": (
-                    PREVIOUS_MAX_TOKENS
+                    PREVIOUS_PROMPT_VERSION
                 ),
-                "candidate": MAX_TOKENS,
-                "prompt_changed": False,
+                "candidate": PROMPT_VERSION,
+                "prompt_changed": True,
                 "previous_prompt_sha256": (
                     PREVIOUS_PROMPT_SHA256
                 ),
                 "candidate_prompt_sha256": (
                     prompt_hash
                 ),
-                "max_tokens_changed": True,
+                "max_tokens_changed": False,
                 "previous_max_tokens": (
                     PREVIOUS_MAX_TOKENS
                 ),
@@ -649,7 +689,7 @@ def main() -> None:
         )
         print(
             "Article chars :",
-            len(article),
+            len(stored_article),
         )
         print(
             "Output tokens :",

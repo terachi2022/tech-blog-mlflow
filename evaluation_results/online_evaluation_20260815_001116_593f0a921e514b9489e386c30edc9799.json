@@ -1,0 +1,204 @@
+{
+  "schema_version": "offline-online-join-v1",
+  "online_evaluation_version": "online-evaluation-v1",
+  "join_id": "13295bd34b8973fce6ca2d89",
+  "created_at": "2026-08-15T00:11:16+09:00",
+  "online_evaluation_run_id": "593f0a921e514b9489e386c30edc9799",
+  "data_status": "provisional",
+  "partial_reasons": [
+    "GA4 Observationがpartialです。",
+    "GSC Observationがpartialです。",
+    "GSC dataStateがfinalではありません。"
+  ],
+  "publication": {
+    "offline": {
+      "article_path": "articles/prompt_v3_5_2_20260814_164216.md",
+      "article_sha256": "20aec80f03005b30fa85896267bdb81efb122a36ca52c5ef680c70ba2343f824",
+      "combined_evaluation_version": "combined-v2.4.0",
+      "evaluation_run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+      "generation_config_version": "generation-v3.5.2",
+      "generation_model": "Qwen/Qwen3-8B-MLX-4bit",
+      "generation_run_id": "b5c925c2322b4e30b04f07e24d160a04",
+      "generator_prompt_version": "article-v3.5.2",
+      "judge_model": "mlx-community/gemma-3-text-27b-it-4bit",
+      "judge_prompt_version": "article-judge-v2.4",
+      "skills_enabled": false,
+      "version": "offline-reference-v1"
+    },
+    "online": {
+      "cta_tracking": {
+        "enabled": false,
+        "event_name": null
+      },
+      "ga4_property_id": "549810344",
+      "gsc_site_url": "https://www.lmdev.org/wpblog/",
+      "measurement_timezone": "Asia/Tokyo",
+      "published_at": "2026-08-13T22:43:00+09:00",
+      "published_url": "https://www.lmdev.org/wpblog/apple-m5-max%e3%81%a7mlflow%e5%85%ac%e5%bc%8fhyperparameter-tuning%e3%82%92%e5%ae%9f%e8%b7%b5%e3%81%99%e3%82%8b-optuna%e3%81%a7%e3%83%8f%e3%82%a4%e3%83%91%e3%83%bc%e3%83%91%e3%83%a9%e3%83%a1/",
+      "version": "online-target-v1.2"
+    },
+    "publication_id": "65c0b6e43f5dedf39e0011e8",
+    "schema_version": "online-publication-registry-v1.2"
+  },
+  "offline": {
+    "article": {
+      "path": "articles/prompt_v3_5_2_20260814_164216.md",
+      "sha256": "20aec80f03005b30fa85896267bdb81efb122a36ca52c5ef680c70ba2343f824"
+    },
+    "generation": {
+      "path": "generation_results/prompt_v3_5_2_generation_20260814_164216_b5c925c2322b4e30b04f07e24d160a04.json",
+      "file_sha256": "285ac5579b26797d6fae838ea93dd7088583761d1d803450652a31818a2c8892",
+      "run_id": "b5c925c2322b4e30b04f07e24d160a04",
+      "model": "Qwen/Qwen3-8B-MLX-4bit",
+      "prompt_version": "article-v3.5.2",
+      "generation_config_version": "generation-v3.5.2",
+      "metrics": {
+        "model_load_time_sec": 0.572,
+        "generation_time_sec": 33.762,
+        "article_length": 6778,
+        "output_tokens": 3030,
+        "generation_tokens_per_sec": 89.745,
+        "peak_memory_gb": 5.744
+      }
+    },
+    "evaluation": {
+      "path": "evaluation_results/combined_v2_4_0_prompt-v3.5.2_20260814_171403_fdf0c239445f44a0999a6b1fe7a419b6.json",
+      "file_sha256": "477cf89ebe7d5cefcacb10ddb6236299ca29a1612faa409b61cb55f666578f1f",
+      "run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+      "combined_version": "combined-v2.4.0",
+      "judge_model": "mlx-community/gemma-3-text-27b-it-4bit",
+      "judge_prompt_version": "article-judge-v2.4",
+      "metrics": {
+        "code_block_count/mean": 5.0,
+        "article_length_chars/mean": 6778.0,
+        "public_external_link_count/mean": 11.0,
+        "conclusion_near_top/mean": 1.0,
+        "has_h1/mean": 1.0,
+        "reproducibility_proxy/mean": 1.0,
+        "has_prerequisites/mean": 1.0,
+        "has_failure_cases/mean": 1.0,
+        "has_version_info/mean": 1.0,
+        "structure_score/mean": 1.0,
+        "technical_accuracy/mean": 5.0,
+        "helpfulness/mean": 4.5,
+        "reproducibility/mean": 4.8,
+        "citation_quality/mean": 4.5,
+        "readability_ja/mean": 4.5,
+        "original_value/mean": 4.0
+      }
+    }
+  },
+  "online": {
+    "date_alignment": {
+      "same_date_labels": true,
+      "start_date": "2026-08-13",
+      "end_date": "2026-08-14",
+      "ga4_timezone": "Asia/Tokyo",
+      "gsc_timezone": "America/Los_Angeles",
+      "same_instant_window": false
+    },
+    "ga4": {
+      "source_artifact": {
+        "path": "datasets/raw/ga4/ga4_65c0b6e43f5dedf39e0011e8_2026-08-13_2026-08-14_918b5734420c.json",
+        "file_sha256": "85530aa4a8ec83897284011d4ebda869418e3468e8e1e7b342b82ac9f1ac49b2"
+      },
+      "observation": {
+        "collected_at": "2026-08-14T22:14:47+09:00",
+        "collector_version": "ga4-data-api-v1.1",
+        "date_range": {
+          "end_date": "2026-08-14",
+          "start_date": "2026-08-13"
+        },
+        "dimensions": {
+          "ga4_property_id": "549810344",
+          "page_location": "https://www.lmdev.org/wpblog/apple-m5-max%e3%81%a7mlflow%e5%85%ac%e5%bc%8fhyperparameter-tuning%e3%82%92%e5%ae%9f%e8%b7%b5%e3%81%99%e3%82%8b-optuna%e3%81%a7%e3%83%8f%e3%82%a4%e3%83%91%e3%83%bc%e3%83%91%e3%83%a9%e3%83%a1/"
+        },
+        "is_partial": true,
+        "metrics": {
+          "active_users": 2,
+          "average_engagement_time_sec": 0.0,
+          "cta_event_count": null,
+          "cta_rate": null,
+          "cta_rate_denominator": null,
+          "cta_tracking_enabled": false,
+          "screen_page_views": 2,
+          "user_engagement_duration_sec": 0.0
+        },
+        "notes": [
+          "average_engagement_time_secはuserEngagementDuration/activeUsersの派生値です。",
+          "期間に収集日当日を含むため、GA4値は後日更新される可能性があります。",
+          "CTA計測未実装のため、CTA指標は0ではなくnullです。"
+        ],
+        "observation_id": "b1fd59fb0c4bd83bdc7286cd",
+        "publication_id": "65c0b6e43f5dedf39e0011e8",
+        "raw_response_sha256": "918b5734420c36c676d292e7b91b28bc1aa0891fce3cd8b5a26a844ee45b0552",
+        "schema_version": "online-observation-v1",
+        "source": "ga4"
+      }
+    },
+    "gsc": {
+      "source_artifact": {
+        "path": "datasets/raw/gsc/gsc_65c0b6e43f5dedf39e0011e8_2026-08-13_2026-08-14_dda263dd42d1.json",
+        "file_sha256": "573475a6ac693a616dc6fd154e99c10cc0e35ea6b263f08500d9454656659a95"
+      },
+      "observation": {
+        "collected_at": "2026-08-14T07:36:31-07:00",
+        "collector_version": "gsc-search-analytics-v1.1",
+        "date_range": {
+          "end_date": "2026-08-14",
+          "start_date": "2026-08-13"
+        },
+        "dimensions": {
+          "data_state": "all",
+          "date_timezone": "America/Los_Angeles",
+          "detail_artifact_sha256": "97e3a1543e8abe4a5371e162ec1c9e618fddf8be53e90afab9fe9e780fb3ac61",
+          "gsc_site_url": "https://www.lmdev.org/wpblog/",
+          "matched_page_expression": "https://www.lmdev.org/wpblog/apple-m5-max%e3%81%a7mlflow%e5%85%ac%e5%bc%8fhyperparameter-tuning%e3%82%92%e5%ae%9f%e8%b7%b5%e3%81%99%e3%82%8b-optuna%e3%81%a7%e3%83%8f%e3%82%a4%e3%83%91%e3%83%bc%e3%83%91%e3%83%a9%e3%83%a1/",
+          "page": "https://www.lmdev.org/wpblog/apple-m5-max%e3%81%a7mlflow%e5%85%ac%e5%bc%8fhyperparameter-tuning%e3%82%92%e5%ae%9f%e8%b7%b5%e3%81%99%e3%82%8b-optuna%e3%81%a7%e3%83%8f%e3%82%a4%e3%83%91%e3%83%bc%e3%83%91%e3%83%a9%e3%83%a1/",
+          "search_type": "web"
+        },
+        "is_partial": true,
+        "metrics": {
+          "clicks": 0,
+          "ctr": null,
+          "impressions": 0,
+          "position": null
+        },
+        "notes": [
+          "Search Analyticsの日付はAmerica/Los_Angeles（PT）基準です。",
+          "Query/Device/Country明細は別Artifactに保存し、記事集計値へ混在させません。",
+          "Search Analytics APIは内部制限により全明細Rowを保証せず、上位Rowを返します。",
+          "dataState=allのためFresh Dataを含み、値が後から変わる可能性があります。",
+          "期間にPT基準の収集日当日を含みます。",
+          "Aggregate Responseはゼロ指標Rowでした。分母と掲載実績がないためCTRとPositionはnullへ正規化しました。"
+        ],
+        "observation_id": "b2b8103d6734d7878ee67f5e",
+        "publication_id": "65c0b6e43f5dedf39e0011e8",
+        "raw_response_sha256": "dda263dd42d1f9a7ae9e58dc6b8b954e4f0284e31cbb28136abaf0fe3cad2ef9",
+        "schema_version": "online-observation-v1",
+        "source": "gsc"
+      }
+    },
+    "nullable_metrics": [
+      "online/ga4/cta_event_count",
+      "online/ga4/cta_rate",
+      "online/ga4/cta_rate_denominator",
+      "online/gsc/ctr",
+      "online/gsc/position"
+    ]
+  },
+  "decision_policy": {
+    "automatic_promotion": false,
+    "online_thresholds_applied": false,
+    "human_review_required": true,
+    "offline_scores_overwritten": false,
+    "composite_offline_online_score_created": false,
+    "cta_tracking_enabled": false
+  },
+  "mlflow": {
+    "tracking_uri": "http://127.0.0.1:5000",
+    "experiment_name": "tech-blog-generation",
+    "run_name": "online-evaluation-step5-d-v1",
+    "run_id": "593f0a921e514b9489e386c30edc9799"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tech-blog-mlflow:schema:online-observation-v1",
+  "title": "Tech Blog Online Observation",
+  "description": "Publication Registryへpublication_idで接続する期間付きOnline観測値。Offline評価値を含めない。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "observation_id", "publication_id", "source",
+    "collector_version", "collected_at", "date_range", "metrics",
+    "raw_response_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "online-observation-v1"},
+    "observation_id": {"type": "string", "pattern": "^[0-9a-f]{24}$"},
+    "publication_id": {"type": "string", "pattern": "^[0-9a-f]{24}$"},
+    "source": {"enum": ["ga4", "gsc"]},
+    "collector_version": {"type": "string", "minLength": 1},
+    "collected_at": {"type": "string", "format": "date-time"},
+    "date_range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_date", "end_date"],
+      "properties": {
+        "start_date": {"type": "string", "format": "date"},
+        "end_date": {"type": "string", "format": "date"}
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "description": "Collectorが使用したPage、Country、Device、QueryなどのDimension。",
+      "additionalProperties": {"type": ["string", "null"]}
+    },
+    "metrics": {"type": "object"},
+    "raw_response_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "is_partial": {"type": "boolean", "default": false},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"source": {"const": "ga4"}}},
+      "then": {
+        "properties": {
+          "metrics": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "screen_page_views", "active_users", "user_engagement_duration_sec",
+              "average_engagement_time_sec", "cta_tracking_enabled",
+              "cta_event_count", "cta_rate",
+              "cta_rate_denominator"
+            ],
+            "properties": {
+              "screen_page_views": {"type": "number", "minimum": 0},
+              "active_users": {"type": "number", "minimum": 0},
+              "user_engagement_duration_sec": {"type": "number", "minimum": 0},
+              "average_engagement_time_sec": {"type": ["number", "null"], "minimum": 0},
+              "cta_tracking_enabled": {"type": "boolean"},
+              "cta_event_count": {"type": ["number", "null"], "minimum": 0},
+              "cta_rate": {"type": ["number", "null"], "minimum": 0},
+              "cta_rate_denominator": {
+                "enum": ["screen_page_views", null]
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {"cta_tracking_enabled": {"const": false}}
+                },
+                "then": {
+                  "properties": {
+                    "cta_event_count": {"const": null},
+                    "cta_rate": {"const": null},
+                    "cta_rate_denominator": {"const": null}
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {"cta_tracking_enabled": {"const": true}}
+                },
+                "then": {
+                  "properties": {
+                    "cta_event_count": {"type": "number", "minimum": 0},
+                    "cta_rate": {"type": ["number", "null"], "minimum": 0},
+                    "cta_rate_denominator": {"const": "screen_page_views"}
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"source": {"const": "gsc"}}},
+      "then": {
+        "properties": {
+          "metrics": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["clicks", "impressions", "ctr", "position"],
+            "properties": {
+              "clicks": {"type": "number", "minimum": 0},
+              "impressions": {"type": "number", "minimum": 0},
+              "ctr": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+              "position": {"type": ["number", "null"], "minimum": 0}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

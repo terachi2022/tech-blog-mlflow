@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tech-blog-mlflow:schema:online-publication-registry-v1.2",
+  "title": "Tech Blog Publication Registry",
+  "description": "Offline evaluation identityと公開後Online measurement targetを結ぶ。Online metricsは別Datasetへ保存する。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "publication_id", "offline", "online"],
+  "properties": {
+    "schema_version": {"const": "online-publication-registry-v1.2"},
+    "publication_id": {"type": "string", "pattern": "^[0-9a-f]{24}$"},
+    "offline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "article_path", "article_sha256", "generation_run_id",
+        "generation_model", "generator_prompt_version", "generation_config_version",
+        "evaluation_run_id", "combined_evaluation_version", "judge_model",
+        "judge_prompt_version", "skills_enabled"
+      ],
+      "properties": {
+        "version": {"const": "offline-reference-v1"},
+        "article_path": {"type": "string", "minLength": 1},
+        "article_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "generation_run_id": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+        "generation_model": {"type": "string", "minLength": 1},
+        "generator_prompt_version": {"type": "string", "minLength": 1},
+        "generation_config_version": {"type": "string", "minLength": 1},
+        "evaluation_run_id": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+        "combined_evaluation_version": {"type": "string", "minLength": 1},
+        "judge_model": {"type": "string", "minLength": 1},
+        "judge_prompt_version": {"type": "string", "minLength": 1},
+        "skills_enabled": {"type": "boolean"}
+      }
+    },
+    "online": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "published_url", "published_at", "measurement_timezone",
+        "ga4_property_id", "gsc_site_url", "cta_tracking"
+      ],
+      "properties": {
+        "version": {"const": "online-target-v1.2"},
+        "published_url": {"type": "string", "format": "uri", "pattern": "^https://"},
+        "published_at": {"type": "string", "format": "date-time"},
+        "measurement_timezone": {"type": "string", "minLength": 1},
+        "ga4_property_id": {"type": "string", "pattern": "^[0-9]+$"},
+        "gsc_site_url": {"type": "string", "minLength": 1},
+        "cta_tracking": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["enabled", "event_name"],
+          "properties": {
+            "enabled": {"type": "boolean"},
+            "event_name": {
+              "type": ["string", "null"],
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,39}$"
+            }
+          },
+          "allOf": [
+            {
+              "if": {"properties": {"enabled": {"const": false}}},
+              "then": {"properties": {"event_name": {"const": null}}}
+            },
+            {
+              "if": {"properties": {"enabled": {"const": true}}},
+              "then": {"properties": {"event_name": {"type": "string"}}}
+            }
+          ]
+        }
+      }
+    }
+  }
+}

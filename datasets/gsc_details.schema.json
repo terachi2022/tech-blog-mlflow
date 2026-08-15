@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tech-blog-mlflow:schema:gsc-search-details-v1",
+  "title": "GSC Search Analytics Detail Artifact",
+  "description": "記事集計Observationから分離したQuery、Device、Country明細。Search Analytics APIの上位Row制限を持つ。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "collector_version", "publication_id", "date_range",
+    "page_expression", "dimensions", "row_count", "rows", "limitations",
+    "detail_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "gsc-search-details-v1"},
+    "collector_version": {"type": "string", "minLength": 1},
+    "publication_id": {"type": "string", "pattern": "^[0-9a-f]{24}$"},
+    "date_range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_date", "end_date"],
+      "properties": {
+        "start_date": {"type": "string", "format": "date"},
+        "end_date": {"type": "string", "format": "date"}
+      }
+    },
+    "page_expression": {"type": "string", "format": "uri"},
+    "dimensions": {
+      "const": ["query", "device", "country"]
+    },
+    "row_count": {"type": "integer", "minimum": 0},
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "query", "device", "country", "clicks", "impressions", "ctr",
+          "position"
+        ],
+        "properties": {
+          "query": {"type": "string"},
+          "device": {"type": "string"},
+          "country": {"type": "string"},
+          "clicks": {"type": "number", "minimum": 0},
+          "impressions": {"type": "number", "minimum": 0},
+          "ctr": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "position": {"type": ["number", "null"], "minimum": 0}
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
+    "detail_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

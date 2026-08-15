@@ -1,0 +1,283 @@
+{
+  "run_id": "a27ee1a4ef9b4cb98501449efff92f4f",
+  "combined_version": "combined-v2.3",
+  "citation_calibration_version": "citation-calibration-v2.3",
+  "article": {
+    "path": "articles/prompt_v3_4_20260814_132827.md",
+    "variant": "prompt-v3.4",
+    "source_run_id": "20b1a60a129f4e77a136d844f799af5c",
+    "generator_prompt_version": "article-v3.3"
+  },
+  "judge": {
+    "model": "mlx-community/gemma-3-text-27b-it-4bit",
+    "prompt_version": "article-judge-v2.3",
+    "subscore_count": 25,
+    "model_load_time_sec": 1.316,
+    "generation_time_sec": 63.675,
+    "records": [
+      {
+        "attempts": 1,
+        "elapsed_sec": 63.675,
+        "raw_response": "```json\n{\n  \"technical_accuracy\": {\n    \"conceptual_correctness\": {\n      \"score\": 5,\n      \"rationale\": \"MLflowの主要な概念（Experiment, Run, Parameter, Metric, Artifact, Model, Tracking Server, Backend Store）の説明は正確で、矛盾は見られない。\"\n    },\n    \"api_command_correctness\": {\n      \"score\": 4,\n      \"rationale\": \"mlflow.set_tracking_uri, mlflow.sklearn.log_modelなどのAPI使用法は正しい。uvコマンドも適切だが、エラー処理の記述が不十分な点がある。\"\n    },\n    \"internal_consistency\": {\n      \"score\": 5,\n      \"rationale\": \"Experiment名、Tracking URI、ファイル名など、記事内で使用される設定値は一貫している。\"\n    },\n    \"unsupported_claim_control\": {\n      \"score\": 5,\n      \"rationale\": \"実測結果として提示されている値は、記事生成Runまたは評価Runの結果であり、検証されていない結果を断定している箇所はない。\"\n    }\n  },\n  \"helpfulness\": {\n    \"goal_clarity\": {\n      \"score\": 4,\n      \"rationale\": \"記事の目的（MLflowによる実験管理）は明確だが、読者が最終的にIris分類のモデルを構築できるかという点がやや不明確。\"\n    },\n    \"actionability\": {\n      \"score\": 4,\n      \"rationale\": \"手順は明確だが、エラー発生時の具体的な対処方法が不足している。特に、`uv`の導入手順が前提知識として扱われている。\"\n    },\n    \"audience_fit\": {\n      \"score\": 3,\n      \"rationale\": \"MLflowの用語説明はあるが、scikit-learnの知識やPythonの基礎知識が前提とされている。初学者向けには背景説明が不足している。\"\n    },\n    \"troubleshooting_value\": {\n      \"score\": 3,\n      \"rationale\": \"エラー別の切り分けは記載されているが、具体的な問題発生時の切り分けに役立つ情報としてはやや不足している。Error文字列と対処方法の対応が弱い。\"\n    }\n  },\n  \"reproducibility\": {\n    \"environment_specificity\": {\n      \"score\": 4,\n      \"rationale\": \"OS、Python、MLflowのバージョン、パッケージ管理方法などが具体的に記載されている。Apple M5 Maxである点も明記されている。\"\n    },\n    \"dependency_completeness\": {\n      \"score\": 4,\n      \"rationale\": \"必要なpackageとそのインストール手順が記載されているが、uvの導入手順へのリンクがあるのみで、uvの動作確認手順がない。\"\n    },\n    \"code_completeness\": {\n      \"score\": 5,\n      \"rationale\": \"コードに未定義変数や省略記号はなく、1ファイルとして実行可能。データ準備、学習、評価、MLflow記録が全て含まれている。\"\n    },\n    \"execution_sequence\": {\n      \"score\": 4,\n      \"rationale\": \"Terminal AとTerminal Bでの実行順序は明確だが、各Terminalでの実行ディレクトリが明記されていない。\"\n    },\n    \"verification_clarity\": {\n      \"score\": 4,\n      \"rationale\": \"Run IDとaccuracyの確認方法は記載されているが、MLflow UIでの確認方法がやや曖昧。Compare機能の使い方が具体的に説明されていない。\"\n    }\n  },\n  \"citation_quality\": {\n    \"source_authority\": {\n      \"score\": 5,\n      \"rationale\": \"MLflow公式ドキュメント、scikit-learn API Reference、GitHub Repositoryなど、信頼できる情報源を使用している。\"\n    },\n    \"claim_source_alignment\": {\n      \"score\": 4,\n      \"rationale\": \"主張と情報源の対応は概ね良好だが、一部の主張に対してより具体的な出典が必要。\"\n    },\n    \"citation_coverage\": {\n      \"score\": 4,\n      \"rationale\": \"主要な技術的主張に対して必要な範囲の出典はあるが、より網羅的な情報源の提示が望ましい。\"\n    },\n    \"link_context\": {\n      \"score\": 4,\n      \"rationale\": \"各リンクの参照目的は概ね理解できるが、より具体的な説明があると読者の理解が深まる。\"\n    }\n  },\n  \"readability_ja\": {\n    \"structure_flow\": {\n      \"score\": 5,\n      \"rationale\": \"見出しの順序と説明の流れは自然で、論理的な構成になっている。\"\n    },\n    \"sentence_clarity\": {\n      \"score\": 4,\n      \"rationale\": \"日本語の文は自然だが、一部冗長な表現が見られる。より簡潔な表現を心がけるべき。\"\n    },\n    \"terminology_explanation\": {\n      \"score\": 3,\n      \"rationale\": \"専門用語の説明はあるが、初学者にとって理解が難しい用語もある。より丁寧な説明が必要。\"\n    },\n    \"information_density\": {\n      \"score\": 4,\n      \"rationale\": \"説明は過剰または不足にならず、必要な情報へ到達しやすい。ただし、一部の情報が冗長に繰り返されている。\"\n    }\n  },\n  \"original_value\": {\n    \"concrete_evidence\": {\n      \"score\": 4,\n      \"rationale\": \"記事生成Runと評価RunのRun ID、条件、計測値が示されている。これらは記事固有の一次証拠である。\"\n    },\n    \"failure_analysis\": {\n      \"score\": 4,\n      \"rationale\": \"出力上限による記事切断、依存追加Commandの重複、執筆指示の混入など、具体的な失敗例とその原因分析が示されている。\"\n    },\n    \"comparison_insight\": {\n      \"score\": 4,\n      \"rationale\": \"max_tokensの違いによる生成結果の比較から、Token上限が切断原因であるという知見が得られている。\"\n    },\n    \"environment_specific_insight\": {\n      \"score\": 4,\n      \"rationale\": \"Apple Silicon環境でのMLX-LMの実行結果（時間、メモリ）が示されている。これは当該環境固有の知見である。\"\n    }\n  }\n}\n```",
+        "validated_result": {
+          "technical_accuracy": {
+            "conceptual_correctness": {
+              "score": 5,
+              "rationale": "MLflowの主要な概念（Experiment, Run, Parameter, Metric, Artifact, Model, Tracking Server, Backend Store）の説明は正確で、矛盾は見られない。"
+            },
+            "api_command_correctness": {
+              "score": 4,
+              "rationale": "mlflow.set_tracking_uri, mlflow.sklearn.log_modelなどのAPI使用法は正しい。uvコマンドも適切だが、エラー処理の記述が不十分な点がある。"
+            },
+            "internal_consistency": {
+              "score": 5,
+              "rationale": "Experiment名、Tracking URI、ファイル名など、記事内で使用される設定値は一貫している。"
+            },
+            "unsupported_claim_control": {
+              "score": 5,
+              "rationale": "実測結果として提示されている値は、記事生成Runまたは評価Runの結果であり、検証されていない結果を断定している箇所はない。"
+            }
+          },
+          "helpfulness": {
+            "goal_clarity": {
+              "score": 4,
+              "rationale": "記事の目的（MLflowによる実験管理）は明確だが、読者が最終的にIris分類のモデルを構築できるかという点がやや不明確。"
+            },
+            "actionability": {
+              "score": 4,
+              "rationale": "手順は明確だが、エラー発生時の具体的な対処方法が不足している。特に、`uv`の導入手順が前提知識として扱われている。"
+            },
+            "audience_fit": {
+              "score": 3,
+              "rationale": "MLflowの用語説明はあるが、scikit-learnの知識やPythonの基礎知識が前提とされている。初学者向けには背景説明が不足している。"
+            },
+            "troubleshooting_value": {
+              "score": 3,
+              "rationale": "エラー別の切り分けは記載されているが、具体的な問題発生時の切り分けに役立つ情報としてはやや不足している。Error文字列と対処方法の対応が弱い。"
+            }
+          },
+          "reproducibility": {
+            "environment_specificity": {
+              "score": 4,
+              "rationale": "OS、Python、MLflowのバージョン、パッケージ管理方法などが具体的に記載されている。Apple M5 Maxである点も明記されている。"
+            },
+            "dependency_completeness": {
+              "score": 4,
+              "rationale": "必要なpackageとそのインストール手順が記載されているが、uvの導入手順へのリンクがあるのみで、uvの動作確認手順がない。"
+            },
+            "code_completeness": {
+              "score": 5,
+              "rationale": "コードに未定義変数や省略記号はなく、1ファイルとして実行可能。データ準備、学習、評価、MLflow記録が全て含まれている。"
+            },
+            "execution_sequence": {
+              "score": 4,
+              "rationale": "Terminal AとTerminal Bでの実行順序は明確だが、各Terminalでの実行ディレクトリが明記されていない。"
+            },
+            "verification_clarity": {
+              "score": 4,
+              "rationale": "Run IDとaccuracyの確認方法は記載されているが、MLflow UIでの確認方法がやや曖昧。Compare機能の使い方が具体的に説明されていない。"
+            }
+          },
+          "citation_quality": {
+            "source_authority": {
+              "score": 5,
+              "rationale": "MLflow公式ドキュメント、scikit-learn API Reference、GitHub Repositoryなど、信頼できる情報源を使用している。"
+            },
+            "claim_source_alignment": {
+              "score": 4,
+              "rationale": "主張と情報源の対応は概ね良好だが、一部の主張に対してより具体的な出典が必要。"
+            },
+            "citation_coverage": {
+              "score": 4,
+              "rationale": "主要な技術的主張に対して必要な範囲の出典はあるが、より網羅的な情報源の提示が望ましい。"
+            },
+            "link_context": {
+              "score": 4,
+              "rationale": "各リンクの参照目的は概ね理解できるが、より具体的な説明があると読者の理解が深まる。"
+            }
+          },
+          "readability_ja": {
+            "structure_flow": {
+              "score": 5,
+              "rationale": "見出しの順序と説明の流れは自然で、論理的な構成になっている。"
+            },
+            "sentence_clarity": {
+              "score": 4,
+              "rationale": "日本語の文は自然だが、一部冗長な表現が見られる。より簡潔な表現を心がけるべき。"
+            },
+            "terminology_explanation": {
+              "score": 3,
+              "rationale": "専門用語の説明はあるが、初学者にとって理解が難しい用語もある。より丁寧な説明が必要。"
+            },
+            "information_density": {
+              "score": 4,
+              "rationale": "説明は過剰または不足にならず、必要な情報へ到達しやすい。ただし、一部の情報が冗長に繰り返されている。"
+            }
+          },
+          "original_value": {
+            "concrete_evidence": {
+              "score": 4,
+              "rationale": "記事生成Runと評価RunのRun ID、条件、計測値が示されている。これらは記事固有の一次証拠である。"
+            },
+            "failure_analysis": {
+              "score": 4,
+              "rationale": "出力上限による記事切断、依存追加Commandの重複、執筆指示の混入など、具体的な失敗例とその原因分析が示されている。"
+            },
+            "comparison_insight": {
+              "score": 4,
+              "rationale": "max_tokensの違いによる生成結果の比較から、Token上限が切断原因であるという知見が得られている。"
+            },
+            "environment_specific_insight": {
+              "score": 4,
+              "rationale": "Apple Silicon環境でのMLX-LMの実行結果（時間、メモリ）が示されている。これは当該環境固有の知見である。"
+            }
+          }
+        },
+        "citation_calibration": {
+          "version": "citation-calibration-v2.3",
+          "public_external_urls": [
+            "https://docs.astral.sh/uv/getting-started/installation/",
+            "https://mlflow.org/docs/latest/ml/tracking/",
+            "https://mlflow.org/docs/latest/self-hosting/architecture/backend-store/",
+            "https://mlflow.org/docs/latest/api_reference/python_api/mlflow.html#mlflow.set_tracking_uri",
+            "https://mlflow.org/docs/latest/api_reference/python_api/mlflow.sklearn.html#mlflow.sklearn.log_model",
+            "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html",
+            "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html",
+            "https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html",
+            "https://github.com/ml-explore/mlx-lm",
+            "https://github.com/ml-explore/mlx",
+            "https://mlflow.org/docs/latest/ml/model-registry/"
+          ],
+          "public_external_url_count": 11,
+          "markdown_links": [
+            {
+              "label": "uv Installation",
+              "url": "https://docs.astral.sh/uv/getting-started/installation/"
+            },
+            {
+              "label": "MLflow Tracking",
+              "url": "https://mlflow.org/docs/latest/ml/tracking/"
+            },
+            {
+              "label": "MLflow Backend Stores",
+              "url": "https://mlflow.org/docs/latest/self-hosting/architecture/backend-store/"
+            },
+            {
+              "label": "mlflow.set_tracking_uri API",
+              "url": "https://mlflow.org/docs/latest/api_reference/python_api/mlflow.html#mlflow.set_tracking_uri"
+            },
+            {
+              "label": "mlflow.sklearn.log_model API",
+              "url": "https://mlflow.org/docs/latest/api_reference/python_api/mlflow.sklearn.html#mlflow.sklearn.log_model"
+            },
+            {
+              "label": "load_iris",
+              "url": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html"
+            },
+            {
+              "label": "train_test_split",
+              "url": "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html"
+            },
+            {
+              "label": "LogisticRegression",
+              "url": "https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html"
+            },
+            {
+              "label": "MLX-LM公式Repository",
+              "url": "https://github.com/ml-explore/mlx-lm"
+            },
+            {
+              "label": "MLX公式Repository",
+              "url": "https://github.com/ml-explore/mlx"
+            },
+            {
+              "label": "uv Installation",
+              "url": "https://docs.astral.sh/uv/getting-started/installation/"
+            },
+            {
+              "label": "MLflow Tracking",
+              "url": "https://mlflow.org/docs/latest/ml/tracking/"
+            },
+            {
+              "label": "MLflow Backend Stores",
+              "url": "https://mlflow.org/docs/latest/self-hosting/architecture/backend-store/"
+            },
+            {
+              "label": "mlflow.set_tracking_uri API",
+              "url": "https://mlflow.org/docs/latest/api_reference/python_api/mlflow.html#mlflow.set_tracking_uri"
+            },
+            {
+              "label": "mlflow.sklearn.log_model API",
+              "url": "https://mlflow.org/docs/latest/api_reference/python_api/mlflow.sklearn.html#mlflow.sklearn.log_model"
+            },
+            {
+              "label": "MLflow Model Registry",
+              "url": "https://mlflow.org/docs/latest/ml/model-registry/"
+            },
+            {
+              "label": "scikit-learn load_iris",
+              "url": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html"
+            },
+            {
+              "label": "scikit-learn train_test_split",
+              "url": "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html"
+            },
+            {
+              "label": "scikit-learn LogisticRegression",
+              "url": "https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html"
+            },
+            {
+              "label": "MLX-LM公式Repository",
+              "url": "https://github.com/ml-explore/mlx-lm"
+            },
+            {
+              "label": "MLX公式Repository",
+              "url": "https://github.com/ml-explore/mlx"
+            }
+          ],
+          "raw_subscores": {
+            "source_authority": 5,
+            "claim_source_alignment": 4,
+            "citation_coverage": 4,
+            "link_context": 4
+          },
+          "adjustments": [],
+          "adjusted_subscores": {
+            "source_authority": 5,
+            "claim_source_alignment": 4,
+            "citation_coverage": 4,
+            "link_context": 4
+          },
+          "adjusted_score": 4.25,
+          "raw_score": 4.25
+        },
+        "adjusted_aggregate_scores": {
+          "technical_accuracy": 4.75,
+          "helpfulness": 3.5,
+          "reproducibility": 4.2,
+          "citation_quality": 4.25,
+          "readability_ja": 4.0,
+          "original_value": 4.0
+        }
+      }
+    ]
+  },
+  "metrics": {
+    "structure_score/mean": 1.0,
+    "has_failure_cases/mean": 1.0,
+    "public_external_link_count/mean": 11.0,
+    "code_block_count/mean": 10.0,
+    "has_prerequisites/mean": 1.0,
+    "conclusion_near_top/mean": 1.0,
+    "reproducibility_proxy/mean": 1.0,
+    "article_length_chars/mean": 8496.0,
+    "has_version_info/mean": 1.0,
+    "has_h1/mean": 1.0,
+    "technical_accuracy/mean": 4.75,
+    "helpfulness/mean": 3.5,
+    "reproducibility/mean": 4.2,
+    "citation_quality/mean": 4.25,
+    "readability_ja/mean": 4.0,
+    "original_value/mean": 4.0
+  }
+}

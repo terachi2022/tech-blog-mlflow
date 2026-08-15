@@ -1,0 +1,177 @@
+{
+  "workflow_version": "step-alpha-1-review-v2.0.0",
+  "queue": {
+    "queue_id": "rq-cc5995af88dc4365843c35b5122c338a",
+    "queue_name": "article-quality-human-review-v2",
+    "schema_count": 8,
+    "item_count": 2,
+    "status_counts": {
+      "pending": 0,
+      "complete": 2,
+      "declined": 0
+    }
+  },
+  "validation_status": "validated",
+  "effectiveness": {
+    "setup_effective": true,
+    "human_assessment_capture_effective": true,
+    "workflow_completion_effective": true,
+    "queue_has_expected_items": true,
+    "schema_contracts_valid": true,
+    "markdown_previews_valid": true,
+    "expected_items_complete": true
+  },
+  "trace_reviews": [
+    {
+      "trace_id": "tr-0a01b1201261074dc9b5a081d9db41d1",
+      "status": "complete",
+      "completed_by": "default",
+      "trace_retrievable": true,
+      "markdown_preview_valid": true,
+      "human_scores_complete": true,
+      "judge_scores_complete": true,
+      "publishable_answered": true,
+      "human_sources_valid": true,
+      "publishable": false,
+      "review_notes": "最初にしては、最低限出来ているが、どんな課題を解決するために、この記事があるのかがわからない。\n課題・目的・概要を全体的に入れることと、全体的なフローの明確化もすること。",
+      "missing_assessments": [],
+      "scores": {
+        "technical_accuracy": {
+          "trace_id": "tr-0a01b1201261074dc9b5a081d9db41d1",
+          "axis": "technical_accuracy",
+          "human": 3.0,
+          "judge": 5.0,
+          "difference": -2.0,
+          "absolute_difference": 2.0
+        },
+        "helpfulness": {
+          "trace_id": "tr-0a01b1201261074dc9b5a081d9db41d1",
+          "axis": "helpfulness",
+          "human": 3.0,
+          "judge": 4.5,
+          "difference": -1.5,
+          "absolute_difference": 1.5
+        },
+        "reproducibility": {
+          "trace_id": "tr-0a01b1201261074dc9b5a081d9db41d1",
+          "axis": "reproducibility",
+          "human": 4.0,
+          "judge": 4.8,
+          "difference": -0.8,
+          "absolute_difference": 0.8
+        },
+        "citation_quality": {
+          "trace_id": "tr-0a01b1201261074dc9b5a081d9db41d1",
+          "axis": "citation_quality",
+          "human": 3.0,
+          "judge": 4.5,
+          "difference": -1.5,
+          "absolute_difference": 1.5
+        },
+        "readability_ja": {
+          "trace_id": "tr-0a01b1201261074dc9b5a081d9db41d1",
+          "axis": "readability_ja",
+          "human": 3.0,
+          "judge": 4.5,
+          "difference": -1.5,
+          "absolute_difference": 1.5
+        },
+        "original_value": {
+          "trace_id": "tr-0a01b1201261074dc9b5a081d9db41d1",
+          "axis": "original_value",
+          "human": 3.0,
+          "judge": 4.0,
+          "difference": -1.0,
+          "absolute_difference": 1.0
+        }
+      }
+    },
+    {
+      "trace_id": "tr-541e1af35b97f7acf693d5a5b41abff2",
+      "status": "complete",
+      "completed_by": "default",
+      "trace_retrievable": true,
+      "markdown_preview_valid": true,
+      "human_scores_complete": true,
+      "judge_scores_complete": true,
+      "publishable_answered": true,
+      "human_sources_valid": true,
+      "publishable": false,
+      "review_notes": "非常にシンプルで読みやすいが情報量が圧倒的に少なすぎる。",
+      "missing_assessments": [],
+      "scores": {
+        "technical_accuracy": {
+          "trace_id": "tr-541e1af35b97f7acf693d5a5b41abff2",
+          "axis": "technical_accuracy",
+          "human": 3.0,
+          "judge": 4.75,
+          "difference": -1.75,
+          "absolute_difference": 1.75
+        },
+        "helpfulness": {
+          "trace_id": "tr-541e1af35b97f7acf693d5a5b41abff2",
+          "axis": "helpfulness",
+          "human": 3.0,
+          "judge": 3.5,
+          "difference": -0.5,
+          "absolute_difference": 0.5
+        },
+        "reproducibility": {
+          "trace_id": "tr-541e1af35b97f7acf693d5a5b41abff2",
+          "axis": "reproducibility",
+          "human": 2.0,
+          "judge": 3.4,
+          "difference": -1.4,
+          "absolute_difference": 1.4
+        },
+        "citation_quality": {
+          "trace_id": "tr-541e1af35b97f7acf693d5a5b41abff2",
+          "axis": "citation_quality",
+          "human": 2.0,
+          "judge": 1.0,
+          "difference": 1.0,
+          "absolute_difference": 1.0
+        },
+        "readability_ja": {
+          "trace_id": "tr-541e1af35b97f7acf693d5a5b41abff2",
+          "axis": "readability_ja",
+          "human": 3.0,
+          "judge": 3.25,
+          "difference": -0.25,
+          "absolute_difference": 0.25
+        },
+        "original_value": {
+          "trace_id": "tr-541e1af35b97f7acf693d5a5b41abff2",
+          "axis": "original_value",
+          "human": 2.0,
+          "judge": 1.0,
+          "difference": 1.0,
+          "absolute_difference": 1.0
+        }
+      }
+    }
+  ],
+  "judge_alignment": {
+    "comparison_count": 12,
+    "mean_absolute_error": 1.183333,
+    "exact_agreement_rate": 0.0,
+    "within_one_agreement_rate": 0.5,
+    "interpretation": "Judge校正の参考値です。Review機能の成否判定には使いません。"
+  },
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "expected_evaluation_run_ids": [
+    "4f56c781fdfb4e95805c6b957302373f",
+    "fdf0c239445f44a0999a6b1fe7a419b6"
+  ],
+  "source_evaluation_trace_ids": [
+    "tr-4c2e4985a03dd19d214bd64a2094d00a",
+    "tr-72032620757663af5d9912a3aebb7e58"
+  ],
+  "expected_trace_ids": [
+    "tr-0a01b1201261074dc9b5a081d9db41d1",
+    "tr-541e1af35b97f7acf693d5a5b41abff2"
+  ],
+  "review_url": "http://127.0.0.1:5000/#/experiments/1/review-queue"
+}

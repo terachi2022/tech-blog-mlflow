@@ -1,0 +1,174 @@
+{
+  "experiment": "step-4-skills-only",
+  "baseline_generation_json": "generation_results/prompt_v3_5_2_generation_20260814_164216_b5c925c2322b4e30b04f07e24d160a04.json",
+  "candidate_generation_json": "generation_results/skill_v1_generation_20260814_174454_c401d78ed97a4cf697fae366a52a9d84.json",
+  "baseline_generation_run_id": "b5c925c2322b4e30b04f07e24d160a04",
+  "candidate_generation_run_id": "c401d78ed97a4cf697fae366a52a9d84",
+  "baseline_evaluation_run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+  "candidate_evaluation_run_id": "c8d716abd0734bdea038c5890083f5a8",
+  "controlled_change": {
+    "changed_variable": "skills",
+    "baseline": false,
+    "candidate": true,
+    "model": "Qwen/Qwen3-8B-MLX-4bit",
+    "theme": "MLflowを使って機械学習の実験を管理する方法",
+    "prompt_version": "article-v3.5.2",
+    "base_prompt_sha256": "19416090fd3ddd3de09b354ccf125247c248125d915da3191849ce4350781c89",
+    "generation_parameters": {
+      "max_tokens": 4096,
+      "temperature": 0.0,
+      "seed": 42,
+      "enable_thinking": false
+    },
+    "skill": {
+      "enabled": true,
+      "name": "technical-blog-quality",
+      "version": "technical-blog-quality-v1",
+      "path": "skills/technical-blog-quality/SKILL.md",
+      "sha256": "c890891ccd8220df83e2d9887bef95a03b77dd8398da2df4e245002257d98703"
+    },
+    "candidate_prechecks_passed": true,
+    "candidate_failed_prechecks": []
+  },
+  "evaluation_versions": {
+    "combined_version": "combined-v2.4.0",
+    "judge_prompt_version": "article-judge-v2.4",
+    "code_scorer_version": "code-scorer-v3.1",
+    "citation_calibration_version": "citation-calibration-v2.3.1",
+    "content_calibration_version": "content-calibration-v2.4"
+  },
+  "evaluation_metrics": [
+    {
+      "metric": "structure_score/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "reproducibility_proxy/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "has_prerequisites/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "has_version_info/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "has_failure_cases/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "public_external_link_count/mean",
+      "baseline": 11.0,
+      "candidate": 11.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "technical_accuracy/mean",
+      "baseline": 5.0,
+      "candidate": 5.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "helpfulness/mean",
+      "baseline": 4.5,
+      "candidate": 4.5,
+      "delta": 0.0
+    },
+    {
+      "metric": "reproducibility/mean",
+      "baseline": 4.8,
+      "candidate": 4.8,
+      "delta": 0.0
+    },
+    {
+      "metric": "citation_quality/mean",
+      "baseline": 4.5,
+      "candidate": 4.5,
+      "delta": 0.0
+    },
+    {
+      "metric": "readability_ja/mean",
+      "baseline": 4.5,
+      "candidate": 4.5,
+      "delta": 0.0
+    },
+    {
+      "metric": "original_value/mean",
+      "baseline": 4.0,
+      "candidate": 4.0,
+      "delta": 0.0
+    }
+  ],
+  "generation_metrics": [
+    {
+      "metric": "generation_time_sec",
+      "baseline": 33.762,
+      "candidate": 32.2,
+      "delta": -1.562,
+      "delta_percent": -4.6265
+    },
+    {
+      "metric": "article_length",
+      "baseline": 6778.0,
+      "candidate": 6778.0,
+      "delta": 0.0,
+      "delta_percent": 0.0
+    },
+    {
+      "metric": "output_tokens",
+      "baseline": 3030.0,
+      "candidate": 3030.0,
+      "delta": 0.0,
+      "delta_percent": 0.0
+    },
+    {
+      "metric": "generation_tokens_per_sec",
+      "baseline": 89.745,
+      "candidate": 94.098,
+      "delta": 4.353,
+      "delta_percent": 4.8504
+    },
+    {
+      "metric": "peak_memory_gb",
+      "baseline": 5.744,
+      "candidate": 5.707,
+      "delta": -0.037,
+      "delta_percent": -0.6442
+    }
+  ],
+  "llm_judge_mean": {
+    "baseline": 4.55,
+    "candidate": 4.55,
+    "delta": 0.0
+  },
+  "success_checks": {
+    "candidate_prechecks_passed": true,
+    "structure_score_not_regressed": true,
+    "reproducibility_proxy_not_regressed": true,
+    "has_prerequisites_not_regressed": true,
+    "has_version_info_not_regressed": true,
+    "has_failure_cases_not_regressed": true,
+    "technical_accuracy_not_regressed": true,
+    "helpfulness_not_regressed": true,
+    "reproducibility_not_regressed": true,
+    "citation_quality_not_regressed": true,
+    "readability_ja_not_regressed": true,
+    "original_value_not_regressed": true,
+    "llm_judge_mean_not_regressed": true,
+    "skill_value_demonstrated": false
+  },
+  "all_checks_passed": false,
+  "decision": "keep-step-3-no-skill"
+}

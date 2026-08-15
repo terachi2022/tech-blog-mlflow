@@ -19,8 +19,12 @@ from evaluation.comparison_checks import (
 
 TRACKING_URI = "http://127.0.0.1:5000"
 
-DEFAULT_BASELINE_RUN_ID = (
-    "bacd99883951428a99f4d91cf75f3852"
+COMPARABILITY_PARAMS = (
+    "combined_version",
+    "judge_prompt_version",
+    "code_scorer_version",
+    "citation_calibration_version",
+    "content_calibration_version",
 )
 
 METRICS = (
@@ -58,7 +62,7 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "--baseline-run-id",
-        default=DEFAULT_BASELINE_RUN_ID,
+        required=True,
     )
     parser.add_argument(
         "--candidate-run-id",
@@ -70,18 +74,16 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--changed-variable-name",
-        default=(
-            "generator_prompt_and_max_tokens"
-        ),
+        default="generator_prompt",
     )
     parser.add_argument(
         "--candidate-label",
-        default="article-v3.3-max4096",
+        default="article-v3.5.2-max4096",
     )
     parser.add_argument(
         "--output-prefix",
         default=(
-            "comparison_baseline_vs_prompt_v3_4"
+            "comparison_baseline_vs_prompt_v3_5_2"
         ),
     )
 
@@ -132,6 +134,46 @@ def llm_judge_mean(
     ) / len(LLM_JUDGE_METRICS)
 
 
+def comparable_versions(
+    baseline_params: dict[str, str],
+    candidate_params: dict[str, str],
+) -> dict[str, str]:
+    """比較可能性を確認し、共通Versionを返す。"""
+    versions: dict[str, str] = {}
+
+    for name in COMPARABILITY_PARAMS:
+        baseline_value = baseline_params.get(
+            name
+        )
+        candidate_value = candidate_params.get(
+            name
+        )
+
+        if not baseline_value:
+            raise ValueError(
+                "Baseline Runに比較Versionが"
+                f"ありません: {name}"
+            )
+
+        if not candidate_value:
+            raise ValueError(
+                "Candidate Runに比較Versionが"
+                f"ありません: {name}"
+            )
+
+        if baseline_value != candidate_value:
+            raise ValueError(
+                "異なる評価VersionのRunは"
+                "比較できません: "
+                f"{name}: baseline={baseline_value}, "
+                f"candidate={candidate_value}"
+            )
+
+        versions[name] = baseline_value
+
+    return versions
+
+
 def main() -> None:
     args = parse_args()
 
@@ -146,6 +188,11 @@ def main() -> None:
     )
     candidate = client.get_run(
         args.candidate_run_id
+    )
+
+    evaluation_versions = comparable_versions(
+        baseline.data.params,
+        candidate.data.params,
     )
 
     rows: list[dict[str, Any]] = []
@@ -201,6 +248,9 @@ def main() -> None:
             "baseline": args.baseline_label,
             "candidate": args.candidate_label,
         },
+        "evaluation_versions": (
+            evaluation_versions
+        ),
         "metrics": rows,
         "llm_judge_mean": {
             "baseline": rounded(

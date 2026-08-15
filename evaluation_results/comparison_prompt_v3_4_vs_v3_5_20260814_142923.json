@@ -1,0 +1,105 @@
+{
+  "baseline_run_id": "a27ee1a4ef9b4cb98501449efff92f4f",
+  "candidate_run_id": "c8a12c90aa324a43a4277f0c99c0f96e",
+  "changed_variable": {
+    "name": "generator_prompt",
+    "baseline": "article-v3.3-max4096",
+    "candidate": "article-v3.5-max4096"
+  },
+  "evaluation_versions": {
+    "combined_version": "combined-v2.3",
+    "judge_prompt_version": "article-judge-v2.3",
+    "code_scorer_version": "code-scorer-v3",
+    "citation_calibration_version": "citation-calibration-v2.3"
+  },
+  "metrics": [
+    {
+      "metric": "structure_score/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "reproducibility_proxy/mean",
+      "baseline": 1.0,
+      "candidate": 0.75,
+      "delta": -0.25
+    },
+    {
+      "metric": "has_prerequisites/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "has_version_info/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "has_failure_cases/mean",
+      "baseline": 1.0,
+      "candidate": 1.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "public_external_link_count/mean",
+      "baseline": 11.0,
+      "candidate": 11.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "technical_accuracy/mean",
+      "baseline": 4.75,
+      "candidate": 4.75,
+      "delta": 0.0
+    },
+    {
+      "metric": "helpfulness/mean",
+      "baseline": 3.5,
+      "candidate": 3.75,
+      "delta": 0.25
+    },
+    {
+      "metric": "reproducibility/mean",
+      "baseline": 4.2,
+      "candidate": 4.2,
+      "delta": 0.0
+    },
+    {
+      "metric": "citation_quality/mean",
+      "baseline": 4.25,
+      "candidate": 4.0,
+      "delta": -0.25
+    },
+    {
+      "metric": "readability_ja/mean",
+      "baseline": 4.0,
+      "candidate": 4.0,
+      "delta": 0.0
+    },
+    {
+      "metric": "original_value/mean",
+      "baseline": 4.0,
+      "candidate": 3.25,
+      "delta": -0.75
+    }
+  ],
+  "llm_judge_mean": {
+    "baseline": 4.1167,
+    "candidate": 3.9917,
+    "delta": -0.125
+  },
+  "success_checks": {
+    "structure_not_regressed": true,
+    "reproducibility_proxy_improved": false,
+    "technical_accuracy_not_regressed": true,
+    "helpfulness_target": false,
+    "reproducibility_target": true,
+    "citation_quality_target": true,
+    "readability_not_regressed": true,
+    "original_value_target": true
+  },
+  "all_checks_passed": false
+}

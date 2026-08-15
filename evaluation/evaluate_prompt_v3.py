@@ -1,13 +1,20 @@
-"""最新のPrompt-v3.4生成記事をcombined-v2.2で評価する。"""
+"""最新のPrompt-v3.5.2生成記事をcombined-v2.4.0で評価する。"""
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import subprocess
 import sys
 from pathlib import Path
 from typing import Any
+
+from tech_blog_mlflow.article_v3_checks import (
+    ARTICLE_MAX_CHARS,
+    ARTICLE_MIN_CHARS,
+    article_checks,
+)
 
 
 GENERATION_RESULTS_DIR = Path(
@@ -15,23 +22,29 @@ GENERATION_RESULTS_DIR = Path(
 )
 
 GENERATION_PATTERN = (
-    "prompt_v3_4_generation_*.json"
+    "prompt_v3_5_2_generation_*.json"
 )
 
 EXPECTED_PROMPT_VERSION = (
-    "article-v3.3"
+    "article-v3.5.2"
 )
 
 EXPECTED_CONFIG_VERSION = (
-    "generation-v3.4"
+    "generation-v3.5.2"
 )
+
+
+def text_sha256(text: str) -> str:
+    return hashlib.sha256(
+        text.encode("utf-8")
+    ).hexdigest()
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Prompt-v3.4の生成Metadataから"
-            "記事を特定し、combined-v2.2で"
+            "Prompt-v3.5.2の生成Metadataから"
+            "記事を特定し、combined-v2.4.0で"
             "評価する"
         )
     )
@@ -45,7 +58,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--run-name",
         default=(
-            "prompt-v3.4-evaluation-v2.2"
+            "prompt-v3.5.2-evaluation-v2.4.0"
         ),
     )
 
@@ -61,7 +74,7 @@ def latest_generation_json() -> Path:
 
     if not candidates:
         raise FileNotFoundError(
-            "Prompt-v3.4のGeneration JSONが"
+            "Prompt-v3.5.2のGeneration JSONが"
             "ありません。先に"
             "generate_prompt_v3を実行してください。"
         )
@@ -89,8 +102,16 @@ def load_metadata(
     required_keys = {
         "run_id",
         "article_path",
+        "article_sha256",
+        "rendered_prompt_path",
+        "prompt_sha256",
+        "formatted_prompt_sha256",
+        "system_prompt_sha256",
         "prompt_version",
         "generation_config_version",
+        "generation_parameters",
+        "metrics",
+        "prechecks",
         "all_prechecks_passed",
         "failed_prechecks",
     }
@@ -138,6 +159,73 @@ def load_metadata(
             f"記事がありません: {article_path}"
         )
 
+    rendered_prompt_path = Path(
+        payload["rendered_prompt_path"]
+    )
+    if not rendered_prompt_path.exists():
+        raise FileNotFoundError(
+            "Rendered Promptがありません: "
+            f"{rendered_prompt_path}"
+        )
+
+    article = article_path.read_text(
+        encoding="utf-8"
+    )
+    rendered_prompt = rendered_prompt_path.read_text(
+        encoding="utf-8"
+    )
+
+    if text_sha256(article) != payload["article_sha256"]:
+        raise ValueError(
+            "記事SHA-256がGeneration Metadataと一致しません。"
+        )
+
+    if text_sha256(rendered_prompt) != payload["prompt_sha256"]:
+        raise ValueError(
+            "Rendered Prompt SHA-256がGeneration Metadataと一致しません。"
+        )
+
+    metrics = payload["metrics"]
+    parameters = payload["generation_parameters"]
+
+    if int(metrics["article_length"]) != len(article):
+        raise ValueError(
+            "記事文字数がGeneration Metadataと一致しません。"
+        )
+
+    recomputed = article_checks(
+        article,
+        rendered_prompt,
+    )
+    recomputed["output_tokens_below_safety_limit"] = int(
+        metrics["output_tokens"]
+    ) < int(parameters["max_tokens"]) - 64
+    recomputed["article_length_in_range"] = (
+        ARTICLE_MIN_CHARS
+        <= len(article)
+        <= ARTICLE_MAX_CHARS
+    )
+
+    if payload["prechecks"] != recomputed:
+        raise ValueError(
+            "Generation Metadataの事前検査結果を再現できません。"
+        )
+
+    failed = [
+        name
+        for name, passed in recomputed.items()
+        if not passed
+    ]
+    if payload["failed_prechecks"] != failed:
+        raise ValueError(
+            "failed_prechecksが再計算結果と一致しません。"
+        )
+
+    if payload["all_prechecks_passed"] != (not failed):
+        raise ValueError(
+            "all_prechecks_passedが再計算結果と一致しません。"
+        )
+
     return payload
 
 
@@ -149,13 +237,13 @@ def build_evaluation_command(
     return [
         sys.executable,
         "-m",
-        "evaluation.evaluate_combined_v2_2",
+        "evaluation.evaluate_combined_v2_4",
         "--article",
         str(metadata["article_path"]),
         "--source-run-id",
         str(metadata["run_id"]),
         "--variant",
-        "prompt-v3.4",
+        "prompt-v3.5.2",
         "--generator-prompt-version",
         EXPECTED_PROMPT_VERSION,
         "--run-name",
@@ -189,7 +277,7 @@ def main() -> None:
         "Generation Config:",
         metadata["generation_config_version"],
     )
-    print("Judge          : article-judge-v2.2")
+    print("Judge          : article-judge-v2.4")
     print()
 
     subprocess.run(

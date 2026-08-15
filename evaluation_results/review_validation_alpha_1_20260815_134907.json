@@ -1,0 +1,93 @@
+{
+  "workflow_version": "step-alpha-1-review-v2.0.0",
+  "queue": {
+    "queue_id": "rq-cc5995af88dc4365843c35b5122c338a",
+    "queue_name": "article-quality-human-review-v2",
+    "schema_count": 8,
+    "item_count": 2,
+    "status_counts": {
+      "pending": 2,
+      "complete": 0,
+      "declined": 0
+    }
+  },
+  "validation_status": "ready_for_human_review",
+  "effectiveness": {
+    "setup_effective": true,
+    "human_assessment_capture_effective": false,
+    "workflow_completion_effective": false,
+    "queue_has_expected_items": true,
+    "schema_contracts_valid": true,
+    "markdown_previews_valid": true,
+    "expected_items_complete": false
+  },
+  "trace_reviews": [
+    {
+      "trace_id": "tr-0a01b1201261074dc9b5a081d9db41d1",
+      "status": "pending",
+      "completed_by": null,
+      "trace_retrievable": true,
+      "markdown_preview_valid": true,
+      "human_scores_complete": false,
+      "judge_scores_complete": true,
+      "publishable_answered": false,
+      "human_sources_valid": false,
+      "publishable": null,
+      "review_notes": null,
+      "missing_assessments": [
+        "human_technical_accuracy_v1",
+        "human_helpfulness_v1",
+        "human_reproducibility_v1",
+        "human_citation_quality_v1",
+        "human_readability_ja_v1",
+        "human_original_value_v1"
+      ],
+      "scores": {}
+    },
+    {
+      "trace_id": "tr-541e1af35b97f7acf693d5a5b41abff2",
+      "status": "pending",
+      "completed_by": null,
+      "trace_retrievable": true,
+      "markdown_preview_valid": true,
+      "human_scores_complete": false,
+      "judge_scores_complete": true,
+      "publishable_answered": false,
+      "human_sources_valid": false,
+      "publishable": null,
+      "review_notes": null,
+      "missing_assessments": [
+        "human_technical_accuracy_v1",
+        "human_helpfulness_v1",
+        "human_reproducibility_v1",
+        "human_citation_quality_v1",
+        "human_readability_ja_v1",
+        "human_original_value_v1"
+      ],
+      "scores": {}
+    }
+  ],
+  "judge_alignment": {
+    "comparison_count": 0,
+    "mean_absolute_error": null,
+    "exact_agreement_rate": null,
+    "within_one_agreement_rate": null,
+    "interpretation": "人手採点完了後に算出されます。"
+  },
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "expected_evaluation_run_ids": [
+    "4f56c781fdfb4e95805c6b957302373f",
+    "fdf0c239445f44a0999a6b1fe7a419b6"
+  ],
+  "source_evaluation_trace_ids": [
+    "tr-4c2e4985a03dd19d214bd64a2094d00a",
+    "tr-72032620757663af5d9912a3aebb7e58"
+  ],
+  "expected_trace_ids": [
+    "tr-0a01b1201261074dc9b5a081d9db41d1",
+    "tr-541e1af35b97f7acf693d5a5b41abff2"
+  ],
+  "review_url": "http://127.0.0.1:5000/#/experiments/1/review-queue"
+}

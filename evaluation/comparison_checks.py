@@ -6,6 +6,7 @@ from collections.abc import Mapping
 
 
 FLOAT_TOLERANCE = 1e-9
+REPRODUCIBILITY_PROXY_TARGET = 0.8
 
 
 def metric_value(
@@ -40,6 +41,22 @@ def improved(
     return (
         candidate
         > baseline + FLOAT_TOLERANCE
+    )
+
+
+def target_met_without_regression(
+    baseline: float,
+    candidate: float,
+    target: float,
+) -> bool:
+    """目標値を満たし、Baselineから悪化していないか判定する。
+
+    Baselineが満点の場合にもCandidateの満点を成功とする。
+    厳密なimprovedだけを使うと、Baseline=1.0では成功不能になる。
+    """
+    return (
+        candidate + FLOAT_TOLERANCE >= target
+        and not_regressed(baseline, candidate)
     )
 
 
@@ -96,10 +113,11 @@ def build_success_checks(
                 candidate_structure,
             )
         ),
-        "reproducibility_proxy_improved": (
-            improved(
+        "reproducibility_proxy_target_and_not_regressed": (
+            target_met_without_regression(
                 baseline_proxy,
                 candidate_proxy,
+                REPRODUCIBILITY_PROXY_TARGET,
             )
         ),
         "technical_accuracy_not_regressed": (

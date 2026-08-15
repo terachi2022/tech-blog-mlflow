@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tech-blog-mlflow:schema:offline-online-join-v1",
+  "title": "Tech Blog Offline/Online Evaluation Join",
+  "description": "Publication Registryを結合キーにOffline評価と期間付きOnline観測を接続する。両者のScoreは混合しない。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "online_evaluation_version",
+    "join_id",
+    "created_at",
+    "online_evaluation_run_id",
+    "data_status",
+    "partial_reasons",
+    "publication",
+    "offline",
+    "online",
+    "decision_policy"
+  ],
+  "properties": {
+    "schema_version": {"const": "offline-online-join-v1"},
+    "online_evaluation_version": {"const": "online-evaluation-v1"},
+    "join_id": {"type": "string", "pattern": "^[0-9a-f]{24}$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "online_evaluation_run_id": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{32}$"
+    },
+    "data_status": {"enum": ["provisional", "final"]},
+    "partial_reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "publication": {"type": "object"},
+    "offline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["article", "generation", "evaluation"],
+      "properties": {
+        "article": {"type": "object"},
+        "generation": {"type": "object"},
+        "evaluation": {"type": "object"}
+      }
+    },
+    "online": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date_alignment", "ga4", "gsc", "nullable_metrics"],
+      "properties": {
+        "date_alignment": {"type": "object"},
+        "ga4": {"type": "object"},
+        "gsc": {"type": "object"},
+        "nullable_metrics": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        }
+      }
+    },
+    "decision_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "automatic_promotion",
+        "online_thresholds_applied",
+        "human_review_required",
+        "offline_scores_overwritten",
+        "composite_offline_online_score_created",
+        "cta_tracking_enabled"
+      ],
+      "properties": {
+        "automatic_promotion": {"const": false},
+        "online_thresholds_applied": {"const": false},
+        "human_review_required": {"const": true},
+        "offline_scores_overwritten": {"const": false},
+        "composite_offline_online_score_created": {"const": false},
+        "cta_tracking_enabled": {"type": "boolean"}
+      }
+    },
+    "mlflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tracking_uri", "experiment_name", "run_name", "run_id"],
+      "properties": {
+        "tracking_uri": {"type": "string"},
+        "experiment_name": {"type": "string"},
+        "run_name": {"type": "string"},
+        "run_id": {"type": "string", "pattern": "^[0-9a-f]{32}$"}
+      }
+    }
+  }
+}
+

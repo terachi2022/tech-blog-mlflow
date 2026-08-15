@@ -1,0 +1,86 @@
+{
+  "run_id": "dcde94681a66490184507c1783df0402",
+  "run_name": "prompt-v3.5.2-max4096",
+  "article_path": "articles/prompt_v3_5_2_20260814_163540.md",
+  "rendered_prompt_path": "generation_results/rendered_prompt_v3_5_2_20260814_163540.md",
+  "model": "Qwen/Qwen3-8B-MLX-4bit",
+  "prompt_version": "article-v3.5.2",
+  "generation_config_version": "generation-v3.5.2",
+  "prompt_sha256": "257191c965fa6e00a3dcb389c586d1b7a8885daace86bad93759304c03bb6d5a",
+  "formatted_prompt_sha256": "1c2363d0b2782a76f2201c016790cc96a24fa93473953926f4ab11cce369cef9",
+  "system_prompt_sha256": "8a8427dfa01b57919d6555cde71fd008a25ce220d271ed1d16e0a6ba02e5ddb9",
+  "article_sha256": "c5dac0f62d9fe1691a777eaf1d9675f5c2f4604584c9546ee0cf526c229b9967",
+  "theme": "MLflowを使って機械学習の実験を管理する方法",
+  "generation_parameters": {
+    "max_tokens": 4096,
+    "temperature": 0.0,
+    "seed": 42,
+    "enable_thinking": false
+  },
+  "metrics": {
+    "model_load_time_sec": 0.574,
+    "generation_time_sec": 34.499,
+    "article_length": 7283,
+    "output_tokens": 3287,
+    "generation_tokens_per_sec": 95.277,
+    "peak_memory_gb": 5.707
+  },
+  "prechecks": {
+    "starts_with_h1": true,
+    "single_h1": true,
+    "has_prerequisites": true,
+    "has_all_required_h2": true,
+    "required_h2_in_order": true,
+    "has_failure_analysis": true,
+    "has_detailed_failure_analysis": true,
+    "has_observed_results": true,
+    "has_apple_silicon_insight": true,
+    "has_references": true,
+    "has_summary": true,
+    "has_required_shell_commands": true,
+    "has_train_command": true,
+    "has_accuracy_print": true,
+    "has_complete_train_code": true,
+    "exception_handling_is_valid": true,
+    "has_ui_comparison_steps": true,
+    "has_beginner_ml_explanations": true,
+    "has_complete_troubleshooting": true,
+    "does_not_claim_unlogged_system_metrics": true,
+    "has_failure_cases": true,
+    "has_comparison_run_ids": true,
+    "single_uv_add_command": true,
+    "no_instruction_leakage": true,
+    "balanced_code_fences": true,
+    "has_no_thinking_output": true,
+    "has_all_reference_urls": true,
+    "no_duplicate_public_urls": true,
+    "has_specific_error_messages": true,
+    "has_controlled_comparison_evidence": true,
+    "article_length_in_range": false,
+    "output_tokens_below_safety_limit": true
+  },
+  "all_prechecks_passed": false,
+  "failed_prechecks": [
+    "article_length_in_range"
+  ],
+  "baseline": {
+    "generation_run_id": "b7dfd7ec5d0c4439873da3684fc2c5b2",
+    "evaluation_run_id": "59b430669f9344bea9624045e7277856"
+  },
+  "previous_candidate": {
+    "prompt_version": "article-v3.5.1",
+    "generation_run_id": "4ff26f6a37de4fc79ffd78c2d3e9b08b",
+    "evaluation_run_id": "9935e7b3498140869103d29f6ea57db8"
+  },
+  "controlled_change": {
+    "name": "generator_prompt",
+    "baseline": "article-v3.5.1",
+    "candidate": "article-v3.5.2",
+    "prompt_changed": true,
+    "previous_prompt_sha256": "63e21c848f6a5f8ea775f6275976bc67ddf03a9fb018e8521c7c58cf67360510",
+    "candidate_prompt_sha256": "257191c965fa6e00a3dcb389c586d1b7a8885daace86bad93759304c03bb6d5a",
+    "max_tokens_changed": false,
+    "previous_max_tokens": 4096,
+    "candidate_max_tokens": 4096
+  }
+}
