@@ -25,7 +25,7 @@ uv run python -m tech_blog_mlflow.generate_candidate \
   --theme '記事のテーマ'
 ```
 
-出力されたGeneration Run IDと記事Pathを控えます。`max_tokens`はまず4,096のまま比較します。
+出力されたGeneration Run IDと記事Pathを控えます。GPT-OSSでは内部Reasoningとfinal本文が同じ生成枠を使うため、`max_tokens=10000`を使用します。記事本文の目標は5,800〜6,800文字、Length Guardは1,800〜7,000文字のままです。
 
 ## 3. レビュー・校正
 
@@ -59,7 +59,8 @@ Qwen Primary Judgeの後にModelを解放してGemma Independent Judgeを起動�
 
 ## 5. 採用条件
 
-- 3〜5テーマで同じPromptと`max_tokens=4096`を使う
+- 3〜5テーマで同じPrompt、記事長目標、Code Scorerを使う
+- SwallowではReasoning込み`max_tokens=10000`を固定する
 - Baselineより技術的正確性・有用性・再現性が改善する
 - QwenとGemmaのScore差が大きい記事は人手Reviewする
 - 架空の実測値や引用が増えていない

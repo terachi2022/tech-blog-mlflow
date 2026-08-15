@@ -12,6 +12,7 @@ from tech_blog_mlflow.generate_candidate import extract_final_channel, render_pr
 class CandidateModelContractTest(unittest.TestCase):
     def test_roles_and_models_are_separated(self) -> None:
         self.assertIn("GPT-OSS-Swallow-120B", GENERATOR.model_id)
+        self.assertEqual(GENERATOR.max_tokens, 10000)
         self.assertIn("Qwen3.6-27B", REVIEWER.model_id)
         self.assertEqual(PRIMARY_JUDGE.model_id, REVIEWER.model_id)
         self.assertNotEqual(PRIMARY_JUDGE.model_id, INDEPENDENT_JUDGE.model_id)

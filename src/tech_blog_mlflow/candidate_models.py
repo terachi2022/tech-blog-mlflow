@@ -27,7 +27,9 @@ GENERATOR: Final = CandidateModel(
     model_id="tocchitocchi/GPT-OSS-Swallow-120B-RL-v0.1-6bit-mlx",
     runtime="mlx-lm",
     quantization="6bit-mlx-community-conversion",
-    max_tokens=4096,
+    # GPT-OSSは非公開reasoningとfinal本文で同じ生成枠を使う。
+    # 記事長の目標は5,800〜6,800文字のまま変更しない。
+    max_tokens=10000,
 )
 
 REVIEWER: Final = CandidateModel(
