@@ -1,0 +1,23 @@
+{
+  "workflow_version": "step-alpha-4-dataset-v1.0.0",
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "dataset_name": "tech-blog-article-quality-calibration-v1",
+  "dataset_id": "d-f21d22043d7749a387cf34bc06fcffd5",
+  "digest": "0064e950",
+  "record_count": 2,
+  "variants": [
+    "baseline",
+    "prompt-v3.5.2"
+  ],
+  "checks": {
+    "experiment_linked": true,
+    "tags_match": true,
+    "record_count_matches": true,
+    "records_match": true,
+    "variants_unique": true,
+    "human_expectations_complete": true
+  },
+  "validation_status": "validated"
+}

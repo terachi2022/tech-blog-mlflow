@@ -1,0 +1,44 @@
+{
+  "workflow_version": "step-alpha-4-dataset-v1.0.0",
+  "tracking_uri": "http://127.0.0.1:5000",
+  "experiment_name": "tech-blog-generation",
+  "experiment_id": "1",
+  "dataset_name": "tech-blog-article-quality-calibration-v1",
+  "record_count": 2,
+  "manifest_sha256": "16d26b7f00f6233f8b13a5b6cb0e52b93d4e11ed0619b6aa6e70aa4157860af2",
+  "records": [
+    {
+      "variant": "baseline",
+      "article_path": "articles/baseline_20260814_004017.md",
+      "article_sha256": "181ba7b4c01e3d4743cdf35f9f3380d87ffeecf04fc13b9100dffcc30ff3c013",
+      "generation_run_id": "b7dfd7ec5d0c4439873da3684fc2c5b2",
+      "evaluation_run_id": "4f56c781fdfb4e95805c6b957302373f",
+      "human_scores": {
+        "technical_accuracy": 3,
+        "helpfulness": 3,
+        "reproducibility": 2,
+        "citation_quality": 2,
+        "readability_ja": 3,
+        "original_value": 2
+      },
+      "publishable": false
+    },
+    {
+      "variant": "prompt-v3.5.2",
+      "article_path": "articles/prompt_v3_5_2_20260814_164216.md",
+      "article_sha256": "20aec80f03005b30fa85896267bdb81efb122a36ca52c5ef680c70ba2343f824",
+      "generation_run_id": "b5c925c2322b4e30b04f07e24d160a04",
+      "evaluation_run_id": "fdf0c239445f44a0999a6b1fe7a419b6",
+      "human_scores": {
+        "technical_accuracy": 3,
+        "helpfulness": 3,
+        "reproducibility": 4,
+        "citation_quality": 3,
+        "readability_ja": 3,
+        "original_value": 3
+      },
+      "publishable": false
+    }
+  ],
+  "mode": "dry-run"
+}

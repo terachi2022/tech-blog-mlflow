@@ -5,8 +5,8 @@ Apple M5 Max上で、技術ブログの生成条件、生成物、オフライ�
 BaselineからPrompt-v3.5.2までの改善、Local LLM Judgeの校正、同一Evaluatorによる再評価と比較まで完了しました。STEP 3の最終比較は、すべての成功条件を満たして`Overall: PASS`です。STEP 4では採用Promptを固定したSkills-only制御実験を実施し、記事がByte単位で同一だったため、Skillは不採用としてNo-Skill版を継続採用しました。STEP 5-A〜5-Cでは公開記事Registry、GA4、Search Consoleの期間付き観測を実装し、STEP 5-DではOffline/Online JoinをMLflowへ記録する入口を追加しました。
 
 > 最終更新: 2026-08-15  
-> 現在地点: STEP-α-3 External Model 2件の登録・検証まで完了  
-> 次工程: Models画面の目視確認後、STEP-α-4で評価対象記事をDatasetとして固定  
+> 現在地点: STEP-α-4で記事と人手評価をEvaluation Datasetへ固定済み  
+> 次工程: Dataset画面の目視確認後、STEP-α-5でLocal MLX JudgeのGUI統合境界を確定  
 > 実行方式: Terminal + Python Module  
 > Jupyter Notebook: 不要
 
@@ -1215,3 +1215,40 @@ Judge     : models:/m-57625c5d614f4b9382aa9a243abb340c valid=True
 両Modelは`READY`で、Source RunとPrompt Versionの接続、Tag、Parameterが仕様と一致しています。Artifactはメタデータ用の`MLmodel`だけであり、モデル重みは保存されていません。再実行では両方とも`created: false`、`prompt_link_created: false`となり、同じModel IDが再利用されました。
 
 証跡は`evaluation_results/external_models_alpha_3_validation_20260815_150723.json`です。
+
+### 22.4 STEP-α-4 Datasets
+
+Baselineと採用Candidateの記事本文、由来、STEP-α-1の人手評価を、次のEvaluation Datasetへ固定しました。
+
+```text
+Name       : tech-blog-article-quality-calibration-v1
+Dataset ID : d-f21d22043d7749a387cf34bc06fcffd5
+Digest     : 0064e950
+Records    : 2
+```
+
+各Recordの`inputs`には記事MarkdownとTheme、`expectations`には人手6軸、公開可否、Review notesを保存しています。`tags`にはVariant、記事Path/SHA-256、Generation/Evaluation Run、Evaluation Trace、Generator Prompt Versionを保持します。
+
+Datasetは`immutable=true`として扱います。記事または人手期待値が変わるとManifest SHA-256が変化し、既存Datasetを上書きせず停止します。対象追加や期待値変更時は`-v2`など新しいDataset Versionを作成します。
+
+実装ファイル:
+
+| ファイル | 役割 |
+|---|---|
+| `src/tech_blog_mlflow/evaluation_dataset_registry.py` | Record構築、記事SHA検証、Manifest、冪等登録、検証 |
+| `evaluation/setup_evaluation_dataset.py` | Dry Runと登録CLI |
+| `evaluation/validate_evaluation_dataset.py` | Experiment、Tag、Record、人手期待値の検証CLI |
+| `tests/test_step_alpha_4_dataset.py` | Manifest、固定Tag、重複防止の回帰テスト |
+| `INSTALL_STEP_ALPHA_4_DATASET.md` | 実行・画面確認手順 |
+
+完了結果:
+
+```text
+Status   : validated
+Records  : 2
+Variants : ['baseline', 'prompt-v3.5.2']
+```
+
+再実行では同じDataset IDを再利用し、`Created: False`を確認しました。STEP-α-1〜α-4の関連テスト40件はすべて成功しています。
+
+証跡は`evaluation_results/evaluation_dataset_alpha_4_validation_20260815_151637.json`です。
