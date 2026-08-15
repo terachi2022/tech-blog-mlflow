@@ -98,6 +98,17 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--generator-model",
+        default=GENERATOR_MODEL,
+    )
+
+    parser.add_argument(
+        "--judge-role",
+        choices=("primary", "independent"),
+        default="primary",
+    )
+
+    parser.add_argument(
         "--model",
         default=DEFAULT_JUDGE_MODEL,
     )
@@ -260,9 +271,7 @@ def main() -> None:
                 "source_run_id": (
                     args.source_run_id
                 ),
-                "generator_model": (
-                    GENERATOR_MODEL
-                ),
+                "generator_model": args.generator_model,
                 "generator_prompt_version": (
                     args.generator_prompt_version
                 ),
@@ -306,7 +315,7 @@ def main() -> None:
     print("Variant      :", args.variant)
     print(
         "Generator    :",
-        GENERATOR_MODEL,
+        args.generator_model,
     )
     print(
         "Gen Prompt   :",
@@ -356,9 +365,7 @@ def main() -> None:
                 "source_run_id": (
                     args.source_run_id
                 ),
-                "generator_model": (
-                    GENERATOR_MODEL
-                ),
+                "generator_model": args.generator_model,
                 "generator_prompt_version": (
                     args.generator_prompt_version
                 ),
@@ -366,6 +373,7 @@ def main() -> None:
                     CODE_SCORER_VERSION
                 ),
                 "judge_model": args.model,
+                "judge_role": args.judge_role,
                 "judge_prompt_version": (
                     JUDGE_PROMPT_VERSION
                 ),
@@ -397,8 +405,11 @@ def main() -> None:
                     "local-mlx"
                 ),
                 "judge_family": (
-                    "gemma-3"
+                    "qwen-3.6"
+                    if args.judge_role == "primary"
+                    else "gemma-3"
                 ),
+                "judge_role": args.judge_role,
                 "score_method": (
                     "subcriteria-mean"
                 ),

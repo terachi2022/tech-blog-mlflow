@@ -35,6 +35,8 @@ STEP-α-1実装Versionは`step-alpha-1-review-v2.0.0`です。評価RunのTrace�
 | Generator | `Qwen/Qwen3-8B-MLX-4bit` |
 | Judge | `mlx-community/gemma-3-text-27b-it-4bit` |
 
+既存構成はBaselineとして維持します。Swallow 120B Generator、Qwen3.6 Reviewer/Primary Judge、Gemma Independent Judgeを使う追加Candidateは`INSTALL_CANDIDATE_MULTI_MODEL.md`を参照してください。
+
 ### 2.2 評価を3階層に分ける
 
 | Level | 評価方法 | 主な用途 | 状態 |
@@ -446,11 +448,11 @@ Generation Timeの`33.762秒`から`32.200秒`への変化と、Token/秒の`89.
 | 5-C | Search Console Search Analytics Collector | 完了 |
 | 5-D | Online Evaluation RunとOffline/Online Join | 暫定Run完了・確定Run待ち |
 | 5-E | Dashboard、採否記録、運用Runbook | 未着手 |
-| α-1 | MLflow Review Queueと人手評価の有効性検証 | 実装完了・人手回答待ち |
-| α-2 | MLflow Prompt Registry | 未着手 |
-| α-3 | MLflow Logged / External Models | 未着手 |
-| α-4 | MLflow Evaluation Dataset | 未着手 |
-| α-5 | MLflow Judgesへの登録可否確定と統合 | 未着手 |
+| α-1 | MLflow Review Queueと人手評価の有効性検証 | 完了 |
+| α-2 | MLflow Prompt Registry | 完了 |
+| α-3 | MLflow Logged / External Models | 完了 |
+| α-4 | MLflow Evaluation Dataset | 完了 |
+| α-5 | MLflow Judgesへの登録可否確定と統合 | 完了 |
 
 ## 12. 作業再開手順
 
